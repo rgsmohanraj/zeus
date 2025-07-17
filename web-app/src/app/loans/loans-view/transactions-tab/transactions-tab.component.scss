@@ -1,0 +1,94 @@
+.container {
+  padding-bottom: 2%;
+  width:99%;
+
+  .transaction-buttons {
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    .accruals {
+      padding-top: 1%;
+    }
+  }
+
+
+  .mat-column-transactionType {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 28% !important;
+    width: 11% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    word-break: break-word;
+
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+   .mat-column-amount {
+      word-wrap: break-word !important;
+      white-space: unset !important;
+      flex: 0 0 28% !important;
+      width: 9% !important;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+
+      word-break: break-word;
+
+      -ms-hyphens: auto;
+      -moz-hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+    }
+
+  .mat-column-valueDate {
+      word-wrap: break-word !important;
+      white-space: unset !important;
+      flex: 0 0 28% !important;
+      width: 12% !important;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+
+      word-break: break-word;
+
+      -ms-hyphens: auto;
+      -moz-hyphens: auto;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+    }
+
+     .mat-column-transactionDate {
+          word-wrap: break-word !important;
+          white-space: unset !important;
+          flex: 0 0 28% !important;
+          width: 13% !important;
+          overflow-wrap: break-word;
+          word-wrap: break-word;
+
+          word-break: break-word;
+
+          -ms-hyphens: auto;
+          -moz-hyphens: auto;
+          -webkit-hyphens: auto;
+          hyphens: auto;
+        }
+
+  table {
+    width: 100%;
+    .account-action-button{
+      min-width: 26px;
+      padding: 0 0 3px 0;
+      margin: 0 10%;
+      line-height: 25px;
+    }
+    .select-row:hover {
+      cursor: pointer;
+    }
+    .strike {
+      text-decoration: line-through;
+      color: red;
+    }
+  }
+}

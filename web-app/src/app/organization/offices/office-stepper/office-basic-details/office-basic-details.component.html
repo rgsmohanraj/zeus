@@ -1,0 +1,51 @@
+<form [formGroup]="createOfficeBasicForm" >
+
+    <div data-layout="row" data-layout-gap="16px" >
+    <mat-form-field data-flex="48%">
+      <mat-label>Office</mat-label>
+      <input required matInput formControlName="name">
+      <!--            <mat-error *ngIf="officeForm.controls.name.hasError('required')">-->
+      <!--           Name is <strong>required</strong>-->
+      <!--            </mat-error>-->
+    </mat-form-field>
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Parent Office</mat-label>
+      <mat-select required formControlName="parentId">
+        <mat-option *ngFor="let parentId of allowedParentsOptions" [value]="parentId.id" >
+          {{ parentId.name }}
+        </mat-option>
+        <mat-option>Select</mat-option>
+      </mat-select>
+    </mat-form-field>
+    </div>
+
+  <div data-layout="row" data-layout-gap="16px" >
+
+    <mat-form-field data-flex="48%" (click)="openedOnDatePicker.open()">
+      <mat-label>Opened On</mat-label>
+      <input required matInput [min]="minDate" [max]="maxDate" formControlName="openingDate" required [matDatepicker]="openedOnDatePicker">
+      <mat-datepicker-toggle matSuffix [for]="openedOnDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #openedOnDatePicker></mat-datepicker>
+      <!--          <mat-error *ngIf="officeForm.controls.openingDate.hasError('required')">-->
+      <!--            Opening Date is <strong>required</strong>-->
+      <!--          </mat-error>-->
+    </mat-form-field>
+
+    <mat-form-field data-flex="48%" >
+      <mat-label>External ID</mat-label>
+      <input required matInput formControlName="externalId">
+    </mat-form-field>
+</div>
+
+    <h4 class="mat-h4"> </h4>
+
+    <div data-layout="row" class="margin-t"  data-layout-align="center center" data-layout-gap="43%">
+      <button mat-raised-button matStepperNext>
+        Next&nbsp;&nbsp;
+        <fa-icon icon="arrow-right"></fa-icon>
+      </button>
+    </div>
+
+
+</form>

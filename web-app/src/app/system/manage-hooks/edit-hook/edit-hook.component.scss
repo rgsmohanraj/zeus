@@ -1,0 +1,21 @@
+@media (min-width: 992px) {
+
+  .is-active-wrapper {
+    position: relative;
+
+    .is-active {
+      padding: 0 0 17.5px 0;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+  }
+}
+.mat-filed{
+
+  width:400px;
+}
+
+table {
+  width: 100%;
+}

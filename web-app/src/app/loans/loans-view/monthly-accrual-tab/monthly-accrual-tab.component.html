@@ -1,0 +1,54 @@
+<div class="tab-container mat-typography" >
+
+  <!-- <mat-tab-group mat-stretch-tabs class="example-stretched-tabs"> -->
+
+      <table mat-table [dataSource]="loanAccruals">
+        <ng-container matColumnDef="installment">
+          <th mat-header-cell *matHeaderCellDef> Installment </th>
+          <td mat-cell *matCellDef="let ele"> {{ ele.installment | number}} </td>
+          <td mat-footer-cell *matFooterCellDef>  </td>
+        </ng-container>
+        <ng-container matColumnDef="accrualType">
+          <th mat-header-cell *matHeaderCellDef> Accrual Type </th>
+          <td mat-cell *matCellDef="let ele"> {{ ele.accrualType === 1 ? 'Daily' : 'Monthly' }} </td>
+          <td mat-footer-cell *matFooterCellDef>  </td>
+        </ng-container>
+        <ng-container matColumnDef="fromDate">
+          <th mat-header-cell *matHeaderCellDef> From Date </th>
+          <td mat-cell *matCellDef="let ele"> {{ ele.fromDate  | dateFormat}} </td>
+          <td mat-footer-cell *matFooterCellDef>  </td>
+        </ng-container>
+        <ng-container matColumnDef="toDate">
+          <th mat-header-cell *matHeaderCellDef> To Date </th>
+          <td mat-cell *matCellDef="let ele"> {{ ele.toDate  | dateFormat}} </td>
+          <td mat-footer-cell *matFooterCellDef>  </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="accruedAmount">
+          <th mat-header-cell *matHeaderCellDef> Accrued Amount </th>
+          <td mat-cell *matCellDef="let ele"> {{ ele.accruedAmount  | number}} </td>
+          <td mat-footer-cell *matFooterCellDef>  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="selfAccruedAmount">
+          <th mat-header-cell *matHeaderCellDef> Self Accrued Amount </th>
+          <td mat-cell *matCellDef="let ele"> {{ ele.selfAccruedAmount  | number}} </td>
+          <td mat-footer-cell *matFooterCellDef>  </td>
+        </ng-container>
+        <ng-container matColumnDef="partnerAccruedAmount">
+          <th mat-header-cell *matHeaderCellDef> Partner Accrued Amount </th>
+          <td mat-cell *matCellDef="let ele"> {{ ele.partnerAccruedAmount  | number}} </td>
+          <td mat-footer-cell *matFooterCellDef>  </td>
+        </ng-container>
+        
+        
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="select-row"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+
+      </table>
+  <!-- </mat-tab-group> -->
+
+</div>
+
+<!-- <p>It works</p> -->

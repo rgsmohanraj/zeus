@@ -1,0 +1,113 @@
+<form [formGroup]="createOfficeGstForm">
+
+  <div  formArrayName="officeGsts">
+<span>
+        <button class="float-end" type="button" mat-raised-button color="primary" (click)="addAffectedGLEntry()">
+          <fa-icon icon="plus-circle" size="lg"></fa-icon>Add
+        </button>
+        </span>
+
+    <div   *ngFor="let gstData of officeGsts.controls; let i = index;">
+      <div  [formGroupName]="i">
+
+        <h4 class="mat-h4"> </h4>
+
+        <div data-layout="row" data-layout-gap="16px">
+
+        <mat-form-field data-flex="48%">
+          <mat-label>GST Number</mat-label>
+          <input required matInput  formControlName="gstNumber">
+<!--            <mat-option *ngFor="let affectedGLEntryCredit of glAccountData" [value]="affectedGLEntryCredit.id">-->
+<!--              {{ affectedGLEntryCredit.name + ' (' + affectedGLEntryCredit.glCode + ')' }}-->
+<!--            </mat-option>-->
+<!--          <mat-error *ngIf="credits.at(i).controls.glAccountId.hasError('required')">-->
+<!--            Affected GL Entry (Credit) is <strong>required</strong>-->
+<!--          </mat-error>-->
+        </mat-form-field>
+
+        <mat-form-field data-flex="48%">
+          <mat-label>State</mat-label>
+          <mat-select  formControlName="state">
+<!--            <mat-option value="43">Tamil Nadu</mat-option>-->
+            <mat-option *ngFor="let state of stateOptions" [value]="state.id">
+              {{ state.name }}
+            </mat-option>
+            <mat-option>Select</mat-option>
+<!--          <mat-error *ngIf="credits.at(i).controls.amount.hasError('required')">-->
+<!--            Credit Amount is <strong>required</strong>-->
+<!--          </mat-error>-->
+            </mat-select>
+        </mat-form-field>
+
+        </div>
+
+        <div data-layout="row" data-layout-gap="16px">
+        <mat-form-field data-flex="48%">
+          <mat-label>CGST</mat-label>
+          <input required matInput  formControlName="cgst">
+<!--            <mat-option *ngFor="let affectedGLEntryCredit of glAccountData" [value]="affectedGLEntryCredit.id">-->
+<!--              {{ affectedGLEntryCredit.name + ' (' + affectedGLEntryCredit.glCode + ')' }}-->
+<!--            </mat-option>-->
+          <!--          <mat-error *ngIf="credits.at(i).controls.glAccountId.hasError('required')">-->
+          <!--            Affected GL Entry (Credit) is <strong>required</strong>-->
+          <!--          </mat-error>-->
+        </mat-form-field>
+
+        <mat-form-field data-flex="48%">
+          <mat-label> SGST </mat-label>
+          <input required matInput  formControlName="sgst">
+<!--            <mat-option *ngFor="let affectedGLEntryCredit of glAccountData" [value]="affectedGLEntryCredit.id">-->
+<!--              {{ affectedGLEntryCredit.name + ' (' + affectedGLEntryCredit.glCode + ')' }}-->
+<!--            </mat-option>-->
+          <!--          <mat-error *ngIf="credits.at(i).controls.glAccountId.hasError('required')">-->
+          <!--            Affected GL Entry (Credit) is <strong>required</strong>-->
+          <!--          </mat-error>-->
+        </mat-form-field>
+        </div>
+
+          <div data-layout="row" data-layout-gap="16px">
+        <mat-form-field class="custom-mat-filed">
+          <mat-label> IGST </mat-label>
+          <input required matInput  formControlName="igst">
+<!--            <mat-option *ngFor="let affectedGLEntryCredit of glAccountData" [value]="affectedGLEntryCredit.id">-->
+<!--              {{ affectedGLEntryCredit.name + ' (' + affectedGLEntryCredit.glCode + ')' }}-->
+<!--            </mat-option>-->
+          <!--          <mat-error *ngIf="credits.at(i).controls.glAccountId.hasError('required')">-->
+          <!--            Affected GL Entry (Credit) is <strong>required</strong>-->
+          <!--          </mat-error>-->
+        </mat-form-field>
+          </div>
+
+        <span >
+            <button *ngIf="i !== 0" type="button" mat-icon-button (click)="removeAffectedGLEntry(i)">
+              <fa-icon icon="minus-circle" size="lg"></fa-icon>
+            </button>
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <h4
+        class="mat-h4">
+    </h4>
+
+<!--    <h4 fxFlex="39%"-->
+<!--        class="mat-h4">-->
+<!--    </h4>-->
+
+      <div data-layout="row" class="margin-t" data-layout-align="center center" data-layout-gap="6px">
+        <button mat-raised-button matStepperPrevious >
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;
+          Previous
+        </button>
+        <button mat-raised-button matStepperNext>
+          Next&nbsp;&nbsp;
+          <fa-icon icon="arrow-right"></fa-icon>
+        </button>
+      </div>
+
+  </div>
+
+</form>

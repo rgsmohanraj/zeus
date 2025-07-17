@@ -1,0 +1,226 @@
+<div class="container">
+
+  <mat-card>
+
+    <form [formGroup]="repaymentLoanForm" (ngSubmit)="submit()">
+
+      <mat-card-content>
+
+        <div data-layout="column">
+
+          <mat-form-field (click)="transactionDatePicker.open()">
+            <mat-label>Transaction Date</mat-label>
+            <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="transactionDatePicker" required
+              formControlName="transactionDate">
+            <mat-datepicker-toggle matSuffix [for]="transactionDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #transactionDatePicker></mat-datepicker>
+            <mat-error *ngIf="repaymentLoanForm.controls.transactionDate.hasError('required')">
+              Transaction Date <strong>is required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Outstanding</mat-label>
+            <input matInput  formControlName="outStanding" required>
+<!--            <mat-error *ngIf="repaymentLoanForm.controls.amount.hasError('required')">-->
+<!--             Actual Transaction Amount <strong>is required</strong>-->
+<!--            </mat-error>-->
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Advance</mat-label>
+            <input matInput  formControlName="advanceAmount"  [readonly]="true">
+<!--            <mat-error *ngIf="repaymentLoanForm.controls.amount.hasError('required')">-->
+<!--              Advancde Amount-->
+<!--            </mat-error>-->
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Installment No</mat-label>
+            <input matInput  formControlName="installmentNumber"  [readonly]="true">
+            <!--            <mat-error *ngIf="repaymentLoanForm.controls.amount.hasError('required')">-->
+            <!--              Advancde Amount-->
+            <!--            </mat-error>-->
+          </mat-form-field>
+
+
+          <mat-form-field>
+            <mat-label>Expected Amount</mat-label>
+            <input matInput type="number" formControlName="expectedAmount">
+<!--            <mat-error *ngIf="repaymentLoanForm.controls.principal.hasError('required')">-->
+<!--              Expected Amount-->
+<!--            </mat-error>-->
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Transaction Amount</mat-label>
+            <input matInput type="number" required formControlName="transactionAmount" (change)="amountCalculation()">
+<!--            <mat-error *ngIf="repaymentLoanForm.controls.transactionAmount.hasError('required')">
+              Transaction Amount <strong>is required</strong>  -->
+<!--            </mat-error>-->
+          </mat-form-field>
+
+                    <mat-form-field  data-flex="10">
+                      <mat-label>Receipt Reference Number</mat-label>
+                      <input matInput  formControlName="receiptReferenceNumber" maxlength="40">
+                    </mat-form-field>
+
+                    <mat-form-field  data-flex="10">
+                      <mat-label>Partner Transfer UTR</mat-label>
+                      <input matInput  formControlName="partnerTransferUtr" maxlength="40">
+                    </mat-form-field>
+
+                    <mat-form-field data-flex="10" (click)="partnerTransferDatePicker.open()">
+                      <mat-label>Partner Transfer Date</mat-label>
+                      <input matInput  [max]="maxDate" [matDatepicker]="partnerTransferDatePicker" formControlName="partnerTransferDate">
+                      <mat-datepicker-toggle matSuffix [for]="partnerTransferDatePicker"></mat-datepicker-toggle>
+                      <mat-datepicker #partnerTransferDatePicker></mat-datepicker>
+                    </mat-form-field>
+
+          <mat-form-field data-flex="10">
+            <mat-label>Repayment Mode</mat-label>
+            <mat-select formControlName="repaymentMode">
+              <mat-option>Select</mat-option>
+              <mat-option *ngFor="let repaymentMode of repaymentModeOptions" [value]="repaymentMode.id">
+                {{ repaymentMode.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error>
+              RepaymentMode is
+            </mat-error>
+          </mat-form-field>
+
+<!--          <mat-form-field>-->
+<!--            <mat-label>Principal</mat-label>-->
+<!--            <input matInput formControlName="principal">-->
+<!--            <mat-error *ngIf="repaymentLoanForm.controls.principal.hasError('required')">-->
+<!--              PrincipalPortion Amount-->
+<!--            </mat-error>-->
+<!--          </mat-form-field>-->
+
+<!--          <mat-form-field>-->
+<!--            <mat-label>Interest</mat-label>-->
+<!--            <input matInput formControlName="interest">-->
+<!--            <mat-error *ngIf="repaymentLoanForm.controls.interest.hasError('required')">-->
+<!--              InterestPortion Amount-->
+<!--            </mat-error>-->
+<!--          </mat-form-field>-->
+
+<!--          <mat-form-field>-->
+<!--            <mat-label>Self EMI</mat-label>-->
+<!--            <input matInput formControlName="selfDue">-->
+<!--            <mat-error *ngIf="repaymentLoanForm.controls.selfDue.hasError('required')">-->
+<!--              SelfDue Amount-->
+<!--            </mat-error>-->
+<!--          </mat-form-field>-->
+
+<!--          <mat-form-field>-->
+<!--            <mat-label>Self Principal</mat-label>-->
+<!--            <input matInput formControlName="selfPrincipal">-->
+<!--            <mat-error *ngIf="repaymentLoanForm.controls.selfPrincipal.hasError('required')">-->
+<!--              SelfPrincipal Amount-->
+<!--            </mat-error>-->
+<!--          </mat-form-field>-->
+
+<!--          <mat-form-field>-->
+<!--            <mat-label>Self Interest</mat-label>-->
+<!--            <input matInput formControlName="selfInterestCharged">-->
+<!--            <mat-error *ngIf="repaymentLoanForm.controls.selfInterestCharged.hasError('required')">-->
+<!--              SelfInterest Amount-->
+<!--            </mat-error>-->
+<!--          </mat-form-field>-->
+
+<!--          <mat-form-field>-->
+<!--            <mat-label>Partner EMI</mat-label>-->
+<!--            <input matInput formControlName="partnerDue">-->
+<!--            <mat-error *ngIf="repaymentLoanForm.controls.partnerDue.hasError('required')">-->
+<!--              PartnerDue Amount-->
+<!--            </mat-error>-->
+<!--          </mat-form-field>-->
+
+<!--          <mat-form-field>-->
+<!--            <mat-label>Partner Principal</mat-label>-->
+<!--            <input matInput formControlName="partnerPrincipal">-->
+<!--            <mat-error *ngIf="repaymentLoanForm.controls.partnerPrincipal.hasError('required')">-->
+<!--              PartnerPrincipal Amount-->
+<!--            </mat-error>-->
+<!--          </mat-form-field>-->
+
+<!--          <mat-form-field>-->
+<!--            <mat-label>Partner Interest</mat-label>-->
+<!--            <input matInput formControlName="partnerInterestCharged">-->
+<!--            <mat-error *ngIf="repaymentLoanForm.controls.partnerInterestCharged.hasError('required')">-->
+<!--              PartnerInterest Amount-->
+<!--            </mat-error>-->
+<!--          </mat-form-field>-->
+
+<!--          <mat-form-field>-->
+<!--            <mat-label>Payment Type</mat-label>-->
+<!--            <mat-select formControlName="paymentTypeId">-->
+<!--              <mat-option *ngFor="let paymentType of paymentTypes" [value]="paymentType.id">-->
+<!--                {{ paymentType.name }}-->
+<!--              </mat-option>-->
+<!--            </mat-select>-->
+<!--          </mat-form-field>-->
+
+<!--          <div fxFlexFill>-->
+<!--            <span fxFlex="25%">Show Payment Details</span>-->
+<!--            <span fxFlex="75%" class="expandcollapsebutton" (click)="addPaymentDetails()">-->
+<!--              <button mat-raised-button color="primary" *ngIf="showPaymentDetails">-->
+<!--                <i class="fa fa-minus"></i>-->
+<!--              </button>-->
+<!--              <button mat-raised-button color="primary" *ngIf="!showPaymentDetails">-->
+<!--                <i class="fa fa-plus"></i>-->
+<!--              </button>-->
+<!--            </span>-->
+<!--          </div>-->
+
+<!--          <ng-container *ngIf="showPaymentDetails">-->
+<!--            <mat-form-field>-->
+<!--              <mat-label> Account #</mat-label>-->
+<!--              <input matInput formControlName="accountNumber">-->
+<!--            </mat-form-field>-->
+
+<!--            <mat-form-field>-->
+<!--              <mat-label>Cheque #</mat-label>-->
+<!--              <input matInput formControlName="checkNumber">-->
+<!--            </mat-form-field>-->
+
+<!--            <mat-form-field>-->
+<!--              <mat-label>Routing Code</mat-label>-->
+<!--              <input matInput formControlName="routingCode">-->
+<!--            </mat-form-field>-->
+
+<!--            <mat-form-field>-->
+<!--              <mat-label>Reciept #</mat-label>-->
+<!--              <input matInput formControlName="receiptNumber">-->
+<!--            </mat-form-field>-->
+
+<!--            <mat-form-field>-->
+<!--              <mat-label>Bank #</mat-label>-->
+<!--              <input matInput formControlName="bankNumber">-->
+<!--            </mat-form-field>-->
+<!--          </ng-container>-->
+
+<!--          <mat-form-field>-->
+<!--            <mat-label>Note</mat-label>-->
+<!--            <textarea matInput formControlName="note"></textarea>-->
+<!--          </mat-form-field>-->
+
+        </div>
+
+        <div data-layout="row"  data-layout-align="center center" data-layout-gap="5px">
+        <mat-card-actions>
+          <button type="button" mat-raised-button [routerLink]="['../../general']">Cancel</button>
+          <button mat-raised-button color="primary" [disabled]="!repaymentLoanForm.valid"
+            *mifosxHasPermission="'REPAYMENT_LOAN'">Submit</button>
+        </mat-card-actions>
+        </div>
+
+      </mat-card-content>
+
+    </form>
+
+  </mat-card>
+
+</div>

@@ -1,0 +1,10 @@
+_|_|_|_|_|                                        _|         _|      _|     _|_|_|
+       _|       _|_|     _|    _|     _|_|_|       _|         _|_|  _|_|   _|
+     _|       _|_|_|_|   _|    _|   _|_|           _|         _|  _|  _|     _|_|
+   _|         _|         _|    _|       _|_|       _|         _|      _|         _|
+ _|_|_|_|_|     _|_|_|     _|_|_|   _|_|_|         _|_|_|_|   _|      _|   _|_|_|
+
+${AnsiStyle.FAINT}${AnsiColor.WHITE}(c) 2023-2024 ${application.title} Loan Management System${AnsiColor.BLACK}
+
+${AnsiStyle.FAINT}${AnsiColor.WHITE}Powered by Vivriti Capital ${AnsiColor.BLACK}
+

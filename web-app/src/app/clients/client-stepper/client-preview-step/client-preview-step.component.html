@@ -1,0 +1,335 @@
+<div data-layout="column">
+
+  <h3 class="mat-h3">General and Beneficiary Details</h3>
+
+  <mat-divider></mat-divider>
+
+  <div data-layout="row">
+    <span data-flex="30">Name</span>
+    <span data-flex="70" *ngIf="client.legalFormId === 2">{{ client.fullname }}</span>
+    <span data-flex="70" *ngIf="client.legalFormId === 1">{{ client.firstname }} {{ client.middlename ? client.middlename + ' ' + client.lastname : client.lastname }}</span>
+  </div>
+
+  <div data-layout="row">
+    <span data-flex="30">Office</span>
+    <span data-flex="70">{{ client.officeId | find:clientTemplate.officeOptions:'id':'name' }}</span>
+  </div>
+
+  <div data-layout="row">
+    <span data-flex="30">Legal Form</span>
+    <span data-flex="70">{{ client.legalFormId | find:clientTemplate.clientLegalFormOptions:'id':'value' }}</span>
+  </div>
+
+  <div  *ngIf="client.staffId" data-layout="row">
+    <span data-flex="30">Staff</span>
+    <span data-flex="70">{{ client.staffId | find:clientTemplate.staffOptions:'id':'displayName' }}</span>
+  </div>
+
+  <div *ngIf="client.dateOfBirth" data-layout="row">
+    <span data-flex="30">{{ client.legalFormId === 1 ? 'Date of Birth' : 'Incorporation Date' }}</span>
+    <span data-flex="70">{{ client.dateOfBirth  | dateFormat }}</span>
+  </div>
+
+<!--  <div fxFlexFill *ngIf="client.dateOfBirth">-->
+<!--    <span fxFlex="40%">Incorporation Date</span>-->
+<!--    <span fxFlex="60%">{{ client.dateOfBirth  | dateFormat }}</span>-->
+<!--  </div>-->
+
+  <div  *ngIf="client.externalId" data-layout="row">
+    <span data-flex="30">External Id</span>
+    <span data-flex="70">{{ client.externalId }}</span>
+  </div>
+
+  <div  *ngIf="client.mobileNo" data-layout="row">
+    <span data-flex="30">Mobile No</span>
+    <span data-flex="70">{{ client.mobileNo }}</span>
+  </div>
+
+  <div  *ngIf="client.pan" data-layout="row">
+    <span data-flex="30">Pan</span>
+    <span data-flex="70">{{ client.pan }}</span>
+  </div>
+
+  <div  *ngIf="client.aadhaar" data-layout="row">
+    <span data-flex="30">Aadhaar</span>
+    <span data-flex="70">{{ client.aadhaar }}</span>
+  </div>
+
+  <div  *ngIf="client.age" data-layout="row">
+    <span data-flex="30">Age</span>
+    <span data-flex="70">{{ client.age }}</span>
+  </div>
+
+  <div  *ngIf="client.emailAddress" data-layout="row">
+    <span data-flex="30">Email Address</span>
+    <span data-flex="70">{{ client.emailAddress }}</span>
+  </div>
+
+  <div  *ngIf="client.stateId" data-layout="row">
+    <span data-flex="30">State</span>
+    <span data-flex="70">{{ client.stateId | find:clientTemplate.stateOptions:'id':'name' }}</span>
+  </div>
+
+  <div  *ngIf="client.address" data-layout="row">
+    <span data-flex="30">Address</span>
+    <span data-flex="70">{{ client.address }}</span>
+  </div>
+
+  <div  *ngIf="client.pincode" data-layout="row">
+    <span data-flex="30">Pincode</span>
+    <span data-flex="70">{{ client.pincode }}</span>
+  </div>
+
+  <div  *ngIf="client.voterId" data-layout="row">
+    <span data-flex="30">Voter Id</span>
+    <span data-flex="70">{{ client.voterId}}</span>
+  </div>
+
+  <div  *ngIf="client.passportNumber" data-layout="row">
+    <span data-flex="30">Passport</span>
+    <span data-flex="70">{{ client.passportNumber}}</span>
+  </div>
+
+   <div  *ngIf="client.drivingLicense" data-layout="row">
+    <span data-flex="30">Driving License</span>
+    <span data-flex="70">{{ client.drivingLicense}}</span>
+  </div>
+
+  <div  *ngIf="client.rationCardNumber" data-layout="row">
+    <span data-flex="30">Ration Card</span>
+    <span data-flex="70">{{ client.rationCardNumber }}</span>
+  </div>
+
+  <div  *ngIf="client.clientTypeId" data-layout="row">
+    <span data-flex="30">Client Type</span>
+    <span data-flex="70">{{ client.clientTypeId | find:clientTemplate.clientTypeOptions:'id':'name' }}</span>
+  </div>
+
+  <div  *ngIf="client.clientClassificationId" data-layout="row">
+    <span data-flex="30">Client Classification</span>
+    <span data-flex="70">{{ client.clientClassificationId | find:clientTemplate.clientClassificationOptions:'id':'name' }}</span>
+  </div>
+
+  <div  *ngIf="client.savingsProductId" data-layout="row">
+    <span data-flex="30">Savings Product</span>
+    <span data-flex="70">{{ client.savingsProductId | find:clientTemplate.savingProductOptions:'id':'name' }}</span>
+  </div>
+
+  <div  *ngIf="client.beneficiaryName" data-layout="row">
+    <span data-flex="30">Beneficiary Name</span>
+    <span data-flex="70">{{ client.beneficiaryName }}</span>
+  </div>
+
+  <div  *ngIf="client.beneficiaryAccountNumber" data-layout="row">
+    <span data-flex="30">Beneficiary Account Number</span>
+    <span data-flex="70"fxFlex="60%">{{ client.beneficiaryAccountNumber }}</span>
+  </div>
+
+  <div  *ngIf="client.ifscCode" data-layout="row">
+    <span data-flex="30">IFSC Code</span>
+    <span data-flex="70">{{ client.ifscCode }}</span>
+  </div>
+
+  <div  *ngIf="client.micrCode" data-layout="row">
+    <span data-flex="30">MICR Code</span>
+    <span data-flex="70">{{ client.micrCode }}</span>
+  </div>
+
+  <div  *ngIf="client.swiftCode" data-layout="row">
+    <span data-flex="30">Swift Code</span>
+    <span data-flex="70">{{ client.swiftCode }}</span>
+  </div>
+
+  <div  *ngIf="client.branch" data-layout="row">
+    <span data-flex="30">Branch</span>
+    <span data-flex="70">{{ client.branch }}</span>
+  </div>
+
+  <div  *ngIf="client.accountTypeId" data-layout="row">
+    <span data-flex="30">Account Type</span>
+    <span data-flex="70">{{ client.accountTypeId | find:clientTemplate.accountTypeOptions:'id':'name' }}</span>
+  </div>
+
+  <div  *ngIf="client.repaymentModeId" data-layout="row">
+    <span data-flex="30">Repayment Mode</span>
+    <span data-flex="70">{{ client.repaymentModeId | find:clientTemplate.repaymentModeOptions:'id':'name' }}</span>
+  </div>
+
+  <div  *ngIf="client.transactionTypePreferenceId" data-layout="row">
+    <span data-flex="30">Transaction Type Preference</span>
+    <span data-flex="70">{{ client.transactionTypePreferenceId | find:clientTemplate.transactionTypePreferenceOptions:'id':'name' }}</span>
+  </div>
+
+  <div  *ngIf="client.city" data-layout="row">
+    <span data-flex="30">City</span>
+    <span data-flex="70">{{ client.city}}</span>
+  </div>
+
+  <div  *ngIf="client.submittedOnDate" data-layout="row">
+    <span data-flex="30">Submitted On Date</span>
+    <span data-flex="70">{{ client.submittedOnDate  | dateFormat }}</span>
+  </div>
+
+  <div data-layout="row">
+    <span data-flex="30">Active?</span>
+    <span data-flex="70">{{ client.active ? 'Yes' : 'No' }}</span>
+  </div>
+
+  <div  *ngIf="client.activationDate" data-layout="row">
+    <span data-flex="30">Activation Date</span>
+    <span data-flex="70">{{ client.activationDate  | dateFormat }}</span>
+  </div>
+
+  <ng-container *ngIf="client.legalFormId === 1" >
+
+    <div  *ngIf="client.genderId" data-layout="row">
+      <span data-flex="30">Gender</span>
+      <span data-flex="70">{{ client.genderId | find:clientTemplate.genderOptions:'id':'name' }}</span>
+    </div>
+
+    <div data-layout="row">
+      <span data-flex="30">Is Staff?</span>
+      <span data-flex="70">{{ client.isStaff ? 'Yes' : 'No' }}</span>
+    </div>
+
+
+  </ng-container>
+
+  <ng-container *ngIf="client.legalFormId === 2">
+
+    <div  *ngIf="client.clientNonPersonDetails.incorpValidityTillDate" data-layout="row">
+      <span data-flex="30">Incorporation Validity Till Date</span>
+      <span data-flex="70">{{ client.clientNonPersonDetails.incorpValidityTillDate  | dateFormat }}</span>
+    </div>
+
+<!--    <div fxFlexFill >-->
+<!--      <span fxFlex="40%">Incorporation Validity Till Date</span>-->
+<!--      <span fxFlex="60%">{{ client.clientNonPersonDetails.incorpValidityTillDate | dateFormat}}</span>-->
+<!--    </div>-->
+
+
+    <div data-layout="row">
+      <span data-flex="30">Incorportation Number</span>
+      <span data-flex="70">{{ client.clientNonPersonDetails.incorpNumber || 'Not Provided' }}</span>
+    </div>
+
+    <div  *ngIf="client.clientNonPersonDetails.mainBusinessLineId" data-layout="row">
+      <span data-flex="30">Main Business Line</span>
+      <span data-flex="70">{{ client.clientNonPersonDetails.mainBusinessLineId | find:clientTemplate.clientNonPersonMainBusinessLineOptions:'id':'name' }}</span>
+    </div>
+
+    <div  *ngIf="client.clientNonPersonDetails.constitutionId" data-layout="row">
+      <span data-flex="30">Constitution</span>
+      <span data-flex="70">{{ client.clientNonPersonDetails.constitutionId | find:clientTemplate.clientNonPersonConstitutionOptions:'id':'name'}}</span>
+    </div>
+
+    <div data-layout="row">
+      <span data-flex="30">Remarks</span>
+      <span data-flex="70">{{ client.clientNonPersonDetails.remarks || 'N/A' }}</span>
+    </div>
+
+  </ng-container>
+
+<!--  <div fxFlexFill *ngIf="client.familyMembers.length" fxLayout="row wrap" fxLayout.lt-md="column" class="m-b-20">-->
+
+<!--    <h3 class="mat-h3" fxFlexFill>Family Members</h3>-->
+
+<!--    <mat-divider fxFlexFill></mat-divider>-->
+
+<!--    <mat-accordion fxFlexFill class="m-t-5">-->
+
+<!--      <mat-expansion-panel *ngFor="let member of client.familyMembers" class="family-member">-->
+
+<!--        <mat-expansion-panel-header>-->
+
+<!--          <mat-panel-title>-->
+<!--            {{ member.firstName }} {{ member.middleName ? member.middleName + ' ' + member.lastName : member.lastName }}-->
+<!--          </mat-panel-title>-->
+
+<!--          <mat-panel-description>-->
+<!--            {{member.relationship}}-->
+<!--          </mat-panel-description>-->
+
+<!--        </mat-expansion-panel-header>-->
+
+<!--        <mat-divider></mat-divider>-->
+
+<!--        <p>-->
+<!--          First Name : {{ member.firstName }}<br />-->
+<!--          Middle Name : {{ member.middleName }}<br />-->
+<!--          Last Name : {{ member.lastName }}<br />-->
+<!--          Qualification : {{ member.qualification }}<br />-->
+<!--          Relationship : {{ member.relationshipId | find:clientTemplate.familyMemberOptions.relationshipIdOptions:'id':'name' }}<br />-->
+<!--          Age : {{ member.age }}<br />-->
+<!--          Is Dependent : {{ member.isDependent ? 'Yes' : 'No' }}<br />-->
+<!--          Marital Status : {{ member.maritalStatusId | find:clientTemplate.familyMemberOptions.maritalStatusIdOptions:'id':'name' }}<br />-->
+<!--          Gender : {{ member.genderId | find:clientTemplate.familyMemberOptions.genderIdOptions:'id':'name' }}<br />-->
+<!--          Profession : {{ member.professionId | find:clientTemplate.familyMemberOptions.professionIdOptions:'id':'name' }}<br />-->
+<!--          Date Of Birth : {{ member.dateOfBirth  | dateFormat }}<br />-->
+<!--        </p>-->
+
+<!--      </mat-expansion-panel>-->
+
+<!--    </mat-accordion>-->
+
+<!--  </div>-->
+
+  <div  *ngIf="clientTemplate.isAddressEnabled && client.address.length" data-layout="row">
+
+    <h3 class="mat-h3" >Address</h3>
+
+    <mat-divider ></mat-divider>
+
+    <mat-accordion  class="m-t-5">
+
+      <mat-expansion-panel *ngFor="let address of client.address" class="address">
+
+        <mat-expansion-panel-header>
+
+          <mat-panel-title>
+            {{ getSelectedValue('addressTypeIdOptions',address.addressTypeId)?.name }}
+          </mat-panel-title>
+
+          <mat-panel-description>
+            {{address.relationship}}
+          </mat-panel-description>
+
+        </mat-expansion-panel-header>
+
+        <mat-divider></mat-divider>
+
+        <p>
+          <span *ngIf="isFieldEnabled('street')">Street : {{address.street}}<br /></span>
+          <span *ngIf="isFieldEnabled('addressLine1')">Address Line 1 : {{address.addressLine1}}<br /></span>
+          <span *ngIf="isFieldEnabled('addressLine2')">Address Line 2 : {{address.addressLine2}}<br /></span>
+          <span *ngIf="isFieldEnabled('addressLine3')">Address Line 3 : {{address.addressLine3}}<br /></span>
+          <span *ngIf="isFieldEnabled('townVillage')">Town / Village : {{address.townVillage}}<br /></span>
+          <span *ngIf="isFieldEnabled('city')">City : {{address.city}}<br /></span>
+          <span *ngIf="isFieldEnabled('stateProvinceId')">State / Province :
+            {{getSelectedValue('stateProvinceIdOptions',address.stateProvinceId)?.name}}<br /></span>
+          <span *ngIf="isFieldEnabled('countryId')">Country :
+            {{getSelectedValue('countryIdOptions',address.countryId)?.name}}<br /></span>
+          <span *ngIf="isFieldEnabled('postalCode')">Postal Code : {{address.postalCode}}<br /></span>
+          <span *ngIf="isFieldEnabled('isActive')">Active Status : {{address.isActive}}<br /></span>
+        </p>
+
+      </mat-expansion-panel>
+
+    </mat-accordion>
+
+  </div>
+
+</div>
+
+<div data-layout="row" class="margin-t"  data-layout-align="center center" data-layout-gap="6px">
+  <button mat-raised-button matStepperPrevious>
+    <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;
+    Previous
+  </button>
+  <button mat-raised-button [routerLink]="['../']">
+    Cancel
+  </button>
+  <button mat-raised-button color="primary" (click)="submit.emit()">
+    Submit
+  </button>
+</div>

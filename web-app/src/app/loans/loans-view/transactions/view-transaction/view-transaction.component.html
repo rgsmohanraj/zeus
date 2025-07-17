@@ -1,0 +1,119 @@
+<div data-layout-align="end" class="container m-b-20 transaction-buttons" data-layout-gap="8px"
+  *ngIf="!(transactionData.type.contra)">
+  <span *mifosxHasPermission="'ADJUST_LOAN'">
+    <button mat-raised-button color="primary" [routerLink]="'edit'">
+      <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;Edit
+    </button>
+  </span>
+  <button mat-raised-button color="warn" *mifosxHasPermission="'ADJUST_LOAN'" (click)="undoTransaction()">
+    <fa-icon icon="undo"></fa-icon>&nbsp;&nbsp;Undo
+  </button>
+</div>
+
+<div class="container">
+
+  <mat-card>
+
+    <mat-card-content>
+
+      <div data-layout="row wrap" class="content">
+
+        <div data-flex="50" class="mat-body-strong">
+          Transaction Id
+        </div>
+
+        <div data-flex="50">
+          {{ transactionData.id }}
+        </div>
+
+        <div data-flex="50" class="mat-body-strong">
+          Type
+        </div>
+
+        <div data-flex="50">
+          {{ transactionData.type.value }}
+        </div>
+
+        <div data-flex="50" class="mat-body-strong">
+          Transaction Date
+        </div>
+
+        <div data-flex="50">
+          {{ transactionData.date  | dateFormat }}
+        </div>
+
+        <div data-flex="50" class="mat-body-strong">
+          Currency
+        </div>
+
+        <div data-flex="50">
+          {{ transactionData.currency.name }}
+        </div>
+
+        <div data-flex="50" class="mat-body-strong">
+          Amount
+        </div>
+
+        <div data-flex="50">
+          {{ transactionData.amount }}
+        </div>
+
+        <ng-container *ngIf="transactionData.paymentDetailData">
+
+          <div *ngIf="transactionData.paymentDetailData.paymentType" data-flex="50" class="mat-body-strong">
+            Payment Type
+          </div>
+
+          <div *ngIf="transactionData.paymentDetailData.paymentType" data-flex="50">
+            {{ transactionData.paymentDetailData.paymentType.name }}
+          </div>
+
+          <div *ngIf="transactionData.paymentDetailData.accountNumber" data-flex="50" class="mat-body-strong">
+            Account No.
+          </div>
+
+          <div *ngIf="transactionData.paymentDetailData.accountNumber" data-flex="50">
+            {{ transactionData.paymentDetailData.accountNumber }}
+          </div>
+
+          <div *ngIf="transactionData.paymentDetailData.checkNumber" data-flex="50" class="mat-body-strong">
+            Cheque Number
+          </div>
+
+          <div *ngIf="transactionData.paymentDetailData.checkNumber" data-flex="50">
+            {{ transactionData.paymentDetailData.checkNumber }}
+          </div>
+
+          <div *ngIf="transactionData.paymentDetailData.routingCode" data-flex="50" class="mat-body-strong">
+            Routing Code
+          </div>
+
+          <div *ngIf="transactionData.paymentDetailData.routingCode" data-flex="50">
+            {{ transactionData.paymentDetailData.routingCode }}
+          </div>
+
+          <div *ngIf="transactionData.paymentDetailData.receiptNumber" data-flex="50" class="mat-body-strong">
+            Receipt No.
+          </div>
+
+          <div *ngIf="transactionData.paymentDetailData.receiptNumber" data-flex="50">
+            {{ transactionData.paymentDetailData.receiptNumber }}
+          </div>
+
+          <div *ngIf="transactionData.paymentDetailData.bankNumber" data-flex="50" class="mat-body-strong">
+            Bank No.
+          </div>
+
+          <div *ngIf="transactionData.paymentDetailData.bankNumber" data-flex="50">
+            {{ transactionData.paymentDetailData.bankNumber }}
+          </div>
+
+        </ng-container>
+
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>

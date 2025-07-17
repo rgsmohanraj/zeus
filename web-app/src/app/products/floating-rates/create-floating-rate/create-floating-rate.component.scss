@@ -1,0 +1,36 @@
+@media (min-width: 992px) {
+
+  .checkbox-wrapper {
+    position: relative;
+
+    .checkbox {
+      padding: 0 0 17.5px 0;
+      position: absolute;
+      bottom: 0;
+    }
+  }
+
+}
+
+// TODO: CONFIGURE THESE CLASSES GLOBALLY
+.is-differential {
+  color: #32cd32;
+}
+
+.not-is-differential {
+  color: #f44366;
+}
+
+table {
+  width: 100%;
+}
+
+.custom-mat-filed{
+ width:49%;
+}
+
+.custom-checkbox-margin {
+  margin-top: 0px;
+  line-height: 73px;
+  width: 27%;
+}

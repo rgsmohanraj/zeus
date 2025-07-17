@@ -1,0 +1,20 @@
+.loader-wrapper {
+  display: flex;
+  justify-content: center;
+  .bottom {
+    margin: 240px;
+    width: 200px;
+    height: 200px;
+    bottom: calc(50% - 100px);
+    left: calc(50% - 90px);
+    animation: rotate 0.8s infinite 0.2s;
+  }
+
+  @keyframes rotate {
+    // from { transform: rotate(0deg);}
+    // to { transform: rotate(360deg);}
+    from { opacity: 1.0; }
+    50% { opacity: 0.75; }
+    to { opacity: 1.0; }
+  }
+}

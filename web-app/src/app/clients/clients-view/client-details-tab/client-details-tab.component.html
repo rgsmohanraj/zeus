@@ -1,0 +1,233 @@
+
+<div class="container">
+
+  <h3>General Details</h3>
+
+  <div  *ngIf="clientDetails.displayName">
+    <span data-flex="30px">Name</span>
+    <span data-flex="70px">{{clientDetails.displayName}}</span>
+      </div>
+
+  <div  *ngIf="clientDetails.officeName">
+    <span data-flex="30px">Office</span>
+    <span data-flex="70px">{{ clientDetails.officeName }}</span>
+  </div>
+
+  <div  *ngIf="clientDetails.legalForm.value">
+    <span data-flex="30px">Legal Form</span>
+    <span data-flex="70px">{{ clientDetails.legalForm.value }}</span>
+  </div>
+
+  <div *ngIf="clientDetails.staff">
+    <span data-flex="30px">Staff</span>
+    <span data-flex="70px">{{ clientDetails.staff }}</span>
+  </div>
+
+  <div *ngIf="clientDetails.gender">
+    <span data-flex="30px">Gender</span>
+    <span data-flex="70px">{{ clientDetails.gender.name}}</span>
+  </div>
+
+  <div *ngIf="clientDetails.dateOfBirth">
+    <span data-flex="70px">{{ clientDetails.legalFormId === 1 ? 'Incorporation Date' : 'Date of Birth'  }}</span>
+    <span data-flex="30px">{{ clientDetails.dateOfBirth  | dateFormat }}</span>
+  </div>
+
+  <div *ngIf="clientDetails.externalId">
+    <span data-flex="30px">External Id</span>
+    <span data-flex="70px">{{ clientDetails.externalId  }}</span>
+  </div>
+
+  <div *ngIf="clientDetails.mobileNo">
+    <span data-flex="30px">Mobile No</span>
+    <span data-flex="70px">{{ clientDetails.mobileNo }}</span>
+  </div>
+
+  <div *ngIf="clientDetails.pan">
+    <span data-flex="30px">Pan</span>
+    <span data-flex="70px">{{ clientDetails.pan  }}</span>
+  </div>
+
+  <div  *ngIf="clientDetails.aadhaar">
+    <span data-flex="30px">Aadhaar</span>
+    <span data-flex="70px">{{ clientDetails.aadhaar}}</span>
+  </div>
+
+   <div  *ngIf="clientDetails.voterId">
+    <span data-flex="30px">Voter Id</span>
+    <span data-flex="70px">{{ clientDetails.voterId}}</span>
+  </div>
+
+   <div  *ngIf="clientDetails.drivingLicense">
+    <span data-flex="30px">Driving License</span>
+    <span data-flex="70px">{{ clientDetails.drivingLicense}}</span>
+  </div>
+
+  <div  *ngIf="clientDetails.rationCardNumber">
+    <span data-flex="30px">Ration Card</span>
+    <span data-flex="70px">{{ clientDetails.rationCardNumber}}</span>
+  </div>
+
+   <div  *ngIf="clientDetails.passportNumber">
+    <span data-flex="30px">Passport</span>
+    <span data-flex="70px">{{ clientDetails.passportNumber}}</span>
+  </div>
+
+  <div  *ngIf="clientDetails.age">
+    <span data-flex="30px">Age</span>
+    <span data-flex="70px">{{ clientDetails.age }}</span>
+  </div>
+
+  <div  *ngIf="clientDetails.emailAddress">
+    <span data-flex="30px">Email Address</span>
+    <span data-flex="70px">{{ clientDetails.emailAddress }}</span>
+  </div>
+
+  <div  *ngIf="clientDetails.state.name">
+    <span data-flex="30px">State</span>
+    <span data-flex="70px">{{ clientDetails.state.name}}</span>
+  </div>
+
+  <div  *ngIf="clientDetails.address">
+     <span data-flex="30px">Address</span>
+    <span data-flex="70px">{{ clientDetails.address}}</span>
+  </div>
+
+  <div  *ngIf="clientDetails.pincode">
+    <span data-flex="30px">Pincode</span>
+    <span data-flex="70px">{{ clientDetails.pincode}}</span>
+  </div>
+
+  <div  *ngIf="clientDetails.clientType.name">
+    <span data-flex="30px">Client Type</span>
+    <span data-flex="70px">{{ clientDetails.clientType.name }}</span>
+  </div>
+
+  <div  *ngIf="clientDetails.clientClassification.name">
+    <span data-flex="30px">Client Classification</span>
+    <span data-flex="70px">{{ clientDetails.clientClassification.name  }}</span>
+  </div>
+
+  <div  *ngIf="clientDetails.savingsProduct">
+    <span data-flex="30px">Savings Product</span>
+    <span data-flex="70px">{{ clientDetails.savingsProduct }}</span>
+  </div>
+
+    <div  *ngIf="clientDetails.city">
+    <span data-flex="30px">City</span>
+    <span data-flex="70px">{{ clientDetails.city }}</span>
+  </div>
+
+  <div  *ngIf="clientDetails.submittedOnDate">
+    <span data-flex="30px">Submitted On Date</span>
+    <span data-flex="70px">{{ clientDetails.submittedOnDate  | dateFormat }}</span>
+  </div>
+
+  <div  *ngIf="clientDetails.active">
+    <span data-flex="30px">Active</span>
+    <span data-flex="70px">{{ clientDetails.active ? 'Yes' : 'No' }}</span>
+  </div>
+
+  <div  *ngIf="clientDetails.activationDate">
+    <span data-flex="30px">Activation Date</span>
+    <span data-flex="70px">{{ clientDetails.activationDate  | dateFormat  }}</span>
+  </div>
+
+    <h3>Beneficiary Details</h3>
+
+    <div  *ngIf="clientDetails.beneficiaryName">
+      <span data-flex="30px">Beneficiary Name</span>
+      <span data-flex="70px">{{ clientDetails.beneficiaryName  }}</span>
+    </div>
+
+    <div  *ngIf="clientDetails.beneficiaryAccountNumber">
+      <span data-flex="30px">Beneficiary Account Number</span>
+      <span data-flex="70px">{{ clientDetails.beneficiaryAccountNumber  }}</span>
+    </div>
+
+    <div  *ngIf="clientDetails.ifscCode">
+      <span data-flex="30px">IFSC Code</span>
+      <span data-flex="70px">{{ clientDetails.ifscCode  }}</span>
+    </div>
+
+    <div  *ngIf="clientDetails.micrCode">
+      <span data-flex="30px">MICR Code</span>
+      <span data-flex="70px">{{ clientDetails.micrCode  }}</span>
+    </div>
+
+    <div  *ngIf="clientDetails.swiftCode">
+      <span data-flex="30px">Swift Code</span>
+      <span data-flex="70px">{{ clientDetails.swiftCode  }}</span>
+    </div>
+
+    <div  *ngIf="clientDetails.branch">
+      <span data-flex="30px">Branch</span>
+      <span data-flex="70px">{{ clientDetails.branch }}</span>
+    </div>
+
+    <div  *ngIf="clientDetails.accountType">
+      <span data-flex="30px">Account Type</span>
+      <span data-flex="70px">{{ clientDetails.accountType.name }}</span>
+    </div>
+
+<!--    <div fxFlexFill *ngIf="clientDetails.repaymentMode">-->
+<!--      <span fxFlex="50%">Repayment Mode</span>-->
+<!--      <span fxFlex="50%">{{ clientDetails.repaymentMode.name  }}</span>-->
+<!--    </div>-->
+
+<!--    <div fxFlexFill *ngIf="clientDetails.transactionTypePreference">-->
+<!--      <span fxFlex="50%">Transaction Type Preference</span>-->
+<!--      <span fxFlex="50%">{{ clientDetails.transactionTypePreference.name  }}</span>-->
+<!--    </div>-->
+
+  <ng-container *ngIf="clientDetails.legalFormId === 1">
+
+    <div  *ngIf="clientDetails.gender">
+      <span data-flex="30px">Gender</span>
+      <span data-flex="70px">{{ clientDetails.gender}}</span>
+    </div>
+
+    <div  *ngIf="clientDetails.isStaff">
+      <span data-flex="30px">Is Staff</span>
+      <span data-flex="70px">{{ clientDetails.isStaff ? 'Yes' : 'No' }}</span>
+    </div>
+
+
+  </ng-container>
+
+  <ng-container *ngIf="clientDetails.legalFormId === 2">
+
+    <div  *ngIf="clientDetails.clientNonPersonDetails.incorpValidityTillDate">
+      <span data-flex="30px">Incorporation Validity Till Date</span>
+      <span data-flex="70px">{{ clientDetails.clientNonPersonDetails.incorpValidityTillDate  | dateFormat }}</span>
+    </div>
+
+    <!--    <div fxFlexFill >-->
+    <!--      <span fxFlex="40%">Incorporation Validity Till Date</span>-->
+    <!--      <span fxFlex="60%">{{ client.clientNonPersonDetails.incorpValidityTillDate | dateFormat}}</span>-->
+    <!--    </div>-->
+
+
+    <div >
+      <span data-flex="30px">Incorportation Number</span>
+      <span data-flex="70px">{{ clientDetails.clientNonPersonDetails.incorpNumber || 'Not Provided' }}</span>
+    </div>
+
+    <div  *ngIf="clientDetails.clientNonPersonDetails.mainBusinessLineId">
+      <span data-flex="30px">Main Business Line</span>
+      <span data-flex="70px">{{ clientDetails.clientNonPersonDetails.mainBusinessLineId }}</span>
+    </div>
+
+    <div  *ngIf="clientDetails.clientNonPersonDetails.constitutionId">
+      <span data-flex="30px">Constitution</span>
+      <span data-flex="70px">{{ clientDetails.clientNonPersonDetails.constitutionId }}</span>
+    </div>
+
+    <div >
+      <span data-flex="30px">Remarks</span>
+      <span data-flex="70px">{{ clientDetails.clientNonPersonDetails.remarks  }}</span>
+    </div>
+
+  </ng-container>
+
+</div>

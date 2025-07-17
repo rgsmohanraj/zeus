@@ -1,0 +1,497 @@
+<form [formGroup]="loanProductServicerFeeForm">
+
+  <div >
+    <div>
+    <mat-checkbox  labelPosition="before" formControlName="servicerFeeInterestConfigEnabled"
+      (change)="refreshData($event)" class="margin-v">
+      Servicer Fee Interest Enabled
+    </mat-checkbox>
+
+    </div>
+
+    <div *ngIf="loanProductServicerFeeForm.value.servicerFeeInterestConfigEnabled"fxLayoutAlign.gt-sm="start center">
+
+      <h5 >Servicer Fee Interest Configuration</h5>
+
+      <h4  class="mat-h4">Servicer Fee Interest Base Amount and GST Loss</h4>
+
+      <div class="custom-mat-filed">
+      <mat-form-field data-flex="48%">
+        <mat-label>VCL Hurdle Rate</mat-label>
+        <input type="number" [required]="required" matInput formControlName="vclHurdleRate">
+      </mat-form-field>
+
+      </div>
+
+      <h4 fxFlex="48%" class="mat-h4">
+      </h4>
+
+      <div data-layout="row" data-layout-gap="16px">
+      <mat-form-field data-flex="48%">
+        <mat-label> Interest Base Amount Rounding Mode</mat-label>
+        <mat-select [required]="required" formControlName="vclInterestRound">
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let roundingMode of roundingModes" [value]="roundingMode">
+            {{ roundingMode }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field data-flex="48%">
+        <mat-label> Interest Base Amount Decimal Values</mat-label>
+        <input type="number" matInput [required]="required" formControlName="vclInterestDecimal">
+      </mat-form-field>
+
+      </div>
+
+      <div>
+      <mat-checkbox class="custom-checkbox-margin" labelPosition="before" formControlName="sfBaseAmtGstLossEnabled" class="margin-v">
+        Interest Base Amount GST Loss Enabled
+      </mat-checkbox>
+
+      <div *ngIf="loanProductServicerFeeForm.value.sfBaseAmtGstLossEnabled"  data-layout="row wrap"
+        data-layout-gap="6px" >
+
+        <mat-form-field class="custom-mat-filed">
+          <mat-label>GST Loss % </mat-label>
+          <input type="number" matInput [required]="required" formControlName="sfBaseAmtGstLoss">
+        </mat-form-field>
+      </div>
+      </div>
+      <mat-divider ></mat-divider>
+
+      <h4  class="mat-h4">Servicer Fee Interest Amount GST Configuration</h4>
+
+      <div>
+      <mat-form-field  class="custom-mat-filed">
+        <mat-label>Interest Amount GST %</mat-label>
+        <input type="number" matInput [required]="required" formControlName="sfGst">
+      </mat-form-field>
+
+      </div>
+      <h4 fxFlex="48%" class="mat-h4">
+      </h4>
+
+      <div data-layout="row" data-layout-gap="16px">
+
+      <mat-form-field data-flex="48%">
+        <mat-label>Interest Amount GST Rounding Mode</mat-label>
+        <mat-select [required]="required" formControlName="sfGstRound">
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let roundingMode of roundingModes" [value]="roundingMode">
+            {{ roundingMode }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field data-flex="48%">
+        <mat-label>Interest Amount GST Decimal Values</mat-label>
+        <input type="number" matInput [required]="required" formControlName="sfGstDecimal">
+      </mat-form-field>
+
+      </div>
+
+      <mat-divider ></mat-divider>
+
+      <h4 fxFlex="98%" class="mat-h4">Servicer Fee Interest Invoice Calculation</h4>
+
+<div data-layout="row" data-layout-gap="16px">
+
+      <mat-form-field data-flex="48%">
+        <mat-label>Interest Invoice Amount Rounding Mode </mat-label>
+        <mat-select [required]="required" formControlName="servicerFeeRound">
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let roundingMode of roundingModes" [value]="roundingMode">
+            {{ roundingMode }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field data-flex="48%">
+        <mat-label>Interest Invoice Amount Decimal Values</mat-label>
+        <input type="number" matInput [required]="required" formControlName="servicerFeeDecimal">
+      </mat-form-field>
+
+  </div>
+
+      <mat-divider fxFlex="98%"></mat-divider>
+
+      <!--      <mat-form-field fxFlex="48%">-->
+      <!--        <mat-label>Fees and Charge</mat-label>-->
+      <!--        <mat-select formControlName="servicerFeeCharge" multiple [(ngModel)]="selection">-->
+      <!--          <mat-option *ngFor="let charge of chargeData" [value]="chargeData">{{ charge.name}}</mat-option>-->
+      <!--          <mat-option *ngFor="let charge of colendingFeesData" [value]="colendingFeesData.id">-->
+      <!--            {{charge.name}}-->
+      <!--          </mat-option>-->
+      <!--          <mat-option>Select</mat-option>-->
+      <!--        </mat-select>-->
+      <!--      </mat-form-field>-->
+
+      <mat-checkbox fxFlex="98%" labelPosition="before" formControlName="servicerFeeChargesConfigEnabled"
+        (change)="refreshChargeData($event)" class="margin-v">
+        Servicer Fee Charges Enabled
+      </mat-checkbox>
+
+      <div *ngIf="loanProductServicerFeeForm.value.servicerFeeChargesConfigEnabled" fxFlexFill fxLayout="row wrap"
+        fxLayoutGap="2%" fxLayout.lt-md="column" fxLayoutAlign.gt-sm="start center">
+
+        <h5 fxFlex="98%">Servicer Fee Charges Configuration</h5>
+
+        <h4 fxFlex="98%" class="mat-h4">Servicer Fee Charges Base Amount Calculation</h4>
+
+        <div data-layout="row" data-layout-gap="16px">
+
+        <mat-form-field data-flex="48%">
+        <mat-label>Charges Base Amount Rounding Mode</mat-label>
+        <mat-select [required]="required" formControlName="sfChargeBaseAmountRoundingmode">
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let roundingMode of roundingModes" [value]="roundingMode">
+            {{ roundingMode }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+        <mat-form-field data-flex="48%">
+          <mat-label>Charges Base Amount Decimal Values</mat-label>
+          <input type="number" matInput [required]="required" formControlName="sfChargeBaseAmountDecimal">
+        </mat-form-field>
+
+        </div>
+
+        <mat-divider fxFlex="98%"></mat-divider>
+
+        <h4 fxFlex="98%" class="mat-h4">Servicer Fee Charge GST Calculation</h4>
+
+        <div >
+
+        <mat-form-field class="custom-mat-filed">
+          <mat-label>Charges GST %</mat-label>
+          <input type="number" matInput [required]="required" formControlName="sfChargeGst">
+        </mat-form-field>
+
+        <h4 fxFlex="48%" class="mat-h4">
+        </h4>
+
+          <div data-layout="row" data-layout-gap="16px">
+
+          <mat-form-field data-flex="48%">
+        <mat-label>Charges GST Rounding Mode</mat-label>
+        <mat-select  [required]="required" formControlName="sfChargeGstRoundingmode">
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let roundingMode of roundingModes" [value]="roundingMode">
+            {{ roundingMode }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+        <mat-form-field data-flex="48%">
+          <mat-label>Charges GST Decimal Values</mat-label>
+          <input type="number" matInput [required]="required" formControlName="sfChargeGstDecimal">
+        </mat-form-field>
+          </div>
+
+        <mat-divider fxFlex="98%"></mat-divider>
+
+        <h4 fxFlex="98%" class="mat-h4">Servicer Fee Charges Invoice Amount Calculation</h4>
+
+          <div data-layout="row" data-layout-gap="16px">
+
+          <mat-form-field data-flex="48%">
+        <mat-label>Charges Invoice Amount Rounding Mode</mat-label>
+        <mat-select  [required]="required" formControlName="sfChargeRound">
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let roundingMode of roundingModes" [value]="roundingMode">
+            {{ roundingMode }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+        <mat-form-field data-flex="48%">
+          <mat-label>Charges Invoice Amount Decimal Values</mat-label>
+          <input type="number" matInput [required]="required" formControlName="sfChargeDecimal">
+        </mat-form-field>
+
+            </div>
+
+        <mat-divider ></mat-divider>
+
+
+        <div style="width:100%;display:block !important;">
+          <button type="button" mat-raised-button color="primary" (click)="addDetails()">
+            <fa-icon icon="plus-circle"></fa-icon>&nbsp;&nbsp;Add
+          </button>
+        </div>
+
+        <mat-divider ></mat-divider>
+
+        <div class="container mat-elevation-z8" #TABLE>
+
+          <table #importsTable mat-table [dataSource]="dataSource" matSort>
+
+
+            <ng-container matColumnDef="servicerFeeChargesRatio">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Servicer Split Ratio </th>
+              <td mat-cell *matCellDef="let sfCharges"> {{ sfCharges.servicerFeeChargesRatio.value}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="charge">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Name </th>
+              <td mat-cell *matCellDef="let sfCharges"> {{ sfCharges.charge.name }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="sfSelfShareCharge">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Servicer Fee Self Share </th>
+              <td mat-cell *matCellDef="let sfCharges"> {{ sfCharges.sfSelfShareCharge }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="sfPartnerShareCharge">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Servicer Fee Partner Share </th>
+              <td mat-cell *matCellDef="let sfCharges"> {{ sfCharges.sfPartnerShareCharge }} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="sfChargeAmtGstLossEnabled">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Enable GST Loss </th>
+              <td mat-cell *matCellDef="let sfCharges"> {{ sfCharges.sfChargeAmtGstLossEnabled }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="sfChargeAmtGstLoss">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> GST Loss % </th>
+              <td mat-cell *matCellDef="let sfCharges"> {{ sfCharges.sfChargeAmtGstLoss }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="isActive">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Active</th>
+              <td mat-cell *matCellDef="let sfCharges"> {{ sfCharges.isActive }} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="edit">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Edit </th>
+              <td mat-cell *matCellDef="let sfCharges">
+                <button mat-icon-button (click)="edit(sfCharges)">
+                  <fa-icon icon="edit"></fa-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="select-row"></tr>
+
+          </table>
+
+        </div>
+      </div>
+
+      <!--      <div style="width:100%;" formArrayName="servicerFeeCharge">-->
+      <!--        <div style="width:100%;display:block !important;">-->
+      <!--          <button type="button" mat-raised-button color="primary" (click)="addSelectFeesArr()">-->
+      <!--            <fa-icon icon="plus-circle" size="lg"></fa-icon>Add-->
+      <!--          </button>-->
+      <!--        </div><br>-->
+
+      <!--        <div *ngFor="let fees of servicerFeeCharge.controls; let i = index;"-->
+      <!--          style="width:100%;display:block !important;">-->
+      <!--          <div [formGroupName]="i" style="width:100%;display:block !important;">-->
+      <!--            <div style="display:flex">-->
+
+      <!--              <div style="width:24%;">-->
+      <!--                <mat-form-field>-->
+      <!--                  <mat-label>Select Fees</mat-label>-->
+      <!--                  <mat-select formControlName="colendingFees" (selectionChange)="FeesValue($event);">-->
+      <!--                    <mat-option>Select</mat-option>-->
+      <!--                    <mat-option *ngFor="let colendingFee of feesData" [value]="colendingFee.id">-->
+      <!--                      {{ colendingFee.name }}-->
+      <!--                    </mat-option>-->
+      <!--                  </mat-select>-->
+      <!--                </mat-form-field>-->
+      <!--              </div>-->
+
+      <!--              <div *ngIf="loanProductServicerFeeForm.value.servicerFees[i].colendingServicerFees!=''" style="width:75%;">-->
+      <!--                <div style="width:100%;display:flex;">-->
+      <!--                  <div style="width:35%;">-->
+      <!--                    <mat-form-field>-->
+      <!--                      <input type="number" min="0" max="100"  value="100" placeholder="100" [readonly]="true" matInput formControlName="clientServicerFees">-->
+      <!--                    </mat-form-field>-->
+      <!--                  </div>-->
+      <!--                  <div style="width:35%;">-->
+      <!--                    <mat-form-field appearance="fill">-->
+      <!--                      <input type="number" min="0" max="100"  matInput formControlName="selfServicerFees">-->
+      <!--                    </mat-form-field>-->
+      <!--                  </div>-->
+      <!--                  <div style="width:25;">-->
+      <!--                    <mat-form-field>-->
+      <!--                      <input type="number" min="0" max="100"  matInput formControlName="partnerServicerFees">-->
+      <!--                    </mat-form-field>-->
+      <!--                  </div>-->
+      <!--                </div>-->
+      <!--              </div>-->
+      <!--              <span>-->
+      <!--                <button *ngIf="i !== 0" type="button" color="warn" mat-raised-button  (click)="removeServicerFeesArr(i)">-->
+      <!--                  <fa-icon icon="times" size="lg"></fa-icon>-->
+      <!--                </button>-->
+      <!--              </span>-->
+      <!--            </div>-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--      </div>-->
+
+
+      <!--      <mat-checkbox fxFlex="98%" labelPosition="before" formControlName="enableServicerChargeWiseBifacation" class="margin-v">-->
+      <!--        Enable Servicer Charges-->
+      <!--      </mat-checkbox>-->
+      <!--      <div  style="width:100%;" *ngIf="loanProductServicerFeeForm.value.enableServicerChargeWiseBifacation"   formArrayName="servicerCharge">-->
+      <!--        <div style="width:100%;display:block !important;">-->
+      <!--          <button type="button" mat-raised-button  color="primary" (click)="addServicerChargeArr()">-->
+      <!--            <fa-icon icon="plus-circle" size="lg"></fa-icon>Add-->
+      <!--          </button>-->
+      <!--        </div><br>-->
+      <!--        <div  *ngFor="let select of servicerCharge.controls; let i = index;" style="width:100%;display:block !important;">-->
+      <!--          <div   [formGroupName]="i" style="width:100%;display:block !important;">-->
+      <!--            <div style="display:flex">-->
+      <!--              <div style="width:25%;">-->
+      <!--                <mat-form-field >-->
+      <!--                  <mat-label>Select Charge</mat-label>-->
+      <!--                  <mat-select formControlName="colendingCharge" (selectionChange)="chargeValue($event);" >-->
+      <!--                    <mat-option>Select</mat-option>-->
+      <!--                    <mat-option *ngFor="let colendingCharges of colendingChargeData" [value]="colendingCharges.id">-->
+      <!--                      {{ colendingCharges.name }}-->
+      <!--                    </mat-option>-->
+      <!--                  </mat-select>-->
+      <!--                  <mat-error>-->
+      <!--                    Fees is <strong>required</strong>-->
+      <!--                  </mat-error>-->
+      <!--                </mat-form-field>-->
+      <!--              </div>-->
+      <!--              <div *ngIf="loanProductServicerFeeForm.value.servicerCharge[i].colendingCharge!=''" style="width:75%;">-->
+      <!--                <div style="width:100%;display:flex;">-->
+      <!--                  <div style="width:35%;">-->
+      <!--                    <mat-form-field>-->
+      <!--                      <input type="number" min="0" max="100" placeholder="100" [readonly]="true" value="100" matInput formControlName="clientCharge">-->
+      <!--                    </mat-form-field>-->
+      <!--                  </div>-->
+      <!--                  <div style="width:35%;">-->
+      <!--                    <mat-form-field appearance="fill">-->
+      <!--                      <input type="number" min="0" max="100"  matInput formControlName="selfCharge">-->
+      <!--                    </mat-form-field>-->
+      <!--                  </div>-->
+      <!--                  <div style="width:35;">-->
+      <!--                    <mat-form-field>-->
+      <!--                      <input type="number" min="0" max="100"  matInput formControlName="partnerCharge">-->
+      <!--                    </mat-form-field>-->
+      <!--                  </div>-->
+      <!--                </div>-->
+      <!--              </div>-->
+      <!--              <span>-->
+      <!--                <button *ngIf="i !== 0" type="button" color="warn" mat-raised-button  (click)="removeServicerChargeArr(i)">-->
+      <!--                  <fa-icon icon="times" size="lg"></fa-icon>-->
+      <!--                </button>-->
+      <!--              </span>-->
+      <!--            </div>-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--      </div>-->
+
+    </div>
+  </div>
+
+
+  <div data-layout="row" class="margin-t"  data-layout-align="center center" data-layout-gap="6px">
+    <button mat-raised-button matStepperPrevious>
+      <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;
+      Previous
+    </button>
+    <button mat-raised-button matStepperNext>
+      Next&nbsp;&nbsp;
+      <fa-icon icon="arrow-right"></fa-icon>
+    </button>
+  </div>
+</div>
+</form>
+
+<ng-template let-data #serviceFeeCharge>
+  <form [formGroup]="loanProductServicerFeeChargeForm">
+    <h2 mat-dialog-title> Servicer Fee Charge Split and GST Loss </h2>
+    <div style="width:100%;">
+
+      <div  data-layout="row" data-layout-gap="6px">
+
+        <mat-form-field data-flex="20" >
+          <mat-label>Servicer Split Ratio</mat-label>
+          <mat-select formControlName="servicerFeeChargesRatio">
+              <mat-option>Select</mat-option>
+            <mat-option *ngFor="let servicerFeeChargesRatio of servicerFeeChargesRatio" [value]="servicerFeeChargesRatio">
+                {{ servicerFeeChargesRatio.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field  data-flex="20" *ngIf="!displayEdit">
+          <mat-label>Select Fees</mat-label>
+          <mat-select formControlName="charge" [required]="required">
+            <mat-option>Select</mat-option>
+            <mat-option *ngFor="let charge of feesData" [value]="charge">
+              {{ charge.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field  data-flex="20" *ngIf="displayEdit">
+          <mat-label>Fees </mat-label>
+          <input matInput [value]="charges" [required]="required">
+        </mat-form-field>
+
+        <mat-form-field data-flex="20">
+          <mat-label>Servicer Fee Self Share </mat-label>
+          <input type="number" min="0" max="100" value="100" matInput formControlName="sfSelfShareCharge"
+            [required]="required">
+        </mat-form-field>
+
+        <mat-form-field data-flex="20">
+          <mat-label>Servicer Fee Partner Share </mat-label>
+          <input type="number" min="0" max="100" value="100" matInput formControlName="sfPartnerShareCharge"
+            [required]="required">
+        </mat-form-field>
+      </div>
+
+      <div data-layout="row"  data-layout-gap="6px">
+
+        <mat-slide-toggle class="custom-toggle-margin" formControlName="sfChargeAmtGstLossEnabled">
+          Enable GST Loss
+        </mat-slide-toggle>
+
+        <mat-form-field class="mat-filed" *ngIf="loanProductServicerFeeChargeForm.value.sfChargeAmtGstLossEnabled">
+          <mat-label>GST Loss % </mat-label>
+          <input matInput [required]="required" formControlName="sfChargeAmtGstLoss"
+            [disabled]="loanProductServicerFeeChargeForm.value.sfChargeAmtGstLossEnabled">
+        </mat-form-field>
+
+        <mat-form-field class="mat-filed" *ngIf="!loanProductServicerFeeChargeForm.value.sfChargeAmtGstLossEnabled">
+          <mat-label>GST Loss % </mat-label>
+          <input type="number" matInput disabled>
+        </mat-form-field>
+
+        <mat-checkbox class="custom-checkbox-margin" labelPosition="before" formControlName="isActive">
+          Active
+        </mat-checkbox>
+      </div>
+
+       </div>
+
+      <div data-layout="row" class="margin-t" data-layout-align="center center" data-layout-gap="6px">
+        <button mat-raised-button color="primary" (click)="add()" *ngIf="!displayEdit">
+          <fa-icon icon="plus-circle"></fa-icon>&nbsp;&nbsp;
+          Add
+        </button>
+        <button mat-raised-button color="primary" (click)="update()" *ngIf="displayEdit">
+          <fa-icon></fa-icon>&nbsp;&nbsp;
+          Update
+        </button>
+        <button mat-raised-button color="primary" (click)="cancel()">
+          <fa-icon icon="times-circle"></fa-icon>&nbsp;&nbsp;
+          Cancel
+        </button>
+      </div>
+
+  </form>
+</ng-template>

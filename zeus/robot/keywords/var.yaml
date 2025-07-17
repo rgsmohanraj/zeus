@@ -1,0 +1,17 @@
+productId:
+  NOCPL: 1
+  Dvara: 2
+  Seeds: 3
+  Navdhan: 4
+
+ChargeCount:
+  NOCPL: 2
+  Dvara: 2
+  Seeds: 5
+  Navdhan: 2
+
+partnerId:
+  NOCPL: 1
+  Dvara: 2
+  Seeds: 3
+  Navdhan: 4

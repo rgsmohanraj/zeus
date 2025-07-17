@@ -1,0 +1,184 @@
+<form [formGroup]="loanProductCurrencyForm">
+
+  <div data-layout="row" >
+
+    <mat-form-field class="custom-mat-filed">
+      <mat-label>Currency</mat-label>
+      <mat-select formControlName="currencyCode" required>
+        <mat-option *ngFor="let currency of currencyData" [value]="currency.code">
+          {{ currency.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        Currency is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+
+    </div>
+
+    <h3 >EMI Calculation Logic</h3>
+
+<div data-layout="row" data-layout-gap="16px">
+    <mat-form-field class="custom-mat-filed">
+      <mat-label>EMI Calculation Logic</mat-label>
+      <mat-select formControlName="pmtFormulaCalculation" required>
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let emiCalcEnum of emiCalcEnumData" [value]="emiCalcEnum.id">
+          {{ emiCalcEnum.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field *ngIf="loanProductCurrencyForm.value.pmtFormulaCalculation === 1" data-flex="48">
+      <mat-label>EMI Calculation Days in year</mat-label>
+      <mat-select formControlName="pmtDaysInYearType" required>
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let daysInYearType of daysInYearTypeData" [value]="daysInYearType.id">
+          {{ daysInYearType.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+</div>
+
+  <div data-layout="row">
+
+    <mat-form-field *ngIf="loanProductCurrencyForm.value.pmtFormulaCalculation === 1" class="custom-mat-filed">
+      <mat-label>EMI Calculation Days in month</mat-label>
+      <mat-select formControlName="pmtDaysInMonthType" required>
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let daysInMonthType of daysInMonthTypeData" [value]="daysInMonthType.id">
+          {{ daysInMonthType.value }}
+        </mat-option>
+      </mat-select>
+
+    </mat-form-field>
+
+  </div>
+
+    <h3 > EMI Rounding Configuration </h3>
+
+  <div data-layout="row" data-layout-gap="16px">
+
+    <mat-form-field  class="custom-mat-filed" >
+      <mat-label> EMI Rounding Mode</mat-label>
+      <mat-select formControlName="emiRoundingMode" required>
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let emiRoundingMode of roundingModes" [value]="emiRoundingMode">
+          {{ emiRoundingMode }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        Loan Product Class is
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="loanProductCurrencyForm.value.emiRoundingMode === 'UP' " data-flex="48%">
+      <mat-label>EMI Decimal Regex</mat-label>
+      <input type="number" matInput formControlName="emiDecimalRegex">
+      <mat-error>
+        EMI Regex is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+
+  <div data-layout="row " data-layout-gap="16px">
+
+    <mat-form-field data-flex="48%">
+      <mat-label>EMI Decimal Values</mat-label>
+      <input type="number" matInput formControlName="digitsAfterDecimal" required>
+      <mat-error>
+        Decimal Places is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field data-flex="48%">
+      <mat-label>EMI in multiples of</mat-label>
+      <mat-select formControlName="emimultiples" required>
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let emimultiples of emimultiplesOf" [value]="emimultiples.id">
+          {{ emimultiples.value }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        Loan Product Class is
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+
+  <h3 > Interest Rounding Configuration</h3>
+
+  <div data-layout="row " data-layout-gap="16px">
+
+    <mat-form-field  class="custom-mat-filed" >
+      <mat-label>Interest Rounding Mode</mat-label>
+      <mat-select formControlName="interestRoundingMode" required>
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let interestRoundingMode of roundingModes" [value]="interestRoundingMode">
+          {{ interestRoundingMode }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        Loan Product Class is
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field class="custom-mat-filed" *ngIf="loanProductCurrencyForm.value.interestRoundingMode === 'UP' " >
+      <mat-label>Interest Decimal Regex</mat-label>
+      <input type="number" matInput formControlName="interestDecimalRegex">
+      <mat-error>
+        Decimal Places is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+
+
+  <div data-layout="row " data-layout-gap="16px">
+
+    <mat-form-field class="custom-mat-filed">
+      <mat-label>Interest Decimal Values</mat-label>
+      <input type="number" matInput formControlName="interestDecimal" required>
+      <mat-error>
+        Decimal Places is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+
+
+  <!--    <mat-form-field data-flex="48%">-->
+  <!--      <mat-label>Currency in multiples of</mat-label>-->
+  <!--      <input type="number" matInput formControlName="inMultiplesOf" required>-->
+  <!--      <mat-error>-->
+  <!--        Currency in multiples of is <strong>required</strong>-->
+  <!--      </mat-error>-->
+  <!--    </mat-form-field>-->
+
+  <!--    <mat-form-field data-flex="48%">-->
+  <!--      <mat-label>Installment in multiples of</mat-label>-->
+  <!--      <input type="number" matInput formControlName="installmentAmountInMultiplesOf" required>-->
+  <!--      <mat-error>-->
+  <!--        Installment in multiples of is <strong>required</strong>-->
+  <!--      </mat-error>-->
+  <!--    </mat-form-field>-->
+
+  <!--  </div>-->
+
+  <div data-layout="row" class="margin-t" data-layout-align="center" data-layout-gap="5px">
+    <button mat-raised-button matStepperPrevious>
+      <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;
+      Previous
+    </button>
+    <button mat-raised-button matStepperNext>
+      Next&nbsp;&nbsp;
+      <fa-icon icon="arrow-right"></fa-icon>
+    </button>
+  </div>
+
+</form>

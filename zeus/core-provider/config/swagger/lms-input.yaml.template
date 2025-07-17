@@ -1,0 +1,33 @@
+openapi: 3.0.3
+info:
+  version: @VERSION@
+  title: Zeus REST API
+  description: |-
+    Zeus is a Loan Management System module(LMS),which is used to manage disbursement and collections.Zeus is a partner based platform.There are different types of asset class in which it provide loans for clients based on the asset class.The Zeus system is integrated with Federal bank for disbursement.This platform has schedulers to calculate daily interest,DPD of the loan and advance amount.
+
+  contact:
+    email: Zeus.Development@vivriticapital.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+servers:
+  - url: /lms/api/v1
+  - url: http://10.100.10.158:8443/lms/api/v1
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    tenantid:
+      type: apiKey
+      in: header       
+      name: zeus-platform-tenantId
+security:
+  - bearerAuth: []
+    tenantid: []
+  - basicAuth: []
+    tenantid: []

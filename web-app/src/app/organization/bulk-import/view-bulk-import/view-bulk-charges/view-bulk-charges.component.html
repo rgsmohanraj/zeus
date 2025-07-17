@@ -1,0 +1,177 @@
+<div class="container">
+
+  <form [formGroup]="bulkChargeImportForm">
+
+  <div data-layout-gap="10px" class="m-b-20">
+
+    <mat-card data-layout="column" data-layout-gap="6px" data-flex="50%">
+
+      <h3><strong>Bulk Charge Collection Template</strong></h3>
+
+      <mat-card-content>
+        <div >
+          <mat-form-field data-flex="75">
+            <mat-label>Partner </mat-label>
+            <mat-select required formControlName="partnerId"  (selectionChange)="productFilter($event.value)" >
+              <mat-option *ngFor="let partner of partnerData" [value]="partner">
+                {{ partner.partnerName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div >
+          <mat-form-field data-flex="75">
+            <mat-label>Product </mat-label>
+            <mat-select required formControlName="productId">
+              <mat-option *ngFor="let product of productData" [value]="product.productId">
+                {{ product.productName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+
+      </mat-card-content>
+
+
+      <div data-flex="66%" display="column">
+        <button mat-raised-button color="primary"  [disabled]="!bulkChargeImportForm.valid" (click)="downloadChargeTemplate()" >
+          <i class="fa fa-download"></i>&nbsp;&nbsp;Download
+        </button>
+      </div>
+
+    </mat-card>
+
+    <mat-card data-layout="column" data-layout-gap="4px" data-flex="50%">
+
+      <h3><strong>Bulk Charge File Upload </strong></h3>
+
+      <h4>Select Excel File</h4>
+
+      <mifosx-file-upload data-flex="75%" (change)="onFileSelect($event)"></mifosx-file-upload>
+
+
+      <div data-flex="31%">
+        <button mat-raised-button color="primary" [disabled]="uploadShow" (click)="uploadChargeCollection()">
+          <i class="fa fa-upload"></i>&nbsp;&nbsp;Upload
+        </button>
+      </div>
+
+      <div  class="cover"></div>
+
+    </mat-card>
+
+    </div>
+
+  <mat-card>
+
+    <div>
+      <h3 class="documents"><strong>Documents</strong></h3>
+    </div>
+
+    <div class="imports-table mat-elevation-z1">
+
+      <table #importsTable mat-table [dataSource]="bulkLoans" matSort>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <td mat-cell *matCellDef="let bulkLoans"> {{ bulkLoans.documentId }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="importTime">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Import Time </th>
+          <td mat-cell *matCellDef="let bulkLoans"> {{ bulkLoans.importTime | dateFormat }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="endTime">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> End Time </th>
+          <td mat-cell *matCellDef="let bulkLoans"> {{ bulkLoans.endTime | dateFormat }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="completed">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Completed </th>
+          <td mat-cell *matCellDef="let bulkLoans"> {{ bulkLoans.completed }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="totalRecords">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Records </th>
+          <td mat-cell *matCellDef="let bulkLoans"> {{ bulkLoans.totalRecords }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="successCount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Success Count </th>
+          <td mat-cell *matCellDef="let bulkLoans"> {{ bulkLoans.successCount }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="failureCount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Failure Count </th>
+          <td mat-cell *matCellDef="let bulkLoans"> {{ bulkLoans.failureCount }} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="select-row"></tr>
+
+      </table>
+
+    </div>
+
+    <div>
+      <h3 class="documents" style="margin-top: 2rem;"><strong>Details</strong></h3>
+    </div>
+
+    <div class="m-b-10" data-layout-align="end end">
+      <button mat-raised-button color="primary" (click)="downloadCSV()" style="margin-right:0%;">
+        Download
+      </button>
+    </div>
+
+    <div class="imports-table mat-elevation-z1" #TABLE>
+
+      <table #importsTable mat-table [dataSource]="bulkDetails" matSort>
+
+        <ng-container matColumnDef="serialNo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> S.No </th>
+          <td mat-cell *matCellDef="let bulkDetails; let i = index;"> {{i+1}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="externalId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> External ID </th>
+          <td mat-cell *matCellDef="let bulkDetails"> {{ bulkDetails.externalId }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="loanAccountNo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Loan Account No </th>
+          <td mat-cell *matCellDef="let bulkDetails"> {{ bulkDetails.loanAccountNo }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+          <td mat-cell *matCellDef="let bulkDetails"> {{ bulkDetails.status }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="reason">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason </th>
+          <td mat-cell *matCellDef="let bulkDetails"> {{ bulkDetails.reason }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+          <td mat-cell *matCellDef="let bulkDetails"> {{ bulkDetails.date | dateFormat }} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedDetailsColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedDetailsColumns;" class="select-row"></tr>
+
+      </table>
+
+    </div>
+
+
+    <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+
+  </mat-card>
+
+  </form>
+
+</div>

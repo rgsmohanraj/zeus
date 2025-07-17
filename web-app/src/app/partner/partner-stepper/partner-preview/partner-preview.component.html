@@ -1,0 +1,212 @@
+<div fxLayout="row wrap" fxLayout.lt-md="column">
+
+  <h3 class="mat-h3" fxFlexFill>Preview</h3>
+
+  <mat-divider fxFlexFill></mat-divider>
+
+  <h3 class="mat-h3" fxFlexFill>Basic Details</h3>
+
+  <mat-divider fxFlexFill></mat-divider>
+
+  <div fxFlexFill *ngIf="partner.partnerName">
+    <span data-flex="30">Partner Name</span>
+    <span data-flex="70">{{ partner.partnerName }}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.partnerCompanyRegistrationDate">
+    <span data-flex="30">Partner's Company's Registration Date</span>
+    <span data-flex="70">{{ partner.partnerCompanyRegistrationDate }}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.source">
+    <span data-flex="30">Source</span>
+    <span data-flex="70">{{ partner.source | find:partnerTemplate.sourceOptions:'id':'name' }}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.panCard">
+    <span data-flex="30">PAN Card</span>
+    <span data-flex="70">{{ partner.panCard }}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.cinNumber">
+    <span data-flex="30">CIN Number</span>
+    <span data-flex="70">{{ partner.cinNumber }}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.address1">
+    <span data-flex="30">Address 1</span>
+    <span data-flex="70" *ngIf="partner.address1 "> {{ partner.address1 }}</span>
+    <!--          <span data-flex="30" *ngIf="partner.address2"> {{ partner.address2}}</span>-->
+  </div>
+
+  <div fxFlexFill *ngIf="partner.address2">
+    <span data-flex="30">Address 2</span>
+    <span data-flex="70" *ngIf="partner.address2 "> {{ partner.address2 }}</span>
+    <!--          <span data-flex="30" *ngIf="partner.address2"> {{ partner.address2}}</span>-->
+  </div>
+
+  <div fxFlexFill *ngIf="partner.city">
+    <span data-flex="30">City</span>
+    <span data-flex="70" *ngIf="partner.city">{{partner.city}} </span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.state">
+    <span data-flex="30">State</span>
+    <span data-flex="70">{{ partner.state | find:partnerTemplate.stateOptions:'id':'name' }}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.pincode">
+    <span data-flex="30">Pincode</span>
+    <span data-flex="70">{{ partner.pincode }}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.country">
+    <span data-flex="30">Country</span>
+    <span data-flex="70">{{ partner.country | find:partnerTemplate.countryOptions:'id':'name'}}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.constitution">
+    <span data-flex="30">Constitution</span>
+    <span data-flex="70">{{ partner.constitution | find:partnerTemplate.constitutionOptions:'id':'name' }}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.keyPersons">
+    <span data-flex="30">Key Persons</span>
+    <span data-flex="70">{{ partner.keyPersons}}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.industry">
+    <span data-flex="30">Industry</span>
+    <span data-flex="70">{{ partner.industry | find:partnerTemplate.industryOptions:'id':'name' }}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.sector">
+    <span data-flex="30">Sector</span>
+    <span data-flex="70">{{ partner.sector | find:partnerTemplate.sectorOptions:'id':'name'}}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.subSector">
+    <span data-flex="30">Sub-Sector</span>
+    <span data-flex="70">{{ partner.subSector | find:partnerTemplate.subSectorOptions:'id':'name' }}</span>
+  </div>
+
+
+  <div fxFlexFill *ngIf="partner.gstNumber">
+    <span data-flex="30">GST Number</span>
+    <span data-flex="70">{{ partner. gstNumber}}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.gstRegistration">
+    <span data-flex="30">GST Registration</span>
+    <span data-flex="70">{{ partner.gstRegistration | find:partnerTemplate.gstRegistrationOptions:'id':'name'}}</span>
+  </div>
+
+  <h3 class="mat-h3" fxFlexFill>Partner Details</h3>
+
+  <mat-divider fxFlexFill></mat-divider>
+
+  <div fxFlexFill *ngIf="partner.partnerType">
+    <span data-flex="30">Partner Type</span>
+    <span data-flex="70">{{ partner.partnerType | find:partnerTemplate.partnerTypeOptions:'id':'name' }}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.modelLimit">
+    <span data-flex="30">Model Limit</span>
+    <span data-flex="70">{{ partner.modelLimit }}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.approvedLimit">
+    <span data-flex="30">Approved Limit</span>
+    <span data-flex="70">{{ partner.approvedLimit}}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.pilotLimit">
+    <span data-flex="30">Pilot Limit</span>
+    <span data-flex="70">{{ partner.pilotLimit }}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.partnerFloatLimit">
+    <span data-flex="30">Partner Float Limit</span>
+    <span data-flex="70">{{ partner.partnerFloatLimit }}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.balanceLimit">
+    <span data-flex="30">Balance Limit</span>
+    <span data-flex="70">{{ partner.balanceLimit }}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.agreementStartDate">
+    <span data-flex="30">Agreement Start Date</span>
+    <span data-flex="70">{{ partner.agreementStartDate | dateFormat}}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.agreementExpiryDate">
+    <span data-flex="30">Agreement Expiry Date</span>
+    <span data-flex="70">{{ partner.agreementExpiryDate | dateFormat}}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.underlyingAssets">
+    <span data-flex="30">Underlying Assets</span>
+    <span data-flex="70">{{ partner.underlyingAssets | find:partnerTemplate.underlyingAssetsOptions:'id':'name'
+      }}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.security">
+    <span data-flex="30">Security</span>
+    <span data-flex="70">{{ partner.security | find:partnerTemplate.securityOptions:'id':'name'}}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.fldgCalculationOn">
+    <span data-flex="30">FLDG Calculation On</span>
+    <span data-flex="70">{{ partner.fldgCalculationOn | find:partnerTemplate.fldgCalculationOnOptions:'id':'name'
+      }}</span>
+  </div>
+
+  <h3 class="mat-h3" fxFlexFill>Beneficiary Details</h3>
+
+  <mat-divider fxFlexFill></mat-divider>
+
+  <div fxFlexFill *ngIf="partner.beneficiaryName">
+    <span data-flex="30">Beneficiary Name</span>
+    <span data-flex="70">{{ partner.beneficiaryName}}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.beneficiaryAccountNumber">
+    <span data-flex="30">Beneficiary Account Number</span>
+    <span data-flex="70">{{ partner.beneficiaryAccountNumber}}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.ifscCode">
+    <span data-flex="30">IFSC Code</span>
+    <span data-flex="70">{{ partner.ifscCode}}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.micrCode">
+    <span data-flex="30">MICR Code</span>
+    <span data-flex="70">{{ partner.micrCode}}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.swiftCode">
+    <span data-flex="30">Swift Code</span>
+    <span data-flex="70">{{ partner.swiftCode }}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="partner.branch">
+    <span data-flex="30">Branch</span>
+    <span data-flex="70">{{ partner.branch }}</span>
+  </div>
+
+</div>
+
+<div data-layout-align="center center" data-layout-gap="4px">
+  <button mat-raised-button matStepperPrevious>
+    <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;
+    Previous
+  </button>
+  <button mat-raised-button [routerLink]="['../']">
+    Cancel
+  </button>
+  <button mat-raised-button color="primary" (click)="submit.emit()">
+    Submit
+  </button>
+</div>

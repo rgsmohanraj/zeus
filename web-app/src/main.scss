@@ -1,0 +1,45 @@
+/*
+ * Entry point of global application style.
+ * Component-specific style should not go here and be included directly as part of the components.
+ */
+@use "css-fx-layout" as fx;
+
+// If you want to include the responsive API selectors
+$includeResponsiveApi: true;
+
+// If you choose to use attribute selectors:
+@include fx.attribute-selectors($includeResponsiveApi);
+@include fx.gap-attribute-selectors(1, 16, 1, px em, $includeResponsiveApi);
+@include fx.gap-attribute-selectors-from-list(32 48, px em, $includeResponsiveApi);
+@include fx.flex-size-attribute-selectors(5, 100, 5, $includeResponsiveApi);
+@include fx.flex-size-attribute-selectors-from-list(33 66, $includeResponsiveApi);
+
+// Import Default Theme for MifosX
+@import "theme/custom/denim-yellowgreen";
+
+// Global Imports
+/* You can add global styles to this file, and also import other style files */
+@import "assets/styles/helper";
+
+
+
+::-webkit-scrollbar {
+  width: 13px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: grey;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: grey;
+}

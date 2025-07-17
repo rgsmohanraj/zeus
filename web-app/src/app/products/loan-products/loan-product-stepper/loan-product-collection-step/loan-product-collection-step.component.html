@@ -1,0 +1,500 @@
+<form [formGroup]="loanProductCollectionForm">
+
+    <div data-layout="row " data-layout-gap="6px" >
+
+        <!-- <div data-layout="row" data-layout-gap="16px"> -->
+      <mat-checkbox  class="checkbox" labelPosition="before" formControlName="interestBenefitEnabled">
+       Interest Benefit Enabled
+      </mat-checkbox>
+
+     </div>
+     <h4 > Advance </h4>
+
+      <div data-layout="row" data-layout-gap="16px">
+        <mat-form-field class="custom-mat-filed">
+          <mat-label>Advance Appropriation</mat-label>
+          <mat-select formControlName="advanceAppropriation" required >
+            <mat-option>Select</mat-option>
+            <mat-option *ngFor="let advanceData of advanceAppropriationData" [value]="advanceData.id">
+              {{ advanceData.value }}
+            </mat-option>
+          </mat-select>
+          <!-- <mat-error>
+            Advance Apprppriation is <strong></strong>
+          </mat-error> -->
+        </mat-form-field>
+
+
+        <mat-checkbox *ngIf="loanProductCollectionForm.value.advanceAppropriation === 1"  class="checkbox"  labelPosition="before" formControlName="enableEntryForAdvanceTransaction">
+            Enable Entry for Advance Transaction
+          </mat-checkbox>
+
+      </div>
+
+  <div>
+        <mat-form-field *ngIf="loanProductCollectionForm.value.advanceAppropriation === 1" class="custom-mat-filed">
+          <mat-label>Advance Appropriation Against On</mat-label>
+          <mat-select  formControlName="advanceAppropriationAgainstOn" >
+            <mat-option>Select</mat-option>
+            <mat-option *ngFor="let advanceAppropriationAgainst of advanceAppropriationAgainstOnData" [value]="advanceAppropriationAgainst.id">
+              {{ advanceAppropriationAgainst.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+  </div>
+
+  <div>
+
+    <mat-form-field class="custom-mat-filed">
+      <mat-label>Foreclosure</mat-label>
+      <mat-select formControlName="foreClosureMethodType">
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let foreClosureMethodType of foreclosureMethodData" [value]="foreClosureMethodType.id">
+          {{ foreClosureMethodType.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+  <div data-layout="row" data-layout-gap="16px">
+
+    <mat-checkbox  class="checkbox" labelPosition="before" formControlName="coolingOffApplicability">
+      Cooling Off Enabled
+    </mat-checkbox>
+
+    <mat-form-field *ngIf="loanProductCollectionForm.value.coolingOffApplicability" data-flex="48%">
+      <mat-label>Cooling Off Threshold Days</mat-label>
+      <input type="number" matInput formControlName="coolingOffThresholdDays">
+    </mat-form-field>
+    </div>
+
+  <div *ngIf="loanProductCollectionForm.value.coolingOffApplicability" >
+
+      <div data-layout="row" data-layout-gap="16px">
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Cooling Off Interest And Charge Applicability</mat-label>
+      <mat-select formControlName="coolingOffInterestAndChargeApplicability" >
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let coolingOffInterestAndChargeApplicability of coolingOffInterestAndChargeData" [value]="coolingOffInterestAndChargeApplicability.id">
+          {{ coolingOffInterestAndChargeApplicability.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Cooling Off Interest Logic Applicability</mat-label>
+      <mat-select formControlName="coolingOffInterestLogicApplicability" >
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let coolingOffInterestLogicApplicability of coolingOffInterestData" [value]="coolingOffInterestLogicApplicability.id">
+          {{ coolingOffInterestLogicApplicability.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+  <div data-layout="row" data-layout-gap="16px">
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Cooling Off Days In Year</mat-label>
+      <mat-select formControlName="coolingOffDaysInYear" >
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let daysInYearType of daysInYearTypeData" [value]="daysInYearType.id">
+          {{ daysInYearType.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Cooling Off Rounding Mode</mat-label>
+      <mat-select formControlName="coolingOffRoundingMode" >
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let coolingOffRoundingMode of roundingModes" [value]="coolingOffRoundingMode">
+          {{ coolingOffRoundingMode }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    </div>
+
+    <div data-layout="row" data-layout-gap="16px">
+    <mat-form-field data-flex="48%">
+      <mat-label>Cooling Off Rounding Decimals</mat-label>
+      <input type="number" matInput formControlName="coolingOffRoundingDecimals">
+    </mat-form-field>
+  </div>
+
+  </div>
+
+    <div *ngIf="!loanProductCollectionForm.value.foreClosureMethodType">
+
+      <h4> Foreclosure On Due Date </h4>
+
+      <div data-layout="row" data-layout-gap="16px">
+
+      <mat-form-field data-flex="48">
+        <mat-label>Foreclosure On Due Date Interest</mat-label>
+        <mat-select formControlName="foreclosureOnDueDateInterest" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field data-flex="48">
+        <mat-label>Foreclosure On Due Date Charge</mat-label>
+        <mat-select formControlName="foreclosureOnDueDateCharge" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      </div>
+
+      <h4 > Foreclosure Other Than Due Date </h4>
+
+        <div data-layout="row" data-layout-gap="16px">
+
+      <mat-form-field data-flex="48">
+        <mat-label>Foreclosure Other Than Due Date Interest</mat-label>
+        <mat-select formControlName="foreclosureOtherThanDueDateInterest" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field data-flex="48">
+        <mat-label>Foreclosure Other Than Due Date Charge</mat-label>
+        <mat-select formControlName="foreclosureOtherThanDueDateCharge" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+        </div>
+
+      <h4 > Foreclosure One Month Overdue </h4>
+
+          <div data-layout="row" data-layout-gap="16px">
+      <mat-form-field data-flex="48">
+        <mat-label>Foreclosure One Month Overdue Interest</mat-label>
+        <mat-select formControlName="foreclosureOneMonthOverdueInterest" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field data-flex="48">
+        <mat-label>Foreclosure One Month Overdue Charge</mat-label>
+        <mat-select formControlName="foreclosureOneMonthOverdueCharge" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+          </div>
+
+
+      <h4 > Foreclosure Interest ShortPaid </h4>
+
+        <div data-layout="row" data-layout-gap="16px">
+      <mat-form-field data-flex="48">
+        <mat-label>Foreclosure Short Paid Interest</mat-label>
+        <mat-select formControlName="foreclosureShortPaidInterest" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field data-flex="48">
+        <mat-label>Foreclosure Short Paid Charge</mat-label>
+        <mat-select formControlName="foreclosureShortPaidInterestCharge" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+        </div>
+
+
+      <h4 > Foreclosure Principal ShortPaid  </h4>
+
+        <div data-layout="row" data-layout-gap="16px">
+
+      <mat-form-field data-flex="48">
+        <mat-label>Foreclosure Principal Short Paid Interest</mat-label>
+        <mat-select formControlName="foreclosurePrincipalShortPaidInterest" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field data-flex="48">
+        <mat-label>Foreclosure Principal Short Paid Charge</mat-label>
+        <mat-select formControlName="foreclosurePrincipalShortPaidCharge" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+        </div>
+
+      <h4 > Foreclosure Two Months Overdue </h4>
+
+        <div data-layout="row" data-layout-gap="16px">
+
+      <mat-form-field data-flex="48">
+        <mat-label>Foreclosure Two Months Overdue Interest</mat-label>
+        <mat-select formControlName="foreclosureTwoMonthsOverdueInterest" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field data-flex="48">
+        <mat-label>Foreclosure Two Months Overdue Charge</mat-label>
+        <mat-select formControlName="foreclosureTwoMonthsOverdueCharge" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+        </div>
+
+
+      <h4 > Foreclosure Advance On Due Date </h4>
+        <div data-layout="row" data-layout-gap="16px">
+
+      <mat-form-field data-flex="49">
+        <mat-label>Principal outstanding</mat-label>
+        <mat-select formControlName="foreclosurePosAdvanceOnDueDate" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field data-flex="49">
+        <mat-label>Foreclosure Advance OnDueDate Interest</mat-label>
+        <mat-select formControlName="foreclosureAdvanceOnDueDateInterest" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+          </div>
+
+  <div data-layout="row">
+      <mat-form-field class="custom-mat-filed">
+        <mat-label>Foreclosure Advance OnDueDate Charge</mat-label>
+        <mat-select formControlName="foreclosureAdvanceOnDueDateCharge" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+</div>
+
+      <h4 > Foreclosure Advance Other Than Due Date</h4>
+
+        <div data-layout="row" data-layout-gap="16px">
+
+      <mat-form-field data-flex="49">
+        <mat-label>Principal outstanding</mat-label>
+        <mat-select formControlName="foreclosurePosAdvanceOtherThanDueDate" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field data-flex="49">
+        <mat-label>Foreclosure Advance Other Than Due Date Interest</mat-label>
+        <mat-select formControlName="foreclosureAdvanceAfterDueDateInterest" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+        </div>
+          <div>
+      <mat-form-field class="custom-mat-filed">
+        <mat-label>Foreclosure Advance Other Than Due Date Charge</mat-label>
+        <mat-select formControlName="foreclosureAdvanceAfterDueDateCharge" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+        </div>
+
+      <h4 > Foreclosure Backdated Interest Short Paid </h4>
+
+        <div data-layout="row" data-layout-gap="16px">
+
+      <mat-form-field data-flex="48">
+        <mat-label>Foreclosure Backdated Interest Short Paid Interest</mat-label>
+        <mat-select formControlName="foreclosureBackdatedShortPaidInterest" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field data-flex="48">
+        <mat-label>Foreclosure Backdated Interest Short Paid Charge</mat-label>
+        <mat-select formControlName="foreclosureBackdatedShortPaidInterestCharge" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+        </div>
+
+
+      <h4 > Foreclosure Backdated Interest Fully Paid  </h4>
+        <div data-layout="row" data-layout-gap="16px">
+
+      <mat-form-field data-flex="48">
+        <mat-label>Foreclosure Backdated Interest Fully Paid Interest</mat-label>
+        <mat-select formControlName="foreclosureBackdatedFullyPaidInterest" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field data-flex="48">
+        <mat-label>Foreclosure Backdated Interest FullyPaid Charge</mat-label>
+        <mat-select formControlName="foreclosureBackdatedFullyPaidInterestCharge" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+        </div>
+
+
+      <h4 >Foreclosure Backdated Principal Short Paid </h4>
+        <div data-layout="row" data-layout-gap="16px">
+
+      <mat-form-field data-flex="48">
+        <mat-label>Foreclosure Backdated Principal Short Paid Interest</mat-label>
+        <mat-select formControlName="foreclosureBackdatedShortPaidPrincipalInterest" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field data-flex="48">
+        <mat-label>Foreclosure Backdated Principal Short Paid Charge</mat-label>
+        <mat-select formControlName="foreclosureBackdatedShortPaidPrincipalCharge" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+        </div>
+
+      <h4 > Foreclosure Backdated Emi Interest Fully Paid  </h4>
+
+        <div data-layout="row" data-layout-gap="16px">
+
+      <mat-form-field data-flex="48">
+        <mat-label>Foreclosure Backdated Emi Interest Fully Paid for Interest</mat-label>
+        <mat-select formControlName="foreclosureBackdatedFullyPaidEmiInterest" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field data-flex="48">
+        <mat-label>Foreclosure Backdated Emi Interest Fully Paid for Charge</mat-label>
+        <mat-select formControlName="foreclosureBackdatedFullyPaidEmiCharge" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+        </div>
+
+      <h4 > Foreclosure Backdated Advance  </h4>
+
+        <div data-layout="row" data-layout-gap="16px">
+
+      <mat-form-field data-flex="48">
+        <mat-label>Foreclosure Backdated Advance for Interest </mat-label>
+        <mat-select formControlName="foreclosureBackdatedAdvanceInterest" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field data-flex="48">
+        <mat-label>Foreclosure Backdated Advance for Charge</mat-label>
+        <mat-select formControlName="foreclosureBackdatedAdvanceCharge" >
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let foreclosurePosCalculation of foreclosurePosCalculationData" [value]="foreclosurePosCalculation.id">
+            {{ foreclosurePosCalculation.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+        </div>
+
+</div>
+
+           <div data-layout="row" class="margin-t" data-layout-align="center center" data-layout-gap="6px">
+
+            <button mat-raised-button matStepperPrevious>
+              <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;
+              Previous
+            </button>
+            <button mat-raised-button matStepperNext>
+              Next&nbsp;&nbsp;
+              <fa-icon icon="arrow-right"></fa-icon>
+            </button>
+          </div>
+
+    </form>

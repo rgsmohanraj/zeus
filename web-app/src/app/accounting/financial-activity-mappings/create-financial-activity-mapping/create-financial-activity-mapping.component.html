@@ -1,0 +1,49 @@
+<div class="container">
+
+  <mat-card>
+
+    <form [formGroup]="financialActivityMappingForm" (ngSubmit)="submit()">
+
+      <mat-card-content>
+
+        <div data-layout="column">
+
+          <mat-form-field>
+            <mat-label>Financial Activity</mat-label>
+            <mat-select required formControlName="financialActivityId">
+              <mat-option *ngFor="let financialActivity of financialActivityData" [value]="financialActivity.id">
+                {{ financialActivity.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="financialActivityMappingForm.controls.financialActivityId.hasError('required')">
+              Financial Activity is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Account</mat-label>
+            <mat-select required formControlName="glAccountId">
+              <mat-option *ngFor="let glAccount of glAccountData" [value]="glAccount.id">
+                {{ glAccount.name + ' (' + glAccount.glCode + ')' }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="financialActivityMappingForm.controls.glAccountId.hasError('required')">
+              Account is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+
+      </mat-card-content>
+
+      <div data-layout="row" data-layout-align="center center" data-layout-gap="6px">
+      <mat-card-actions >
+        <button type="button" mat-raised-button [routerLink]="['../']">Cancel</button>
+        <button mat-raised-button color="primary" [disabled]="!financialActivityMappingForm.valid" *mifosxHasPermission="'CREATE_FINANCIALACTIVITYACCOUNT'">Submit</button>
+      </mat-card-actions>
+      </div>
+    </form>
+
+  </mat-card>
+
+</div>

@@ -1,0 +1,22 @@
+table {
+  width: 100%;
+  margin: 3% 0%;
+}
+
+.container {
+  padding-bottom: 2%;
+  margin: 0;
+  max-width: unset;
+    width: unset;
+}
+
+.check {
+  padding-left: 15px;
+}
+
+::ng-deep .mat-tab-body{
+ overflow-y: hidden !important;
+}
+::ng-deep .mat-tab-body-active{
+  overflow-y: hidden !important;
+}

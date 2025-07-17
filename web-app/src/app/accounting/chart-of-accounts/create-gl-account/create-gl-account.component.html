@@ -1,0 +1,99 @@
+<div class="container">
+
+  <mat-card>
+
+    <form [formGroup]="glAccountForm" (ngSubmit)="submit()">
+
+      <mat-card-content>
+
+        <div data-layout="row" data-layout-gap="16px" >
+          <mat-form-field data-flex="40">
+            <mat-label>Account Type</mat-label>
+            <mat-select required formControlName="type">
+              <mat-option *ngFor="let accountType of accountTypeData" [value]="accountType.id">
+                {{ accountType.value }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="glAccountForm.controls.type.hasError('required')">
+              Account Type is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field data-flex="40">
+            <mat-label>Account Name</mat-label>
+            <input matInput required formControlName="name">
+            <mat-error *ngIf="glAccountForm.controls.name.hasError('required')">
+              Account Name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div data-layout="row" data-layout-gap="16px" >
+          <mat-form-field data-flex="40">
+            <mat-label>Account Usage</mat-label>
+            <mat-select required formControlName="usage">
+              <mat-option *ngFor="let accountUsage of accountUsageData" [value]="accountUsage.id">
+                {{ accountUsage.value }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="glAccountForm.controls.usage.hasError('required')">
+              Account Usage is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field data-flex="40">
+            <mat-label>GL Code</mat-label>
+            <input matInput required formControlName="glCode">
+            <mat-error *ngIf="glAccountForm.controls.glCode.hasError('required')">
+              GL Code is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div data-layout="row" data-layout-gap="16px" >
+          <mat-form-field class="custom-mat-filed">
+            <mat-label>Parent</mat-label>
+            <mat-select formControlName="parentId">
+              <mat-option *ngFor="let parent of parentData" [value]="parent.id">
+                ({{ parent.glCode }}) {{ parent.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field data-flex="28%">
+            <mat-label>Tag</mat-label>
+            <mat-select formControlName="tagId">
+              <mat-option *ngFor="let tag of tagData" [value]="tag.id">
+                {{ tag.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div data-flex="18%" class="manual-entries-allowed-wrapper">
+            <mat-checkbox labelPosition="before" required formControlName="manualEntriesAllowed" class="manual-entries-allowed">
+              Manual Entries Allowed
+            </mat-checkbox>
+          </div>
+        </div>
+
+        <div data-layout="row" data-layout-gap="16px" >
+          <mat-form-field data-flex="98%">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description"></textarea>
+          </mat-form-field>
+        </div>
+
+      </mat-card-content>
+
+
+      <div  data-layout="row"  data-layout-align="center center" data-layout-gap="6px">
+      <mat-card-actions>
+        <button type="button" mat-raised-button [routerLink]="[cancelRoute]">Cancel</button>
+        <button mat-raised-button color="primary" [disabled]="!glAccountForm.valid" *mifosxHasPermission="'CREATE_GLACCOUNT'">Submit</button>
+      </mat-card-actions>
+      </div>
+    </form>
+
+  </mat-card>
+
+</div>

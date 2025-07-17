@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+
+<div mat-dialog-content [formGroup]="form" >
+
+  <div *ngFor="let formfield of formfields" [data-flex]="layout.flex + '%'">
+    <mifosx-formfield [formfield]="formfield" [form]="form" ></mifosx-formfield>
+  </div>
+
+</div>
+
+<mat-dialog-actions data-layout="row"  data-layout-align="center center" data-layout-gap="6px">
+  <button mat-raised-button mat-dialog-close>{{ layout.cancelButtonText }}</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="{ data: form }" [disabled]="!form.valid || form.pristine">{{ layout.addButtonText }}</button>
+</mat-dialog-actions>

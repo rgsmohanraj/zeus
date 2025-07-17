@@ -1,0 +1,49 @@
+<div class="container">
+
+  <mat-card>
+
+    <div>
+
+      <form #formRef="ngForm" [formGroup]="currencyForm" data-layout="row" data-layout-align="start baseline"
+            data-layout-gap="16px"  (ngSubmit)="addCurrency()">
+
+        <mat-form-field class="custom-mat-filed">
+            <mat-label>Currency</mat-label>
+            <mat-select required formControlName="currency">
+              <mat-option  [value]="64">
+                Indian Rupee
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="currencyForm.controls.currency.hasError('required')">
+              Currency is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button  color="primary"
+          [disabled]="!currencyForm.valid" *mifosxHasPermission="'UPDATE_CURRENCY'">
+          <fa-icon icon="plus"></fa-icon>
+        </button>
+
+      </form>
+
+    </div>
+
+    <mat-grid-list cols="2" rowHeight="50px">
+
+      <mat-grid-tile *ngFor="let currency of selectedCurrencies; index as i">
+
+        <input matInput [value]="currency.name">
+
+        <div data-layout="row" data-layout-align="start start">
+          <button mat-button color="warn" (click)="deleteCurrency(currency.code, i)" *mifosxHasPermission="'UPDATE_CURRENCY'">
+            <fa-icon icon="trash"></fa-icon>
+          </button>
+        </div>
+
+      </mat-grid-tile>
+
+    </mat-grid-list>
+
+  </mat-card>
+
+</div>

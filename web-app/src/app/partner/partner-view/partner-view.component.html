@@ -1,0 +1,218 @@
+<div class="container">
+
+  <div class="m-b-20" data-layout="row reverse">
+    <button mat-raised-button color="primary" [routerLink]="['edit']" *mifosxHasPermission="'UPDATE_LOANPRODUCT'">
+      <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;
+      Edit
+    </button>
+  </div>
+
+  <mat-card>
+
+    <mat-card-content>
+
+      <div>
+
+        <h2 class="mat-h2">{{ partnerViewData.partnerName }}</h2>
+
+        <mat-divider [inset]="true"></mat-divider>
+
+        <h3 class="mat-h3">Basic Details</h3>
+
+        <mat-divider [inset]="true"></mat-divider>
+
+        <div *ngIf="partnerViewData.partnerName">
+          <span data-flex="30">Partner Name :</span>
+          <span data-flex="70">{{ partnerViewData.partnerName }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.partnerCompanyRegistrationDate">
+          <span data-flex="30">Company Registration Date :</span>
+          <span data-flex="70">{{ partnerViewData.partnerCompanyRegistrationDate | dateFormat }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.source.name!= undefined">
+          <span data-flex="30">Source :</span>
+          <span data-flex="70">{{ partnerViewData.source.name }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.panCard">
+          <span data-flex="30">PAN Card :</span>
+          <span data-flex="70">{{ partnerViewData.panCard }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.cinNumber">
+          <span data-flex="30">CIN Number :</span>
+          <span fxFlex="70%">{{ partnerViewData.cinNumber }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.address1">
+          <span data-flex="30">Address 1 :</span>
+          <span data-flex="70"> {{ partnerViewData.address1 }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.address2">
+          <span data-flex="30">Address 2 :</span>
+          <span data-flex="70"> {{ partnerViewData.address2}}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.city">
+          <span data-flex="30"> City: </span>
+          <span data-flex="70">{{ partnerViewData.city }}</span>
+        </div>
+
+
+        <div *ngIf="partnerViewData.state.name!= undefined">
+          <span data-flex="30">State :</span>
+          <span data-flex="70">{{ partnerViewData.state.name }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.pincode">
+          <span data-flex="30">Pincode :</span>
+          <span data-flex="70">{{ partnerViewData.pincode }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.country.name!= undefined">
+          <span data-flex="30">Country :</span>
+          <span data-flex="70">{{ partnerViewData.country.name }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.constitution.name!= undefined">
+          <span data-flex="30">Constitution :</span>
+          <span data-flex="70">{{ partnerViewData.constitution.name }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.keyPersons">
+          <span data-flex="30">Key Persons :</span>
+          <span data-flex="70">{{ partnerViewData.keyPersons}}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.industry.name!= undefined">
+          <span data-flex="30">Industry :</span>
+          <span data-flex="70">{{ partnerViewData.industry.name }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.sector.name!= undefined">
+          <span data-flex="30">Sector :</span>
+          <span data-flex="70">{{ partnerViewData.sector.name }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.subSector.name!= undefined">
+          <span data-flex="30">Sub-Sector :</span>
+          <span data-flex="70">{{ partnerViewData.subSector.name }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.gstNumber">
+          <span data-flex="30">GST Number :</span>
+          <span data-flex="70">{{ partnerViewData.gstNumber}}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.gstRegistration.name!= undefined">
+          <span data-flex="30">GST Registration :</span>
+          <span data-flex="70">{{ partnerViewData.gstRegistration.name }}</span>
+        </div>
+
+        <mat-divider fxFlex="98%"></mat-divider>
+
+        <h3 class="mat-h3">Partner Details</h3>
+
+        <mat-divider [inset]="true"></mat-divider>
+
+        <div *ngIf="partnerViewData.partnerType.name!= undefined">
+          <span data-flex="30">Partner Type</span>
+          <span data-flex="70">{{ partnerViewData.partnerType.name }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.modelLimit">
+          <span data-flex="30">Model Limit</span>
+          <span data-flex="70">{{ partnerViewData.modelLimit }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.approvedLimit">
+          <span data-flex="30">Approved Limit:</span>
+          <span data-flex="70">{{ partnerViewData.approvedLimit }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.pilotLimit">
+          <span data-flex="30">Pilot Limit</span>
+          <span data-flex="70">{{ partnerViewData.pilotLimit }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.partnerFloatLimit">
+          <span data-flex="30">Partner Float Limit</span>
+          <span data-flex="70">{{ partnerViewData.partnerFloatLimit }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.balanceLimit">
+          <span data-flex="30">Balance Limit:</span>
+          <span data-flex="70">{{ partnerViewData.balanceLimit }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.agreementStartDate">
+          <span data-flex="30">Agreement Start Date:</span>
+          <span data-flex="70">{{ partnerViewData.agreementStartDate | dateFormat }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.agreementExpiryDate">
+          <span data-flex="30">Agreement Expiry Date</span>
+          <span data-flex="70">{{ partnerViewData.agreementExpiryDate | dateFormat}}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.underlyingAssets.name!= undefined">
+          <span data-flex="30">Underlying Assets</span>
+          <span data-flex="70">{{ partnerViewData.underlyingAssets.name }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.security.name!= undefined">
+          <span data-flex="30">Security</span>
+          <span data-flex="70">{{ partnerViewData.security.name }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.fldgCalculationOn.name!= undefined">
+          <span data-flex="30">FLDG Calculation On</span>
+          <span data-flex="70">{{ partnerViewData.fldgCalculationOn.name }}</span>
+        </div>
+
+        <mat-divider fxFlex="98%"></mat-divider>
+
+        <h3 class="mat-h3">Beneficiary Details</h3>
+
+        <mat-divider [inset]="true"></mat-divider>
+
+        <div *ngIf="partnerViewData.beneficiaryName">
+          <span data-flex="30">Beneficiary Name:</span>
+          <span data-flex="70">{{ partnerViewData.beneficiaryName}}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.beneficiaryAccountNumber">
+          <span data-flex="30">Beneficiary Account Number:</span>
+          <span data-flex="70">{{ partnerViewData.beneficiaryAccountNumber }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.ifscCode">
+          <span data-flex="30">IFSC Code:</span>
+          <span data-flex="70">{{ partnerViewData.ifscCode}}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.micrCode">
+          <span data-flex="30">MICR Code:</span>
+          <span data-flex="70">{{ partnerViewData.micrCode}}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.swiftCode">
+          <span data-flex="30">Swift Code</span>
+          <span data-flex="70">{{ partnerViewData.swiftCode }}</span>
+        </div>
+
+        <div *ngIf="partnerViewData.branch">
+          <span data-flex="30">Branch</span>
+          <span data-flex="70">{{ partnerViewData.branch }}</span>
+        </div>
+
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>

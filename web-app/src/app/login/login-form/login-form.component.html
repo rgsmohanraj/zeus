@@ -1,0 +1,58 @@
+<!-- <style>
+  .d-block{
+  display:block !important;
+  }
+
+</style> -->
+ 
+<div class = "container" data-layout-align="center center">
+<mat-card  style="margin-top: 95px; width:fit-content;" >
+  <div style="display: flex;margin: 0% 38%;">
+    <img src="assets/images/mifos-logo-flat.png" alt="Vivriti"   class="img-container" style="width: 35px; height: 35px;">
+    <div style="margin-top: 12%;margin-left: 5%;">ZEUS</div>
+  </div>
+<form  [formGroup]="loginForm" (ngSubmit)="login()" id="login-form">
+
+  <mat-form-field data-layout-align="center center" class="login-input" style="display:block !important;">
+    <span matPrefix>
+      <fa-icon icon="user-circle" size="lg"></fa-icon>&nbsp;&nbsp;
+    </span>
+    <mat-label>Username</mat-label>
+    <input matInput type="text" autocomplete="off" formControlName="username">
+    <mat-error *ngIf="loginForm.controls.username.hasError('required')">
+      Username is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field data-layout-align="center center" class="login-input" style="display:block !important;">
+    <span matPrefix>
+      <fa-icon icon="lock" size="lg"></fa-icon>&nbsp;&nbsp;
+    </span>
+    <mat-label>Password</mat-label>
+    <input matInput type="{{ passwordInputType }}" formControlName="password">
+    <button mat-button *ngIf="loginForm.controls.password.value && !loading" matSuffix mat-icon-button
+      (mousedown)="passwordInputType = 'text'" (mouseup)="passwordInputType = 'password'">
+      <fa-icon *ngIf="passwordInputType === 'password'" icon="eye"></fa-icon>
+      <fa-icon *ngIf="passwordInputType === 'text'" icon="eye-slash"></fa-icon>
+    </button>
+    <mat-error *ngIf="loginForm.controls.password.hasError('required')">
+      Password is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-checkbox data-layout-align="center" formControlName="remember"  class="m-t-10" style="display:block !important;">Remember me</mat-checkbox>
+
+  <button mat-raised-button color="primary" fxFlexAlign="center" class="login-button" style="display:block !important;" [disabled]="!loginForm.valid">
+    Login
+    <mat-spinner [diameter]="20" *ngIf="loading"></mat-spinner>
+  </button>
+
+  <button type="button" mat-button data-layout-align="center" class="login-button" (click)="forgotPassword()" [disabled]="loading">
+    Forgot Password?
+  </button>
+
+</form>
+</mat-card>
+</div>
+
+

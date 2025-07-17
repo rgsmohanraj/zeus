@@ -1,0 +1,325 @@
+<div class="container" >
+
+  <div data-layout-gap="10px" class="m-b-20" >
+
+    <mat-card data-layout="column" data-layout-gap="16px" data-flex="48%">
+
+      <h3><strong>{{bulkImport.name}} Template</strong></h3>
+
+      <form [formGroup]="bulkImportForm">
+
+        <mat-card-content>
+          <div *ngIf="bulkImport.formFields >= 1 && bulkImport.formFields != 4">
+            <mat-form-field data-flex="98">
+              <mat-label>Partner </mat-label>
+              <mat-select required formControlName="partnerId" (selectionChange)="someMethod($event.value)" >
+                <mat-option *ngFor="let partner of partnerData" [value]="partner">
+                {{ partner.partnerName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div *ngIf="bulkImport.formFields >= 2 && bulkImport.formFields != 4">
+            <mat-form-field data-flex="98">
+              <mat-label>Product </mat-label>
+              <mat-select required formControlName="productId">
+                <mat-option *ngFor="let product of productData" [value]="product.productId">
+                  {{ product.productName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div *ngIf="bulkImport.formFields === 5">
+            <mat-form-field data-flex="98">
+              <mat-label>Staff </mat-label>
+              <mat-select required formControlName="staffId">
+                <mat-option *ngFor="let staff of staffData" [value]="staff.id">
+                {{ staff.displayName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div *ngIf="bulkImport.formFields === 5">
+            <mat-form-field data-flex="98">
+              <mat-label>Legal Form </mat-label>
+              <mat-select required formControlName="legalForm">
+                <mat-option value="Entity">Entity</mat-option>
+                <mat-option value="Person">Person</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+        <div *ngIf="bulkImport.formFields === 4"  data-layout="row" data-layout-gap="16px"  >
+            <mat-form-field data-flex="48%" (click)="fromDate.open()">
+              <mat-label>From Date </mat-label>
+              <input matInput required [max]="maxDate" [matDatepicker]="fromDate" formControlName="fromDate">
+              <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
+              <mat-datepicker #fromDate></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field data-flex="48%" (click)="toDate.open()">
+              <mat-label>To Date </mat-label>
+              <input matInput required [min]="minDate" [max]="maxDate"  [matDatepicker]="toDate" formControlName="toDate">
+              <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
+              <mat-datepicker #toDate></mat-datepicker>
+            </mat-form-field>
+
+     </div>
+
+          <div  *ngIf="bulkImport.formFields === 4" >
+            <mat-form-field class="custom-mat-filed">
+              <mat-label>Type </mat-label>
+              <mat-select required formControlName="typeId" (selectionChange)="typeCode($event.value)">
+                <mat-option *ngFor="let type of enumType" [value]="type" >
+                  {{ type.value }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+
+      </form>
+      <div  data-layout="row" data-layout-align="end end" data-layout-gap="20px">
+      <div *ngIf="bulkImport.formFields ===4 ">
+        <button  mat-raised-button color="primary" [disabled]="!bulkImportForm.valid" (click)="searchReportsData()"  *mifosxHasPermission="bulkImport.permission">
+          <fa-icon icon="search"></fa-icon>&nbsp; &nbsp;&nbsp;Search
+        </button>
+      </div>
+     </div>
+      <div data-flex="13" *ngIf="bulkImport.formFields === 3">
+        <button class="download-collection" mat-raised-button color="primary" [disabled]="!bulkImportForm.valid" (click)="downloadCollectionTemplate()" *mifosxHasPermission="bulkImport.permission">
+          <i class="fa fa-download"></i>&nbsp;&nbsp;Download
+        </button>
+      </div>
+      <div data-flex="13%" *ngIf="bulkImport.formFields != 3 && bulkImport.formFields != 4">
+        <button mat-raised-button color="primary"
+        [disabled]="!bulkImportForm.valid" (click)="downloadTemplate()"
+        *mifosxHasPermission="bulkImport.permission">
+          <i class="fa fa-download"></i>&nbsp;&nbsp;Download
+        </button>
+      </div>
+
+    </mat-card>
+
+    <mat-card data-layout="column" data-layout-gap="6px" data-flex="50%" *ngIf="bulkImport.formFields != 4" >
+
+      <h3><strong>{{bulkImport.name}}</strong></h3>
+
+      <h4>Select Excel File</h4>
+
+      <mifosx-file-upload data-flex="48" class="upload" (change)="onFileSelect($event)"></mifosx-file-upload>
+
+      <mat-hint *ngIf="bulkImport.name === 'Clients'">Please retain the value Entity/Person in the filename.</mat-hint>
+
+      <div data-flex="13%" >
+        <button mat-raised-button color="primary" [disabled]="uploadShow" (click)="upload()">
+        <i class="fa fa-upload"></i>&nbsp;&nbsp;Upload
+        </button>
+        </div>
+
+      <div *ngIf="bulkImport.formFields >= 2"  class="cover"></div>
+
+    </mat-card>
+
+  </div>
+
+  <mat-card>
+
+    <div  *ngIf="bulkImport.formFields != 4">
+      <h3 class="documents"><strong>Documents</strong></h3>
+    </div>
+
+    <div class="imports-table mat-elevation-z1" *ngIf="bulkImport.formFields != 4">
+
+      <table #importsTable mat-table [dataSource]="bulkLoans" matSort>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <td mat-cell *matCellDef="let bulkLoan"> {{ bulkLoan.documentId }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="importTime">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Import Time </th>
+          <td mat-cell *matCellDef="let bulkLoan"> {{ bulkLoan.importTime  | dateFormat }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="endTime">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> End Time </th>
+          <td mat-cell *matCellDef="let bulkLoan"> {{ bulkLoan.endTime  | dateFormat }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="completed">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Completed </th>
+          <td mat-cell *matCellDef="let bulkLoan"> {{ bulkLoan.completed }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="totalRecords">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Records </th>
+          <td mat-cell *matCellDef="let bulkLoan"> {{ bulkLoan.totalRecords }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="successCount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Success Count </th>
+          <td mat-cell *matCellDef="let bulkLoan"> {{ bulkLoan.successCount }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="failureCount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Failure Count </th>
+          <td mat-cell *matCellDef="let bulkLoan"> {{ bulkLoan.failureCount }} </td>
+        </ng-container>
+
+<!--        <ng-container matColumnDef="download" *ngIf="bulkImport.formFields === 4">-->
+<!--          <th mat-header-cell *matHeaderCellDef mat-sort-header > Download </th>-->
+<!--          <td mat-cell *matCellDef="let import">-->
+<!--            <button mat-icon-button (click)="downloadDocument(bulkLoans.name, bulkLoans.importId)" *mifosxHasPermission="'READ_DOCUMENT'">-->
+<!--              <fa-icon icon="cloud-download-alt"></fa-icon>-->
+<!--            </button>-->
+<!--          </td>-->
+<!--        </ng-container>-->
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="select-row"></tr>
+
+      </table>
+
+    </div>
+
+    <div *ngIf="bulkImport.formFields === 4">
+      <h3 class="documents"><strong>Document</strong></h3>
+    </div>
+
+    <div class="imports-table mat-elevation-z1" *ngIf="bulkImport.formFields === 4">
+
+      <table #importsTable mat-table [dataSource]="bulkReportsLoan" matSort>
+
+        <ng-container matColumnDef="serialNo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> S.No </th>
+          <!--          <td mat-cell *matCellDef="let bulkDetails"> {{ bulkDetails.serialNo }} </td>-->
+          <td mat-cell *matCellDef="let bulkReportsLoan; let i = index;"> {{i+1}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>File Name </th>
+          <td mat-cell *matCellDef="let bulkReportsLoan"> {{ bulkReportsLoan.name }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="importTime">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Uploaded Date </th>
+          <td mat-cell *matCellDef="let bulkReportsLoan"> {{ bulkReportsLoan.importTime  | dateFormat   }} </td>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="endTime">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> End Time </th>
+          <td mat-cell *matCellDef="let bulkReportsLoan"> {{ bulkReportsLoan.endTime   | dateFormat }} </td>
+        </ng-container> -->
+
+        <ng-container matColumnDef="totalRecords">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Records </th>
+          <td mat-cell *matCellDef="let bulkReportsLoan"> {{ bulkReportsLoan.totalRecords }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="successCount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Success Count </th>
+          <td mat-cell *matCellDef="let bulkReportsLoan"> {{ bulkReportsLoan.successCount }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="failureCount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Failure Count </th>
+          <td mat-cell *matCellDef="let bulkReportsLoan"> {{ bulkReportsLoan.failureCount }} </td>
+        </ng-container>
+
+       <ng-container matColumnDef="download" >
+         <th mat-header-cell *matHeaderCellDef mat-sort-header > Download </th>
+         <td mat-cell *matCellDef="let bulkReportsLoan">
+           <button mat-icon-button    (click)="downloadBulkReportDocument(bulkReportsLoan)" >
+             <fa-icon icon="cloud-download-alt"></fa-icon>
+            </button>
+         </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="bulkColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: bulkColumns;" class="select-row"></tr>
+
+      </table>
+
+    </div>
+
+
+    <div *ngIf="bulkImport.formFields != 4">
+      <h3 class="documents" style="margin-top: 2rem;"><strong>Details</strong></h3>
+    </div>
+
+    <div class="m-b-10"  data-layout-align="end end" *ngIf="bulkImport.formFields != 4">
+      <button mat-raised-button color="primary" (click)="downloadCSV()" style="margin-right:0%;">
+        Download
+      </button>
+    </div>
+
+    <div class="imports-table mat-elevation-z1" #TABLE *ngIf="bulkImport.formFields != 4">
+
+      <table #importsTable mat-table [dataSource]="bulkDetails" matSort>
+
+        <ng-container matColumnDef="serialNo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> S.No </th>
+<!--          <td mat-cell *matCellDef="let bulkDetails"> {{ bulkDetails.serialNo }} </td>-->
+          <td mat-cell *matCellDef="let bulkDetails; let i = index;"> {{i+1}} </td>
+        </ng-container>
+
+<!--        <ng-container matColumnDef="uploadId">-->
+<!--          <th mat-header-cell *matHeaderCellDef mat-sort-header> Upload ID </th>-->
+<!--          <td mat-cell *matCellDef="let bulkDetails"> {{ bulkDetails.importId }} </td>-->
+<!--        </ng-container>-->
+
+        <ng-container matColumnDef="externalId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> External ID </th>
+          <td mat-cell *matCellDef="let bulkDetails"> {{ bulkDetails.externalId }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="loanAccountNo">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Loan Account No </th>
+          <td mat-cell *matCellDef="let bulkDetails"> {{ bulkDetails.loanAccountNo }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+          <td mat-cell *matCellDef="let bulkDetails"> {{ bulkDetails.status }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+          <td mat-cell *matCellDef="let bulkDetails"> {{ bulkDetails.date | dateFormat  }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="reason">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Reason </th>
+          <td mat-cell *matCellDef="let bulkDetails"> {{ bulkDetails.reason }} </td>
+        </ng-container>
+
+
+<!--        <ng-container matColumnDef="download">-->
+<!--          <th mat-header-cell *matHeaderCellDef mat-sort-header> Download </th>-->
+<!--          <td mat-cell *matCellDef="let import">-->
+<!--            <button mat-icon-button (click)="downloadDetails(import.serialNo, import.importId)" *mifosxHasPermission="'READ_DOCUMENT'">-->
+<!--              <fa-icon icon="cloud-download-alt"></fa-icon>-->
+<!--            </button>-->
+<!--          </td>-->
+<!--        </ng-container>-->
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedDetailsColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedDetailsColumns;" class="select-row"></tr>
+
+      </table>
+
+    </div>
+
+
+
+    <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons ></mat-paginator>
+
+  </mat-card>
+
+</div>

@@ -1,0 +1,744 @@
+<form [formGroup]="loanProductSignatureForm">
+
+  <div data-layout="row " data-layout-gap="16px"  data-layout-align="start center">
+
+      <mat-form-field data-flex="48%">
+        <mat-label>Framework</mat-label>
+        <mat-select formControlName="frameWork">
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let frameWork of frameworkData" [value]="frameWork.id">
+            {{ frameWork.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          FrameWork is
+        </mat-error>
+      </mat-form-field>
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Loan Type</mat-label>
+      <mat-select formControlName="loanType">
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let loanType of loanTypeData" [value]="loanType.id">
+          {{ loanType.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        LoanType is
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+
+    <mat-divider ></mat-divider>
+
+
+  <h4 class="mat-h4">Back Dated Disbursement</h4>
+
+  <div data-layout="row " data-layout-gap="16px" >
+
+<!--    <mat-form-field class="mat-filed">-->
+<!--      <mat-label>Enable BackDated Disbursement</mat-label>-->
+<!--      <mat-select formControlName="enableBackDatedDisbursement" required>-->
+<!--        <mat-option>Select</mat-option>-->
+<!--        <mat-option *ngFor="let enableBackDatedDisbursement of enableBackDatedDisbursementData" [value]="enableBackDatedDisbursement.id">-->
+<!--          {{ enableBackDatedDisbursement.value }}-->
+<!--        </mat-option>-->
+<!--      </mat-select>-->
+<!--    </mat-form-field>-->
+
+    <mat-checkbox labelPosition="before" class="custom-checkbox-margin" formControlName="enableBackDatedDisbursement">
+      Enable Back Dated Disbursement
+    </mat-checkbox>
+
+  </div>
+
+    <h4 class="mat-h4">Bank Transaction</h4>
+
+<div data-layout="row " data-layout-gap="16px" >
+
+    <mat-checkbox data-flex="48%" labelPosition="before" formControlName="isPennyDropEnabled" >
+      Penny Drop
+    </mat-checkbox>
+
+    <mat-checkbox data-flex="48%" labelPosition="before" formControlName="isBankDisbursementEnabled" >
+      Bank Disbursement
+    </mat-checkbox>
+
+</div>
+
+<div data-layout="row " data-layout-gap="16px">
+
+    <mat-form-field data-flex="48%" *ngIf="!loanProductSignatureForm.value.isBankDisbursementEnabled">
+      <mat-label>Transaction Type</mat-label>
+      <mat-select formControlName="transactionTypePreference" [disabled]="!loanProductSignatureForm.value.isBankDisbursementEnabled">
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let transactionTypePreference of transactionTypeData" [value]="transactionTypePreference.id">
+          {{ transactionTypePreference.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field data-flex="48%" *ngIf="loanProductSignatureForm.value.isBankDisbursementEnabled">
+      <mat-label>Transaction Type</mat-label>
+      <mat-select formControlName="transactionTypePreference" required>
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let transactionTypePreference of transactionTypeData"
+          [value]="transactionTypePreference.id">
+          {{ transactionTypePreference.value }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        Transaction Type is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field data-flex="48%" *ngIf="(!loanProductSignatureForm.value.isBankDisbursementEnabled && !loanProductSignatureForm.value.isPennyDropEnabled)">
+      <mat-label>Disbursement Bank Account Name</mat-label>
+      <mat-select formControlName="disbursementBankAccountName" [disabled]="(!loanProductSignatureForm.value.isBankDisbursementEnabled && !loanProductSignatureForm.value.isPennyDropEnabled)">
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let disbursementBankAccountNameOption of disbursementBankAccountNameOptions"
+          [value]="disbursementBankAccountNameOption.id">
+          {{ disbursementBankAccountNameOption.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field data-flex="48%" *ngIf="(loanProductSignatureForm.value.isBankDisbursementEnabled || loanProductSignatureForm.value.isPennyDropEnabled)">
+      <mat-label>Disbursement Bank Account Name</mat-label>
+      <mat-select formControlName="disbursementBankAccountName" required>
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let disbursementBankAccountNameOption of disbursementBankAccountNameOptions"
+          [value]="disbursementBankAccountNameOption.id">
+          {{ disbursementBankAccountNameOption.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        Disbursement Bank Account Name <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+</div>
+    <mat-divider ></mat-divider>
+
+    <h4 fxFlex="98%" class="mat-h4">Disbursement & Collection Mode</h4>
+
+  <div data-layout="row " data-layout-gap="16px">
+    <mat-form-field data-flex="48%">
+      <mat-label>Disbursement</mat-label>
+      <mat-select formControlName="disbursement" required>
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let disbursement of disbursementData" [value]="disbursement.id">
+          {{ disbursement.value }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        Disbursement is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Collection</mat-label>
+      <mat-select formControlName="collection" required>
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let collection of collectionData" [value]="collection.id">
+          {{ collection.value }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        Collection is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+
+    <h4  class="mat-h4">Bank Account Number</h4>
+
+  <div data-layout="row " data-layout-gap="16px">
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Disbursement Account Number</mat-label>
+      <input type="number" matInput formControlName="disbursementAccountNumber">
+    </mat-form-field>
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Collection Account Number</mat-label>
+      <input type="number" matInput formControlName="collectionAccountNumber">
+    </mat-form-field>
+  </div>
+
+    <div data-layout="row " data-layout-gap="16px">
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Penal Invoice</mat-label>
+      <mat-select formControlName="penalInvoice" >
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let penalInvoice of penalInvoiceData" [value]="penalInvoice.id">
+          {{ penalInvoice.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Multiple Disbursement</mat-label>
+      <mat-select formControlName="multipleDisbursement" >
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let multipleDisbursement of multipleDisbursementData" [value]="multipleDisbursement.id">
+          {{ multipleDisbursement.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    </div>
+
+      <div data-layout="row " data-layout-gap="16px">
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Tranche Clubbing</mat-label>
+      <mat-select formControlName="trancheClubbing" >
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let trancheClubbing of trancheClubbingData" [value]="trancheClubbing.id">
+          {{ trancheClubbing.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Repayment Schedule Update Allowed</mat-label>
+      <mat-select formControlName="repaymentScheduleUpdateAllowed" >
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let repaymentScheduleUpdateAllowed of repaymentScheduleUpdateAllowedData" [value]="repaymentScheduleUpdateAllowed.id">
+          {{ repaymentScheduleUpdateAllowed.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+      </div>
+
+
+    <!--    <h3 fxFlex="73%" class="mat-h3">Co-Lending Loan</h3>-->
+    <mat-checkbox fxFlex="73%" labelPosition="before" formControlName="enableColendingLoan" class="margin-v mb-4">
+      Enable Co-Lending Loan
+    </mat-checkbox>
+
+    <div *ngIf="loanProductSignatureForm.value.enableColendingLoan" fxFlexFill fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column">
+
+      <mat-checkbox fxFlex="48%" labelPosition="before" formControlName="byPercentageSplit" class="margin-v">
+        By Percentage Split
+      </mat-checkbox>
+
+    </div>
+
+    <div *ngIf="loanProductSignatureForm.value.byPercentageSplit" class="table-responsive" fxFlexFill fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column">
+      <div style="width:25%;">
+        <mat-form-field style="width:80%;">
+          <mat-label>Partner</mat-label>
+          <mat-select formControlName="partnerId" required >
+            <mat-option>Select</mat-option>
+            <mat-option *ngFor="let partner of partnerData" [value]="partner.id">
+              {{ partner.partnerName }}
+            </mat-option>
+          </mat-select>
+          <mat-error>
+            Partner is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div style="width:100%;display:flex;">
+        <div style="width:25%;"></div>
+        <div style="width:25%;">Client Share</div>
+        <div style="width:25%;">Self Share</div>
+        <div style="width:25%;">Partner Share</div>
+      </div>
+      <div style="width:100%;display:flex;">
+        <div style="width:25%;margin-top:3%;">Principal Share</div>
+        <div style="width:25%;">
+          <mat-form-field style="width:80%;" appearance="fill">
+              <input type="number" value="100" matInput formControlName="principalShare" placeholder="100" [readonly]="true">
+          </mat-form-field>
+        </div>
+        <div style="width:25%;">
+          <mat-form-field style="width:80%;" appearance="fill">
+              <input type="number"  min="0" max="100"  matInput formControlName="selfPrincipalShare" (change)="principalChange()">
+          </mat-form-field>
+        </div>
+        <div style="width:25%;">
+          <mat-form-field style="width:80%;">
+            <input type="number" min="0" max="100" matInput formControlName="partnerPrincipalShare">
+          </mat-form-field>
+        </div>
+      </div>
+      <div style="width:100%;display:flex;">
+        <div style="width:25%;margin-top:3%;">Interest Rate</div>
+        <div style="width:25%;">
+          <mat-form-field style="width:80%;" appearance="fill">
+            <input type="number" value="100"  matInput formControlName="interestRate" placeholder="100" [readonly]="true">
+          </mat-form-field>
+        </div>
+        <div style="width:25%;">
+          <mat-form-field style="width:80%;" appearance="fill">
+            <input type="number" min="0" max="100"  matInput formControlName="selfInterestRate" (change)="interestChange()">
+          </mat-form-field>
+        </div>
+        <div style="width:25%;">
+          <mat-form-field style="width:80%;">
+            <input type="number" min="0" max="100" matInput formControlName="partnerInterestRate">
+          </mat-form-field>
+        </div>
+      </div>
+      <div style="width:100%;display:flex;">
+        <div style="width:25%;margin-top:3%;">Broken Period Interest</div>
+        <div style="width:25%;">
+          <mat-form-field style="width:80%;" appearance="fill">
+            <input type="number" value="100"  matInput formControlName="brokenPeriodInterest" placeholder="100" [readonly]="true">
+          </mat-form-field>
+        </div>
+        <div style="width:25%;">
+          <mat-form-field style="width:80%;" appearance="fill">
+            <input type="number" min="0" max="100"  matInput formControlName="vcplShareInBrokenInterest" (change)="brokenChange()" >
+          </mat-form-field>
+        </div>
+        <div style="width:25%;">
+          <mat-form-field style="width:80%;">
+            <input type="number" min="0" max="100"  matInput formControlName="partnerShareInBrokenInterest" >
+          </mat-form-field>
+        </div>
+      </div>
+
+<!--      <mat-form-field fxFlex="48%">-->
+<!--        <mat-label>VCPL Hurdle Rate</mat-label>-->
+<!--        <input type="number" matInput formControlName="vcplHurdleRate" required>-->
+<!--        <mat-error>-->
+<!--          VCPL Hurdle Rate is <strong>required</strong>-->
+<!--        </mat-error>-->
+<!--      </mat-form-field>-->
+
+
+<!--      <div>-->
+<!--        <button  type="button" mat-raised-button color="primary">Validate</button>-->
+<!--      </div>-->
+
+    <div data-layout="row wrap">
+      <mat-checkbox  labelPosition="before" formControlName="enableFeesWiseBifacation" class="margin-v">
+        Enable Fees
+      </mat-checkbox>
+
+      <div  style="width:100%;" *ngIf="loanProductSignatureForm.value.enableFeesWiseBifacation" formArrayName="selectFees">
+        <div style="width:100%;display:block !important;">
+          <button  type="button" mat-raised-button  color="primary" (click)="addSelectFeesArr()">
+            <fa-icon icon="plus-circle" size="lg"></fa-icon>Add
+          </button>
+        </div><br>
+        <div   *ngFor="let fees of selectFees.controls; let i = index;" style="width:100%;display:block !important;">
+          <div   [formGroupName]="i" style="width:100%;display:block !important;">
+            <div style="display:flex">
+              <div style="width:25%;">
+                <mat-form-field >
+                  <mat-label>Select Fees</mat-label>
+                  <mat-select formControlName="colendingFees" (selectionChange)="FeesValue($event);" >
+                    <mat-option>Select</mat-option>
+                    <mat-option *ngFor="let colendingFee of colendingFeesData" [value]="colendingFee.id">
+                      {{ colendingFee.name }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>
+                    Fees is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div *ngIf="loanProductSignatureForm.value.selectFees[i].colendingFees!=''" style="width:75%;">
+                <div style="width:100%;display:flex;">
+                  <div style="width:35%;">
+                    <mat-form-field>
+                      <input type="number" min="0" max="100"  value="100" placeholder="100" [readonly]="true" matInput formControlName="clientFees">
+                    </mat-form-field>
+                  </div>
+                  <div style="width:35%;">
+                    <mat-form-field appearance="fill">
+                      <input type="number" min="0" max="100"  matInput formControlName="selfFees">
+                    </mat-form-field>
+                  </div>
+                  <div style="width:25;">
+                    <mat-form-field>
+                      <input type="number" min="0" max="100"  matInput formControlName="partnerFees">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <span>
+                <button *ngIf="i !== 0" type="button" color="warn" mat-raised-button  (click)="removeSelectFeesArr(i)">
+                  <fa-icon icon="times" size="lg"></fa-icon>
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      </div>
+
+
+      <div data-layout="row wrap">
+
+      <mat-checkbox fxFlex="98%" labelPosition="before" formControlName="enableChargeWiseBifacation" class="margin-v">
+        Enable Charges
+      </mat-checkbox>
+      <div  style="width:100%;" *ngIf="loanProductSignatureForm.value.enableChargeWiseBifacation" >
+        <div style="width:100%;display:block !important;">
+          <button type="button" mat-raised-button  color="primary" (click)="addSelectChargeArr()">
+            <fa-icon icon="plus-circle" size="lg"></fa-icon>Add
+          </button>
+        </div><br>
+        <div  formArrayName="selectCharge" *ngFor="let select of selectCharge.controls; let i = index;" style="width:100%;display:block !important;">
+          <div   [formGroupName]="i" style="width:100%;display:block !important;">
+            <div style="display:flex">
+              <div style="width:25%;">
+                <mat-form-field >
+                  <mat-label>Select Charge</mat-label>
+                  <mat-select formControlName="colendingCharge" (selectionChange)="chargeValue($event);" >
+                    <mat-option>Select</mat-option>
+                    <mat-option *ngFor="let colendingCharges of colendingChargeData" [value]="colendingCharges.id">
+                      {{ colendingCharges.name }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>
+                    Fees is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div *ngIf="loanProductSignatureForm.value.selectCharge[i].colendingCharge!=''" style="width:75%;">
+                <div style="width:100%;display:flex;">
+                  <div style="width:35%;">
+                    <mat-form-field>
+                      <input type="number" min="0" max="100" placeholder="100" [readonly]="true" value="100" matInput formControlName="clientCharge">
+                    </mat-form-field>
+                  </div>
+                  <div style="width:35%;">
+                    <mat-form-field appearance="fill">
+                      <input type="number" min="0" max="100"  matInput formControlName="selfCharge">
+                    </mat-form-field>
+                  </div>
+                  <div style="width:35;">
+                    <mat-form-field>
+                      <input type="number" min="0" max="100"  matInput formControlName="partnerCharge">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <span>
+                <button *ngIf="i !== 0" type="button" color="warn" mat-raised-button  (click)="removeSelectChargeArr(i)">
+                  <fa-icon icon="times" size="lg"></fa-icon>
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+
+      <div data-layout="row wrap">
+
+      <mat-checkbox fxFlex="98%" labelPosition="before" formControlName="enableOverDue" class="margin-v">
+       Enable OverDue Charge
+      </mat-checkbox>
+
+      <div  style="width:100%;" *ngIf="loanProductSignatureForm.value.enableOverDue" formArrayName="selectOverDue">
+        <div style="width:100%;display:block !important;">
+          <button  type="button" mat-raised-button  color="primary" (click)="addSelectOverDueArr()">
+            <fa-icon icon="plus-circle" size="lg"></fa-icon>Add
+          </button>
+        </div><br>
+        <div   *ngFor="let fees of selectOverDue.controls; let i = index;" style="width:100%;display:block !important;">
+          <div   [formGroupName]="i" style="width:100%;display:block !important;">
+            <div style="display:flex">
+              <div style="width:25%;">
+                <mat-form-field >
+                  <mat-label>Select OverDue Charge</mat-label>
+                  <mat-select formControlName="overDueCharge" (selectionChange)="OverDueValue($event);" >
+                    <mat-option>Select</mat-option>
+                    <mat-option *ngFor="let overDueCharges of colendingOverDueData" [value]="overDueCharges.id">
+                      {{ overDueCharges.name }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>
+                    OverDue is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div *ngIf="loanProductSignatureForm.value.selectOverDue[i].overDueCharge!=''" style="width:75%;">
+                <div style="width:100%;display:flex;">
+                  <div style="width:25%;">
+                    <mat-form-field>
+                      <input type="number" min="0" max="100"   matInput formControlName="clientOverDue">
+<!--                      <mat-error *ngIf="loanProductSignatureForm.controls.amount.hasError('required')">-->
+<!--&lt;!&ndash;                        Amount is <strong>required</strong>&ndash;&gt;-->
+<!--                      </mat-error>-->
+                    </mat-form-field>
+                  </div>
+                  <div style="width:35%;">
+                    <mat-form-field appearance="fill">
+                      <input type="number" min="0" max="100"  matInput formControlName="selfOverDue">
+                    </mat-form-field>
+                  </div>
+                  <div style="width:35;">
+                    <mat-form-field>
+                      <input type="number" min="0" max="100"  matInput formControlName="partnerOverDue">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <span>
+                <button *ngIf="i !== 0" type="button" color="warn" mat-raised-button  (click)="removeSelectOverDueArr(i)">
+                  <fa-icon icon="times" size="lg"></fa-icon>
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    </div>
+                                  <!--    <div  *ngIf="loanProductSignatureForm.value.byPercentageSplit" class="table-responsive" fxFlexFill fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column">-->
+<!--      <div style="width:100%;display:flex;">-->
+<!--        <div style="width:25%;"></div>-->
+<!--        <div style="width:15%;">Principal Shares</div>-->
+<!--        <div style="width:15%;">Fee Shares</div>-->
+<!--        <div style="width:15%;">Penalty Shares</div>-->
+<!--        <div style="width:15%;">Overpaid Shares</div>-->
+<!--        <div style="width:15%;">Interest Rate</div>-->
+<!--      </div>-->
+<!--      <div style="width:100%;display:flex;">-->
+<!--        <div style="width:28%;margin-top:3%;">Client Share</div>-->
+<!--        <div style="width:15%;">-->
+<!--          <mat-form-field style="width:80%;" appearance="fill">-->
+<!--            <input type="number" value="100" matInput formControlName="principalShare" placeholder="100" [readonly]="true">-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
+<!--        <div style="width:15%;">-->
+<!--          <mat-form-field style="width:80%;" appearance="fill">-->
+<!--            <input type="number"  value="100" matInput formControlName="feeShare" placeholder="100" [readonly]="true">-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
+<!--        <div style="width:15%;">-->
+<!--          <mat-form-field style="width:80%;"  appearance="fill">-->
+<!--            <input type="number" value="100" matInput formControlName="penaltyShare" placeholder="100" [readonly]="true">-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
+<!--        <div style="width:15%;">-->
+<!--          <mat-form-field style="width:80%;"  appearance="fill">-->
+<!--            <input type="number" value="100" matInput formControlName="overpaidShare" placeholder="100" [readonly]="true">-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
+<!--        <div style="width:15%;">-->
+<!--          <mat-form-field style="width:80%;">-->
+<!--            <input type="number" min="0" max="100"  matInput formControlName="interestRate" >-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div style="width:100%;display:flex;">-->
+<!--        <div style="width:28%;margin-top:3%;">Self Shares</div>-->
+<!--        <div style="width:15%;">-->
+<!--          <mat-form-field style="width:80%;" appearance="fill">-->
+<!--            <input type="number"  min="0" max="100"  matInput formControlName="selfPrincipalShare" >-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
+<!--        <div style="width:15%;">-->
+<!--          <mat-form-field style="width:80%;" appearance="fill">-->
+<!--            <input type="number"  min="0" max="100"  matInput formControlName="selfFeeShare">-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
+<!--        <div style="width:15%;">-->
+<!--          <mat-form-field style="width:80%;"  appearance="fill">-->
+<!--            <input type="number"  min="0" max="100"  matInput formControlName="selfPenaltyShare">-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
+<!--        <div style="width:15%;">-->
+<!--          <mat-form-field style="width:80%;"  appearance="fill">-->
+<!--            <input type="number"  min="0" max="100"  matInput formControlName="selfOverpaidShares">-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
+<!--        <div style="width:15%;">-->
+<!--          <mat-form-field style="width:80%;">-->
+<!--            <input type="number" min="0" max="100"  matInput formControlName="selfInterestRate">-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div style="width:100%;display:flex;">-->
+<!--        <div style="width:25%;">-->
+<!--          <mat-form-field style="width:80%;">-->
+<!--            <mat-label>Select Partner</mat-label>-->
+<!--            <mat-select formControlName="partnerId">-->
+<!--              <mat-option *ngFor="let partner of partnerData" [value]="partner.id">-->
+<!--                {{ partner.name }}-->
+<!--              </mat-option>-->
+<!--            </mat-select>-->
+<!--            <mat-error>-->
+<!--              Partner is <strong>required</strong>-->
+<!--            </mat-error>-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
+<!--        <div style="width:15%;">-->
+<!--          <mat-form-field style="width:80%;">-->
+<!--            <input type="number" min="0" max="100" matInput formControlName="partnerPrincipalShare">-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
+<!--        <div style="width:15%;">-->
+<!--          <mat-form-field style="width:80%;">-->
+<!--            <input type="number" min="0" max="100" matInput formControlName="partnerFeeShare">-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
+<!--        <div style="width:15%;">-->
+<!--          <mat-form-field style="width:80%;">-->
+<!--            <input type="number" min="0" max="100" matInput formControlName="partnerPenaltyShare">-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
+<!--        <div style="width:15%;">-->
+<!--          <mat-form-field style="width:80%;">-->
+<!--            <input type="number" min="0" max="100" matInput formControlName="partnerOverpaidShare">-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
+<!--        <div style="width:15%;">-->
+<!--          <mat-form-field style="width:80%;">-->
+<!--            <input type="number" min="0" max="100" matInput formControlName="partnerInterestRate">-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--    </div>-->
+
+<!--    <div  style="width:100%;" *ngIf="loanProductSignatureForm.value.enableChargeWiseBifacation" >-->
+<!--      <div  formArrayName="selectCharge" *ngFor="let select of selectCharge.controls; let i = index;" style="width:100%;display:block !important;">-->
+<!--        <div   [formGroupName]="i" style="width:100%;display:block !important;">-->
+<!--          <div style="width:100%;display:block !important;">-->
+<!--            <button *ngIf="i === 0" type="button" mat-raised-button  color="primary" (click)="addSelectChargeArr(selectCharge)">-->
+<!--              <fa-icon icon="plus-circle" size="lg"></fa-icon>Add-->
+<!--            </button>-->
+<!--          </div><br>-->
+<!--          <div style="display:flex">-->
+<!--          <div style="width:25%;">-->
+<!--            <mat-form-field >-->
+<!--            <mat-label>Fees</mat-label>-->
+<!--            <mat-select formControlName="colendingCharge" (selectionChange)="chargeValue($event);">-->
+<!--              <mat-option *ngFor="let colendingCharges of colendingChargeData" [value]="colendingCharges.id">-->
+<!--                {{ colendingCharges.name }}-->
+<!--              </mat-option>-->
+<!--            </mat-select>-->
+<!--            <mat-error>-->
+<!--              Fees is-->
+<!--            </mat-error>-->
+<!--          </mat-form-field>-->
+<!--          </div>-->
+<!--          <div *ngIf="loanProductSignatureForm.value.selectCharge[i].colendingCharge!=''" style="width:75%;">-->
+<!--            <div style="width:100%;display:flex;">-->
+<!--              <div style="width:35%;">-->
+<!--                <mat-form-field>-->
+<!--                  <input type="number" min="0" max="100"  matInput formControlName="clientCharge">-->
+<!--                </mat-form-field>-->
+<!--              </div>-->
+<!--              <div style="width:35%;">-->
+<!--                <mat-form-field appearance="fill">-->
+<!--                  <input type="number" min="0" max="100"  matInput formControlName="selfCharge">-->
+<!--                </mat-form-field>-->
+<!--              </div>-->
+<!--              <div style="width:35;">-->
+<!--                <mat-form-field>-->
+<!--                  <input type="number" min="0" max="100"  matInput formControlName="partnerCharge">-->
+<!--                </mat-form-field>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <span>-->
+<!--                <button *ngIf="i !== 0" type="button" color="warn" mat-raised-button  (click)="removeSelectChargeArr(selectCharge, i)">-->
+<!--                  <fa-icon icon="times" size="lg"></fa-icon>-->
+<!--                </button>-->
+<!--              </span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div  style="width:100%;" *ngIf="loanProductSignatureForm.value.enableChargeWiseBifacation" >-->
+<!--      <div  formArrayName="selectCharge" *ngFor="let select of selectCharge.controls; let i = index;" style="width:100%;display:block !important;">-->
+<!--        <div   [formGroupName]="i" style="width:100%;display:block !important;">-->
+<!--          <div style="width:100%;display:block !important;">-->
+<!--            <button *ngIf="i === 0" type="button" mat-raised-button  color="primary" (click)="addSelectChargeArr(selectCharge)">-->
+<!--              <fa-icon icon="plus-circle" size="lg"></fa-icon>Add-->
+<!--            </button>-->
+<!--          </div><br>-->
+<!--          <div style="display:flex">-->
+<!--            <div style="width:25%;">-->
+<!--              <mat-form-field >-->
+<!--                <mat-label>Fees</mat-label>-->
+<!--                <mat-select formControlName="colendingCharge" (selectionChange)="chargeValue($event);">-->
+<!--                  <mat-option *ngFor="let colendingCharges of colendingChargeData" [value]="colendingCharges.id">-->
+<!--                    {{ colendingCharges.name }}-->
+<!--                  </mat-option>-->
+<!--                </mat-select>-->
+<!--                <mat-error>-->
+<!--                  Fees is <strong>required</strong>-->
+<!--                </mat-error>-->
+<!--              </mat-form-field>-->
+<!--            </div>-->
+<!--            <div *ngIf="loanProductSignatureForm.value.selectCharge[i].colendingCharge!=''" style="width:75%;">-->
+<!--              <div style="width:100%;display:flex;">-->
+<!--                <div style="width:35%;">-->
+<!--                  <mat-form-field>-->
+<!--                    <input type="number" min="0" max="100"  matInput formControlName="clientCharge">-->
+<!--                  </mat-form-field>-->
+<!--                </div>-->
+<!--                <div style="width:35%;">-->
+<!--                  <mat-form-field appearance="fill">-->
+<!--                    <input type="number" min="0" max="100"  matInput formControlName="selfCharge">-->
+<!--                  </mat-form-field>-->
+<!--                </div>-->
+<!--                <div style="width:35;">-->
+<!--                  <mat-form-field>-->
+<!--                    <input type="number" min="0" max="100"  matInput formControlName="partnerCharge">-->
+<!--                  </mat-form-field>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <span>-->
+<!--                <button *ngIf="i !== 0" type="button" color="warn" mat-raised-button  (click)="removeSelectChargeArr(selectCharge, i)">-->
+<!--                  <fa-icon icon="times" size="lg"></fa-icon>-->
+<!--                </button>-->
+<!--              </span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+  <div data-layout="row " data-layout-gap="16px">
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Gst Liability By VCL</mat-label>
+      <input type="number" matInput formControlName="gstLiabilityByVcpl" required>
+      <mat-error>
+        Gst Liability By VCL is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Gst Liability By Partner</mat-label>
+      <input type="number" matInput formControlName="gstLiabilityByPartner" required>
+      <mat-error>
+        Gst Liability By Partner is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+</div>
+
+  <div data-layout="row" class="margin-t" data-layout-align="center" data-layout-gap="6px">
+    <button mat-raised-button matStepperPrevious>
+      <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;
+      Previous
+    </button>
+    <button mat-raised-button matStepperNext>
+      Next&nbsp;&nbsp;
+      <fa-icon icon="arrow-right"></fa-icon>
+    </button>
+  </div>
+</form>

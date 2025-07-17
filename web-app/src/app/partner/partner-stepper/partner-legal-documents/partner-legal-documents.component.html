@@ -1,0 +1,24 @@
+<form [formGroup]="createLegalDocumentsForm">
+
+  <div fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column">
+
+    <h4 fxFlex="100%" class="mat-h4">
+    </h4>
+
+    <h4 fxFlex="39%" class="mat-h4">
+    </h4>
+
+    <div fxLayout="row" class="margin-t" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="2%">
+      <button mat-raised-button matStepperPrevious>
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;
+        Previous
+      </button>
+
+      <button mat-raised-button matStepperNext>
+        Next&nbsp;&nbsp;
+        <fa-icon icon="arrow-right"></fa-icon>
+      </button>
+    </div>
+  </div>
+
+</form>

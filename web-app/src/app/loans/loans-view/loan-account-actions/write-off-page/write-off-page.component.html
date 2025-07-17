@@ -1,0 +1,48 @@
+<div class="container">
+
+  <mat-card>
+
+    <mat-card-content>
+
+      <form [formGroup]="writeOffForm" (ngSubmit)="submit()">
+
+        <div data-layout="column">
+
+          <mat-form-field (click)="writeOffDatePicker.open()">
+            <mat-label>Write off on</mat-label>
+            <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="writeOffDatePicker" required
+              formControlName="transactionDate">
+            <mat-datepicker-toggle matSuffix [for]="writeOffDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #writeOffDatePicker></mat-datepicker>
+            <mat-error *ngIf="writeOffForm.controls.transactionDate.hasError('required')">
+              Write Off Date <strong>is required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input matInput formControlName="amount">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Note</mat-label>
+            <textarea matInput formControlName="note"></textarea>
+          </mat-form-field>
+
+        </div>
+
+      </form>
+
+      <div data-layout="row"  data-layout-align="center center" data-layout-gap="5px">
+      <mat-card-actions>
+        <button type="button" mat-raised-button [routerLink]="['../../general']">Cancel</button>
+        <button mat-raised-button color="primary" (click)="submit()"
+          *mifosxHasPermission="'WRITEOFF_LOAN'">Submit</button>
+      </mat-card-actions>
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>

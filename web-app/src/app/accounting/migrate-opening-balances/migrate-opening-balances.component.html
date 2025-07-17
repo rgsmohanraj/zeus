@@ -1,0 +1,126 @@
+<!-- TODO: Responsiveness/design enhancement and reduction in form loading time -->
+<div class="container">
+
+  <mat-card>
+
+    <form [formGroup]="openingBalancesForm" (ngSubmit)="submit()">
+
+      <mat-card-content>
+
+        <div data-layout="row " data-layout-gap="10px" >
+
+          <mat-form-field data-flex="88">
+            <mat-label>Office</mat-label>
+            <mat-select required formControlName="officeId">
+              <mat-option *ngFor="let office of officeData" [value]="office.id">
+                {{ office.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="openingBalancesForm.controls.officeId.hasError('required')">
+              Office is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <button  mat-button type="button" color="primary" (click)="retrieveOpeningBalances()">Retrieve</button>
+
+        </div>
+
+        <div data-layout="row " data-layout-gap="10px"  *ngIf="openingBalancesData">
+
+          <label data-flex="98%" class="content"><span class="header">Opening Balances Contra Account:</span>&nbsp;&nbsp;{{ openingBalancesData.contraAccount.name + ' (' + openingBalancesData.contraAccount.glCode + ')' }}</label>
+
+          <mat-form-field data-flex="48%">
+            <mat-label>Currency</mat-label>
+            <mat-select required formControlName="currencyCode">
+              <mat-option *ngFor="let currency of currencyData" [value]="currency.code">
+                {{ currency.displayLabel }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="openingBalancesForm.controls.currencyCode.hasError('required')">
+              Currency is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field data-flex="48%" (click)="openingBalancesDatePicker.open()">
+            <mat-label>Opening Balances Date</mat-label>
+            <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="openingBalancesDatePicker" required formControlName="transactionDate">
+            <mat-datepicker-toggle matSuffix [for]="openingBalancesDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #openingBalancesDatePicker></mat-datepicker>
+            <mat-error *ngIf="openingBalancesForm.controls.transactionDate.hasError('required')">
+              Opening Balances Date is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <div data-layout="row" data-layout-gap="10px"  class="content" data-flex="100%">
+
+            <div class="header" data-flex="8%">
+              Type
+            </div>
+
+            <div class="header" data-flex="18%">
+              GL Code
+            </div>
+
+            <div class="header" data-flex="18%">
+              Account
+            </div>
+
+            <div class="header" data-flex="23%">
+              Total Debit: {{ debitsSum }}
+            </div>
+
+            <div class="header" data-flex="23%">
+              Total Credit: {{ creditsSum }}
+            </div>
+
+          </div>
+
+          <div  data-layout="row"  class="content" formArrayName="glAccountEntries"
+            *ngFor="let credit of glAccountEntries.controls; let i = index;">
+
+            <div  data-layout="row" data-layout-gap="10px" [formGroupName]="i">
+
+              <div data-flex="8%" class="p-t-30">
+                {{ (openingBalancesData.glAccounts[i].glAccountType.value !== openingBalancesData.glAccounts[i-1]?.glAccountType.value) ? openingBalancesData.glAccounts[i].glAccountType.value : '' }}
+              </div>
+
+              <div data-flex="18%" class="p-t-30">
+                {{ openingBalancesData.glAccounts[i].glAccountCode }}
+              </div>
+
+              <div data-flex="18%" class="p-t-30">
+                {{ openingBalancesData.glAccounts[i].glAccountName }}
+              </div>
+
+              <div data-flex="23%">
+                <mat-form-field>
+                  <mat-label>Debit</mat-label>
+                  <input matInput type="number" formControlName="debit">
+                </mat-form-field>
+              </div>
+
+              <div data-flex="23%">
+                <mat-form-field>
+                  <mat-label>Credit</mat-label>
+                  <input matInput type="number" formControlName="credit">
+                </mat-form-field>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </mat-card-content>
+
+      <mat-card-actions data-layout="row"  data-layout-align="center center" data-layout-gap="6px" *ngIf="openingBalancesData">
+        <button type="button" mat-raised-button [routerLink]="['../']">Cancel</button>
+        <button mat-raised-button color="primary" [disabled]="!openingBalancesForm.valid" *mifosxHasPermission="'DEFINEOPENINGBALANCE_JOURNALENTRY'">Submit</button>
+      </mat-card-actions>
+
+    </form>
+
+  </mat-card>
+
+</div>

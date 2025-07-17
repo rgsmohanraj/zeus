@@ -1,0 +1,39 @@
+<div class="container">
+
+  <mat-card>
+
+    <form [formGroup]="roleForm" (ngSubmit)="submit()">
+
+      <mat-card-content>
+
+          <div data-layout="column">
+
+            <mat-form-field>
+              <mat-label>Role Name</mat-label>
+              <input matInput disabled formControlName="name">
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Role Description</mat-label>
+              <input matInput required formControlName="description">
+              <mat-error *ngIf="roleForm.controls.description.hasError('required')">
+                Description is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+
+      </mat-card-content>
+
+      <div data-layout="row"  data-layout-align="center center" data-layout-gap="5px">
+      <mat-card-actions>
+        <button type="button" mat-raised-button [routerLink]="['../../']">Cancel</button>
+        <button mat-raised-button color="primary" [disabled]="!roleForm.valid || roleForm.pristine">Submit</button>
+      </mat-card-actions>
+      </div>
+
+    </form>
+
+  </mat-card>
+
+</div>

@@ -1,0 +1,368 @@
+<div class="container">
+
+  <mat-card>
+
+    <form [formGroup]="chargeForm" (ngSubmit)="submit()">
+
+      <mat-card-content>
+
+        <div data-layout="row " data-layout-gap="16px">
+
+          <mat-form-field class="mat-filed">
+            <mat-label>Charges applies to</mat-label>
+            <mat-select required formControlName="chargeAppliesTo">
+              <mat-option *ngFor="let chargeAppliesTo of chargeData.chargeAppliesToOptions"
+                [value]="chargeAppliesTo.id">
+                {{ chargeAppliesTo.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>`
+          <mat-divider [inset]="true"></mat-divider>
+        </div>
+
+        <div data-layout="row " data-layout-gap="16px">
+
+          <mat-form-field data-flex="48%">
+            <mat-label>Charge Name</mat-label>
+            <input matInput required autofocus formControlName="name">
+            <mat-error *ngIf="chargeForm.controls.name.hasError('required')">
+              Name <strong>is required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field data-flex="48%">
+            <mat-label>Currency</mat-label>
+            <mat-select required formControlName="currencyCode">
+              <mat-option>Select</mat-option>
+              <mat-option *ngFor="let currency of chargeData.currencyOptions" [value]="currency.code">
+                {{ currency.name }}
+              </mat-option>
+            </mat-select>
+            <!--            <mat-error *ngIf="chargeForm.controls.currencyCode.hasError('required')">-->
+            <!--              Currency Type is <strong>required</strong>-->
+            <!--            </mat-error>-->
+
+          </mat-form-field>
+        </div>
+
+        <div data-layout="row " data-layout-gap="16px">
+          <mat-form-field data-flex="48%">
+            <mat-label>Type</mat-label>
+            <mat-select required formControlName="typeSelected">
+              <mat-option>Select</mat-option>
+              <mat-option *ngFor="let type of chargeTypeOptions" [value]="type.id">
+                {{ type.name }}
+              </mat-option>
+            </mat-select>
+            <!--            <mat-error *ngIf="chargeForm.controls.gst.hasError('required')">-->
+            <!--                 GST  is <strong>required</strong>-->
+            <!--            </mat-error>-->
+          </mat-form-field>
+
+          <mat-form-field data-flex="48%">
+            <mat-label>Fees/Charge Type</mat-label>
+            <mat-select required formControlName="feesChargeTypeSelected">
+              <mat-option>Select</mat-option>
+              <mat-option *ngFor="let feesChargeType of chargeData.feesOption" [value]="feesChargeType.id">
+                {{ feesChargeType.name }}
+              </mat-option>
+            </mat-select>
+            <!--            <mat-error *ngIf="chargeForm.controls.gst.hasError('required')">-->
+            <!--                 GST  is <strong>required</strong>-->
+            <!--            </mat-error>-->
+          </mat-form-field>
+        </div>
+
+        <div data-layout="row " data-layout-gap="16px">
+          <mat-form-field data-flex="48%">
+            <mat-label>Charge time type</mat-label>
+            <mat-select required formControlName="chargeTimeType">
+              <mat-option>Select</mat-option>
+              <mat-option *ngFor="let chargeTime of chargeTimeTypeOptions" [value]="chargeTime.id">
+                {{ chargeTime.value }}
+              </mat-option>
+            </mat-select>
+            <!--            <mat-error *ngIf="chargeForm.controls.chargeTimeType.hasError('required')">-->
+            <!--              Charge Time Type is <strong>required</strong>-->
+            <!--            </mat-error>-->
+          </mat-form-field>
+
+          <mat-form-field data-flex="48%">
+            <mat-label>Charge calculation</mat-label>
+            <mat-select required formControlName="chargeCalculationType">
+              <mat-option>Select</mat-option>
+              <mat-option *ngFor="let chargeCalculation of chargeCalculationTypeOptions" [value]="chargeCalculation.id">
+                {{ chargeCalculation.value }}
+              </mat-option>
+            </mat-select>
+            <!--            <mat-error *ngIf="chargeForm.controls.chargeCalculationType.hasError('required')">-->
+            <!--              Charge Calculation Type is <strong>required</strong>-->
+            <!--            </mat-error>-->
+          </mat-form-field>
+        </div>
+
+        <div data-layout="row" data-layout-gap="16px">
+          <mat-form-field data-flex="48%" *ngIf="chargePaymentMode">
+            <mat-label>Charge Payment By </mat-label>
+            <mat-select required formControlName="chargePaymentMode">
+              <mat-option>Select</mat-option>
+              <mat-option *ngFor="let chargePaymentMode of chargeData.chargePaymetModeOptions"
+                [value]="chargePaymentMode.id">
+                {{ chargePaymentMode.value }}
+              </mat-option>
+            </mat-select>
+            <!--            <mat-error *ngIf="chargeForm.controls.chargePaymentMode.hasError('required')">-->
+            <!--              Charge Payment Mode is <strong>required</strong>-->
+            <!--            </mat-error>-->
+          </mat-form-field>
+
+          <div data-flex="48%" class="password-never-expires-wrapper" *ngIf="addFeeFrequency"
+            style="padding-top: 10px;">
+            <mat-checkbox labelPosition="before" (change)="getFeeFrequency($event.checked)">
+              Add Fee Frequency
+            </mat-checkbox>
+          </div>
+        </div>
+
+        <div data-layout="row" data-layout-gap="16px">
+          <mat-form-field class="mat-filed" *ngIf="addFeeFrequency && showFeeOptions">
+            <mat-label>Charge Frequency</mat-label>
+            <mat-select required formControlName="feeFrequency">
+              <mat-option>Select</mat-option>
+              <mat-option *ngFor="let chargeFrequency of chargeData.feeFrequencyOptions" [value]="chargeFrequency.id">
+                {{ chargeFrequency.value }}
+              </mat-option>
+            </mat-select>
+            <!--            <mat-error *ngIf="chargeForm.controls.feeFrequency.hasError('required')">-->
+            <!--              Fee Frequency is <strong>required</strong>-->
+            <!--            </mat-error>-->
+          </mat-form-field>
+
+
+          <mat-form-field class="mat-filed" *ngIf="addFeeFrequency && showFeeOptions">
+            <mat-label>Frequency Interval</mat-label>
+            <input matInput required autofocus type="text" formControlName="feeInterval" required>
+            <!--            <mat-error *ngIf="chargeForm.controls.feeInterval.hasError('required')">-->
+            <!--              Amount <strong>is required</strong>-->
+            <!--            </mat-error>-->
+          </mat-form-field>
+        </div>
+
+        <div data-layout="row" data-layout-gap="16px">
+          <mat-form-field class="mat-filed" *ngIf="addFeeFrequency && showFeeOptions">
+            <mat-label>Penal Interest Days In Year</mat-label>
+            <mat-select required formControlName="penaltyInterestDaysInYear">
+              <mat-option>Select</mat-option>
+              <mat-option *ngFor="let penaltyInterestDaysInYear of chargeData.daysInYearTypeOptions"
+                [value]="penaltyInterestDaysInYear.id">
+                {{ penaltyInterestDaysInYear.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+
+        <h4 fxFlex="98%">Charge Amount</h4>
+
+        <div data-layout="row" data-layout-gap="16px">
+
+          <mat-form-field data-flex="33%">
+            <mat-label>Minimum Amount</mat-label>
+            <input matInput required autofocus type="number" formControlName="minChargeAmount">
+          </mat-form-field>
+
+          <mat-form-field data-flex="33%">
+            <mat-label>Default Amount</mat-label>
+            <input matInput required autofocus type="number" formControlName="amount">
+            <!--            <mat-error *ngIf="chargeForm.controls.amount.hasError('required')">-->
+            <!--              Amount <strong>is required</strong>-->
+            <!--            </mat-error>-->
+          </mat-form-field>
+
+          <mat-form-field data-flex="33%">
+            <mat-label>Maxmimum Amount</mat-label>
+            <input matInput required autofocus type="number" formControlName="maxChargeAmount">
+          </mat-form-field>
+        </div>
+
+        <h4 fxFlex="98%">Charge Rounding Configuration</h4>
+
+        <div data-layout="row" data-layout-gap="16px">
+          <mat-form-field data-flex="33%">
+            <mat-label>Charge Rounding Mode</mat-label>
+            <mat-select formControlName="chargeRoundingMode" required>
+              <mat-option>Select</mat-option>
+              <mat-option *ngFor="let roundingMode of chargeData.roundingModes" [value]="roundingMode">
+                {{ roundingMode }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field data-flex="33%">
+            <mat-label>Charge Decimal Values</mat-label>
+            <input type="number" matInput formControlName="chargeDecimal" required>
+          </mat-form-field>
+
+          <mat-form-field data-flex="33%" *ngIf="chargeForm.controls.chargeRoundingMode.value == 'UP' ">
+            <mat-label>Charge Decimal Regex Amount</mat-label>
+            <input type="number" matInput required formControlName="chargeDecimalRegex">
+          </mat-form-field>
+        </div>
+
+        <h4 fxFlex="98%">GST Configuration</h4>
+
+        <mat-checkbox fxFlex="98%" labelPosition="before" formControlName="enableGstChargesSelected"
+          (change)="refreshData($event)" class="margin-v">
+          Enable Gst
+        </mat-checkbox>
+
+        <div *ngIf="chargeForm.value.enableGstChargesSelected">
+        <div  data-layout="row">
+          <mat-form-field class="mat-filed">
+            <mat-label>Gst </mat-label>
+            <mat-select required formControlName="gstOption" required>
+              <mat-option>Select</mat-option>
+              <mat-option *ngFor="let gst of chargeData.gstOption" [value]="gst.id">
+                {{ gst.value }}
+              </mat-option>
+            </mat-select>
+            <!--            <mat-error *ngIf="chargeForm.controls.gst.hasError('required')">-->
+            <!--                 GST  is <strong>required</strong>-->
+            <!--            </mat-error>-->
+          </mat-form-field>
+        </div>
+
+        <h4 fxFlex="98%">GST Rounding Configuration</h4>
+
+        <div data-layout="row" data-layout-gap="16px">
+          <mat-form-field data-flex="33%">
+            <mat-label>Gst Rounding Mode</mat-label>
+            <mat-select formControlName="gstRoundingMode" required>
+              <mat-option>Select</mat-option>
+              <mat-option *ngFor="let roundingMode of chargeData.roundingModes" [value]="roundingMode">
+                {{ roundingMode }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field data-flex="33%">
+            <mat-label>GST Decimal Values</mat-label>
+            <input type="number" matInput formControlName="gstDecimal" required>
+          </mat-form-field>
+
+
+          <mat-form-field data-flex="33%" *ngIf="chargeForm.controls.gstRoundingMode.value == 'UP' ">
+            <mat-label>GST Decimal Regex </mat-label>
+            <input type="number" matInput formControlName="gstDecimalRegex">
+          </mat-form-field>
+        </div>
+        </div>
+        <h4 fxFlex="98%">GST Slab Configuration</h4>
+
+        <div data-layout="row">
+
+          <mat-checkbox data-flex="98%" labelPosition="before" formControlName="isGstSlabEnabled" class="margin-v">
+            Gst Slab Enabled
+          </mat-checkbox>
+        </div>
+
+        <div *ngIf="chargeForm.value.isGstSlabEnabled" data-layout="row" data-layout-gap="6px" fxLayout.lt-md="column">
+          <mat-form-field data-flex="33%">
+            <mat-label>Gst Slab limit Apply For </mat-label>
+            <mat-select formControlName="gstSlabLimitApplyFor">
+              <mat-option>Select</mat-option>
+              <mat-option *ngFor="let gstSlabApply of chargeData.gstSlabLimitApplyForOption" [value]="gstSlabApply.id">
+                {{ gstSlabApply.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field data-flex="33%">
+            <mat-label>Gst Slab Limit Operator </mat-label>
+            <mat-select formControlName="gstSlabLimitOperator">
+              <mat-option>Select</mat-option>
+              <mat-option *ngFor="let gstSlabLimitOperatorOption of chargeData.gstSlabLimitOperatorOption"
+                [value]="gstSlabLimitOperatorOption.id">
+                {{ gstSlabLimitOperatorOption.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+          <mat-form-field data-flex="33%">
+            <mat-label>GST Slab Limit Value </mat-label>
+            <input type="number" matInput formControlName="gstSlabLimitValue">
+          </mat-form-field>
+
+        </div>
+
+        <!-- </div> -->
+
+
+        <mat-form-field data-flex="48%" *ngIf="showGLAccount">
+          <mat-label>Income from charge</mat-label>
+          <mat-select required formControlName="incomeAccountId">
+            <mat-option>Select</mat-option>
+            <mat-option *ngFor="let income of chargeData.incomeOrLiabilityAccountOptions.incomeAccountOptions"
+              [value]="income.id">
+              {{ income.name }}
+            </mat-option>
+          </mat-select>
+          <!--            <mat-error *ngIf="chargeForm.controls.incomeAccountId.hasError('required')">-->
+          <!--              Income from charge is <strong>required</strong>-->
+          <!--            </mat-error>-->
+        </mat-form-field>
+
+        <!--          <mat-form-field fxFlex="48%">-->
+        <!--            <mat-label>Tax Group</mat-label>-->
+        <!--            <mat-select *ngIf="chargeData.taxGroup" required formControlName="taxGroupId">-->
+        <!--              <mat-option *ngFor="let taxGroup of chargeData.taxGroupOptions" [value]="taxGroup.id">-->
+        <!--                {{ taxGroup.name }}-->
+        <!--              </mat-option>-->
+        <!--            </mat-select>-->
+
+        <!--            <mat-select *ngIf="!chargeData.taxGroup" required formControlName="taxGroupId">-->
+        <!--              <mat-option value="?">-->
+        <!--                Select Option-->
+        <!--              </mat-option>-->
+        <!--            </mat-select>-->
+        <!--          </mat-form-field>-->
+
+
+
+
+        <!-- </div> -->
+
+        <div data-layout="row" data-layout-gap="6px"  style="margin-top:10px;">
+
+            <mat-checkbox  class="mat-checkBox" labelPosition="before" formControlName="active">
+              Active
+            </mat-checkbox>
+
+            <mat-checkbox  class="mat-checkBox" labelPosition="before" formControlName="isDefaultLoanCharge" >
+              Is Default Loan Charge
+            </mat-checkbox>
+
+            <mat-checkbox  class="mat-checkBox" class="send-password-to-email-wrapper" *ngIf="showPenalty"
+              labelPosition="before" formControlName="penalty">
+              Is Penalty
+            </mat-checkbox>
+
+        </div>
+
+
+      </mat-card-content>
+
+      <div data-layout="row" data-layout-align="center center" data-layout-gap="6px">
+        <mat-card-actions>
+          <button type="button" mat-raised-button [routerLink]="['../']">Cancel</button>
+          <button mat-raised-button color="primary" [disabled]="!chargeForm.valid"
+            *mifosxHasPermission="'UPDATE_CHARGE'">Submit</button>
+        </mat-card-actions>
+      </div>
+
+    </form>
+
+  </mat-card>
+
+</div>

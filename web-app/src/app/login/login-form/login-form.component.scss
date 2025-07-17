@@ -1,0 +1,29 @@
+#login-form {
+  .login-input {
+//     width: 14rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .login-button {
+    width: 19rem;
+    margin-top: 1rem;
+    color: white;
+  }
+
+  mat-spinner {
+    float: right;
+    margin: 0.5rem 0;
+  }
+  .title_center {
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
+  }
+  .container {
+    width: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+  }
+}

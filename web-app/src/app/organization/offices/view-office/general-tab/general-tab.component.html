@@ -1,0 +1,143 @@
+<!--<div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="2%" fxLayout.lt-md="column" class="container m-b-20">-->
+<!--  <button mat-raised-button color="primary" [routerLink]="['edit']" *mifosxHasPermission="'UPDATE_OFFICE'">-->
+<!--    <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;-->
+<!--    Edit-->
+<!--  </button>-->
+<!--</div>-->
+
+<div class="container">
+
+  <mat-card>
+
+    <mat-card-content>
+
+      <div data-layout="column" >
+
+        <h2 class="mat-h2">{{ officeData.name }}</h2>
+
+        <mat-divider [inset]="true"></mat-divider>
+
+        <h3 class="mat-h3" >Basic Details</h3>
+
+        <mat-divider ></mat-divider>
+
+        <div data-layout="row" *ngIf="officeData.name">
+          <span data-flex="40%">Office :</span>
+          <span data-flex="60%">{{  officeData.name }}</span>
+        </div>
+
+        <div data-layout="row" *ngIf="officeData.parentId" >
+        <span data-flex="40%">Parent ID :</span>
+        <span data-flex="60%">{{ officeData.parentId }}</span>
+        </div>
+
+        <div data-layout="row" *ngIf="officeData.openingDate" >
+          <span data-flex="40%">Opened On :</span>
+          <span data-flex="60%">{{ officeData.openingDate | dateFormat }}</span>
+        </div>
+
+        <div data-layout="row" *ngIf="officeData.externalId" >
+          <span data-flex="40%">External ID :</span>
+          <span data-flex="60%">{{ officeData.externalId }}</span>
+        </div>
+
+        <h3 class="mat-h3" > GST Details </h3>
+
+
+<div *ngFor="let office of officeData.officeGsts" style="width:100%;">
+  <mat-divider ></mat-divider>
+        <div  data-layout="row"  style="width:100%;">
+          <span data-flex="40%">GST Number :</span>
+          <span data-flex="60%">{{  office.gstNumber }}</span>
+        </div>
+
+        <div  data-layout="row"  style="width:100%;">
+          <span data-flex="40%">State :</span>
+          <span data-flex="60%">{{  office.state.name }}</span>
+        </div>
+
+        <div data-layout="row"   style="width:100%;">
+          <span data-flex="40%">CGST :</span>
+          <span data-flex="60%">{{ office.cgst }}%</span>
+        </div>
+
+        <div data-layout="row"   style="width:100%;">
+          <span data-flex="40%">SGST :</span>
+          <span data-flex="60%">{{ office.sgst }}%</span>
+        </div>
+
+        <div data-layout="row"   style="width:100%;">
+          <span data-flex="40%">IGST</span>
+          <span data-flex="60%">{{office.igst }}%</span>
+        </div>
+</div>
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>
+
+
+
+
+
+
+
+<!--<div class="tab-container mat-typography">-->
+
+<!--  <mat-list>-->
+
+<!--    <mat-list-item>-->
+<!--      Office : {{ officeData.name ? officeData.name : 'Unassigned' }}-->
+<!--    </mat-list-item>-->
+
+<!--    <mat-list-item>-->
+<!--      Parent Office : {{ officeData.parentId ? officeData.parentId : 'Unassigned' }}-->
+<!--    </mat-list-item>-->
+
+
+<!--&lt;!&ndash;    <mat-list-item>&ndash;&gt;-->
+<!--&lt;!&ndash;      Head Office : {{ officeData.parentName ? officeData.parentName : 'N/A' }}&ndash;&gt;-->
+<!--&lt;!&ndash;    </mat-list-item>&ndash;&gt;-->
+
+<!--    <mat-list-item>-->
+<!--      Opened On : {{ officeData.openingDate ? (officeData.openingDate  | dateFormat) : 'Unassigned' }}-->
+<!--    </mat-list-item>-->
+
+<!--&lt;!&ndash;    <mat-list-item>&ndash;&gt;-->
+<!--&lt;!&ndash;      Name Decorated : {{ officeData.nameDecorated ? officeData.nameDecorated : 'Unassigned' }}&ndash;&gt;-->
+<!--&lt;!&ndash;    </mat-list-item>&ndash;&gt;-->
+
+<!--    <mat-list-item>-->
+<!--      External Id : {{ officeData.externalId ? officeData.externalId : 'Unassigned' }}-->
+<!--    </mat-list-item>-->
+
+<!--     <mat-list-item >-->
+<!--&lt;!&ndash;       *ngFor="let officeData of officeData.officeGsts"&ndash;&gt;-->
+<!--       Gst Number : {{ officeData.gstNumber ? officeData.gstNumber : 'Unassigned' }}-->
+<!--     </mat-list-item>-->
+
+<!--    <mat-list-item>-->
+<!--      State : {{ officeData.state ? officeData.state : 'Unassigned' }}-->
+<!--    </mat-list-item>-->
+
+<!--    <mat-list-item>-->
+<!--      CGST : {{ officeData.cgst ? officeData.cgst : 'Unassigned' }}-->
+<!--    </mat-list-item>-->
+
+<!--    <mat-list-item>-->
+<!--      SGST : {{ officeData.sgst ? officeData.sgst : 'Unassigned' }}-->
+<!--    </mat-list-item>-->
+
+<!--    <mat-list-item>-->
+<!--      IGST : {{ officeData.igst ? officeData.igst : 'Unassigned' }}-->
+<!--    </mat-list-item>-->
+
+
+
+
+<!--  </mat-list>-->
+
+<!--</div>-->

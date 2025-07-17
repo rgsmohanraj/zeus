@@ -1,0 +1,90 @@
+<form [formGroup]="beneficiaryDetailsForm">
+ <div data-layout="row" data-layout-gap="8px" >
+
+  <mat-form-field  data-flex="10">
+    <mat-label>Beneficiary Name</mat-label>
+    <input matInput  formControlName="beneficiaryName">
+  </mat-form-field>
+
+  <mat-form-field data-flex="10">
+    <mat-label>Beneficiary Account Number</mat-label>
+    <input matInput required formControlName="beneficiaryAccountNumber" >
+  </mat-form-field>
+  </div>
+
+  <div data-layout="row" data-layout-gap="8px">
+  <mat-form-field  data-flex="10">
+    <mat-label>IFSC Code</mat-label>
+    <input matInput required formControlName="ifscCode" minlength="11" maxlength="11" (keypress)="allowAlphabetAndNums($event)">
+    <!--             pattern="([A-Z]{4}[0]{1}[0-9]{6})$" -->
+  </mat-form-field>
+
+  <mat-form-field  data-flex="10">
+    <mat-label>MICR Code</mat-label>
+    <input matInput  formControlName="micrCode" maxlength="9" (keypress)="numberOnly($event)" type="text" >
+  </mat-form-field>
+  </div>
+
+  <div data-layout="row" data-layout-gap="8px">
+  <mat-form-field  data-flex="10">
+    <mat-label>Swift Code</mat-label>
+    <input matInput  formControlName="swiftCode"   minlength="11" maxlength="11" >
+  </mat-form-field>
+
+  <mat-form-field  data-flex="10">
+    <mat-label>Branch</mat-label>
+    <input matInput  formControlName="branch">
+  </mat-form-field>
+  </div>
+
+  <div data-layout="row" data-layout-gap="8px" class="mat-filed">
+  <mat-form-field data-flex="10">
+    <mat-label>Account Type</mat-label>
+    <mat-select required formControlName="accountTypeId">
+      <mat-option *ngFor="let accountType of accountTypeOptions" [value]="accountType.id">
+        {{ accountType.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  </div>
+
+
+<!--  <mat-form-field fxFlex="48%">-->
+<!--    <mat-label>Repayment Mode </mat-label>-->
+<!--    <mat-select  formControlName="repaymentModeId">-->
+<!--      <mat-option *ngFor="let repaymentMode of repaymentModeOptions" [value]="repaymentMode.id">-->
+<!--        {{ repaymentMode.name }}-->
+<!--      </mat-option>-->
+<!--    </mat-select>-->
+<!--    <mat-error *ngIf="createClientForm.controls.officeId.hasError('required')">-->
+<!--      Entity is <strong>required</strong>-->
+<!--    </mat-error>-->
+<!--  </mat-form-field>-->
+
+<!--  <mat-form-field fxFlex="48%">-->
+<!--    <mat-label>Transaction Type Preference </mat-label>-->
+<!--    <mat-select  formControlName="transactionTypePreferenceId">-->
+<!--      <mat-option *ngFor="let transactionTypePreference of transactionTypePreferenceOptions" [value]="transactionTypePreference.id">-->
+<!--        {{ transactionTypePreference.name }}-->
+<!--      </mat-option>-->
+<!--    </mat-select>-->
+
+<!--  </mat-form-field>-->
+
+
+
+
+  <div  data-layout="row" data-layout-align="center center" data-layout-gap="10px">
+    <button mat-raised-button matStepperPrevious>
+      <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;
+      Previous
+    </button>
+    <button mat-raised-button matStepperNext>
+      Next&nbsp;&nbsp;
+      <fa-icon icon="arrow-right"></fa-icon>
+    </button>
+  </div>
+
+</form>
+
+

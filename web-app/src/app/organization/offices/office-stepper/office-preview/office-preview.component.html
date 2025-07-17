@@ -1,0 +1,79 @@
+<div data-layout="column" >
+
+  <h3 class="mat-h3" >Preview</h3>
+
+  <mat-divider ></mat-divider>
+
+  <h3 class="mat-h3" >Basic Details</h3>
+
+  <mat-divider ></mat-divider>
+
+  <div data-layout="row" *ngIf="office.name" >
+    <span data-flex="30">Office</span>
+    <span data-flex="70" >{{ office.name }}</span>
+  </div>
+
+  <div data-layout="row"   *ngIf="office.parentId" >
+    <span data-flex="30">Parent ID</span>
+    <span data-flex="70">{{ office.parentId }}</span>
+  </div>
+
+  <div data-layout="row"  *ngIf="office.openingDate">
+    <span data-flex="30">Opened On</span>
+    <span data-flex="70">{{ office.openingDate}}</span>
+    <!--    | find:partnerTemplate.sourceOptions:'id':'name'-->
+  </div>
+
+  <div  data-layout="row"  *ngIf="office.externalId">
+    <span data-flex="30">External ID</span>
+    <span data-flex="70"> {{ office.externalId}}</span>
+  </div>
+
+  <mat-divider ></mat-divider>
+
+  <h3 class="mat-h3" >GST Details</h3>
+
+  <mat-divider ></mat-divider>
+  <div *ngFor="let office of office.officeGsts" style="width:100%;">
+  <div data-layout="row" >
+<!--       *ngIf="office.gstNumber"-->
+    <span data-flex="30">GST Number</span>
+    <span data-flex="70">{{office.gstNumber}}</span>
+<!--      {{ office.officeGsts.gstNumber }}-->
+  </div>
+
+  <div  data-layout="row" >
+    <span data-flex="30">State</span>
+    <span data-flex="70">{{office.state | find:officeTemplate.stateOptions:'id':'name'}}</span>
+<!--    | find:partnerTemplate.stateOptions:'id':'name'-->
+  </div>
+
+  <div data-layout="row" >
+    <span data-flex="30">CGST</span>
+    <span data-flex="70">{{office.cgst}}</span>
+  </div>
+
+  <div data-layout="row">
+    <span data-flex="30">SGST</span>
+    <span data-flex="70">{{office.sgst}}</span>
+  </div>
+
+  <div data-layout="row" >
+    <span data-flex="30">IGST</span>
+    <span data-flex="70">{{office.igst}}</span>
+  </div>
+  </div>
+</div>
+
+<div data-layout="row" class="margin-t" data-layout-align="center center" data-layout-gap="6px">
+  <button mat-raised-button matStepperPrevious>
+    <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;
+    Previous
+  </button>
+  <button mat-raised-button [routerLink]="['../']">
+    Cancel
+  </button>
+  <button mat-raised-button color="primary"  (click)="submit.emit()" >
+    Submit
+  </button>
+</div>

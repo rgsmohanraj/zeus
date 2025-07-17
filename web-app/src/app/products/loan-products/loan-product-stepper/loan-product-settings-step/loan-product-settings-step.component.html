@@ -1,0 +1,946 @@
+<form [formGroup]="loanProductSettingsForm">
+
+  <div data-layout="row" data-layout-gap="16px">
+   <div data-layout="row" data-layout-gap="16px" data-flex="50">
+    <mat-form-field data-flex="49">
+      <mat-label>Amortization</mat-label>
+      <mat-select formControlName="amortizationType" required>
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let amortizationType of amortizationTypeData" [value]="amortizationType.id">
+          {{ amortizationType.value }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        Amortization is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-checkbox  class="checkbox-margin" labelPosition="before" formControlName="isEqualAmortization">
+      Is Equal Amortization?
+    </mat-checkbox>
+
+</div>
+
+    <mat-form-field data-flex="50">
+      <mat-label>Interest Method</mat-label>
+      <mat-select formControlName="interestType" required>
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let interestType of interestTypeData" [value]="interestType.id">
+          {{ interestType.value }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        Interest Method is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    </div>
+
+  <div data-layout="row"  data-layout-gap="16px">
+
+    <mat-form-field data-flex="30" >
+      <mat-label>Interest calculation period</mat-label>
+      <mat-select formControlName="interestCalculationPeriodType" required>
+        <mat-option *ngFor="let interestCalculationPeriodType of interestCalculationPeriodTypeData"
+          [value]="interestCalculationPeriodType.id">
+          {{ interestCalculationPeriodType.value }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        Interest calculation period is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-checkbox data-flex="25" class="checkbox-margin" *ngIf="loanProductSettingsForm.value.interestCalculationPeriodType === 1"
+      labelPosition="before" formControlName="allowPartialPeriodInterestCalcualtion">
+      Calculate interest for exact days in partial period
+    </mat-checkbox>
+
+    <mat-form-field data-flex="30">
+      <mat-label>Interest Days in year</mat-label>
+      <mat-select formControlName="daysInYearType" required>
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let daysInYearType of daysInYearTypeData" [value]="daysInYearType.id">
+          {{ daysInYearType.value }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        Days in year is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+
+  <div data-layout="row " data-layout-gap="16px">
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Interest Days in month</mat-label>
+      <mat-select formControlName="daysInMonthType" required>
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let daysInMonthType of daysInMonthTypeData" [value]="daysInMonthType.id">
+          {{ daysInMonthType.value }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        Days in month is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Repayment strategy</mat-label>
+      <mat-select formControlName="transactionProcessingStrategyId" required>
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let transactionProcessingStrategy of transactionProcessingStrategyData"
+          [value]="transactionProcessingStrategy.id">
+          {{ transactionProcessingStrategy.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        Repayment strategy is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+
+  <div data-layout="row " data-layout-gap="16px">
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Repayment strategy for NPA</mat-label>
+      <mat-select formControlName="repaymentStrategyForNpaId" >
+        <mat-option>Select</mat-option>
+        <mat-option value="Strategy1">Strategy1</mat-option>
+      </mat-select>
+      <mat-error>
+        Repayment strategy for NPA is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Loan Foreclosure strategy</mat-label>
+      <mat-select formControlName="loanForeclosureStrategy">
+        <mat-option>Select</mat-option>
+        <mat-option value="Loan Strategy1">Loan Strategy1</mat-option>
+      </mat-select>
+      <mat-error>
+        Loan Foreclosure strategy is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+
+    <div data-layout="row " data-layout-gap="16px">
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Aum Slab Rate</mat-label>
+      <input type="number" matInput formControlName="aumSlabRate">
+      <mat-error>
+        Aum Slab Rate is
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Insurance Applicability</mat-label>
+      <mat-select formControlName="insuranceApplicability" (selectionChange)="insuranceApplicabilityChange($event)">
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let insuranceApplicability of insuranceApplicabilityData"
+          [value]="insuranceApplicability.id">
+          {{ insuranceApplicability.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        insurance Applicability is
+      </mat-error>
+    </mat-form-field>
+
+    </div>
+
+      <div data-layout="row " data-layout-gap="16px">
+
+      <mat-form-field data-flex="48%">
+        <mat-label>FLDG Logic</mat-label>
+        <mat-select formControlName="fldgLogic" required>
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let fldgLogic of fldgLogicData" [value]="fldgLogic.id">
+            {{ fldgLogic.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          Fldg Logic is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Monitoring Trigger Par 30</mat-label>
+      <input type="number" matInput formControlName="monitoringTriggerPar30">
+      <mat-error>
+        Monitoring Trigger Par 30 is
+      </mat-error>
+    </mat-form-field>
+
+      </div>
+
+  <div >
+
+    <mat-form-field class="mat-filed">
+      <mat-label>Monitoring Trigger Par 90</mat-label>
+      <input type="number" matInput formControlName="monitoringTriggerPar90">
+      <mat-error>
+        Monitoring Trigger Par 90 is
+      </mat-error>
+    </mat-form-field>
+
+    </div>
+
+    <span fxFlex="48%" fxHide.lt-md></span>
+
+    <h4 class="mat-h4">Moratorium</h4>
+
+  <div data-layout="row " data-layout-gap="16px">
+    <mat-form-field data-flex="48%">
+      <mat-label>Grace on principal payment</mat-label>
+      <input type="number" matInput formControlName="graceOnPrincipalPayment">
+    </mat-form-field>
+
+    <mat-form-field  data-flex="48%">
+      <mat-label>Grace on interest payment</mat-label>
+      <input type="number" matInput formControlName="graceOnInterestPayment">
+    </mat-form-field>
+
+  </div>
+
+  <div data-layout="row " data-layout-gap="16px">
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Interest free period</mat-label>
+      <input type="number" matInput formControlName="graceOnInterestCharged">
+    </mat-form-field>
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Arrears tolerance</mat-label>
+      <input type="number" matInput formControlName="inArrearsTolerance">
+    </mat-form-field>
+
+  </div>
+
+  <div>
+    <mat-checkbox data-flex="48%" labelPosition="before" formControlName="useDaysInMonthForLoanProvisioning">
+      Use Days In month 30 for loan Provisioning
+    </mat-checkbox>
+
+    <mat-checkbox data-flex="48%" labelPosition="before" formControlName="divideByThirtyForPartialPeriod">
+      Divide by thirty for partial period
+    </mat-checkbox>
+
+  </div>
+  <div>
+    <mat-checkbox data-flex="98%" labelPosition="before" formControlName="canDefineInstallmentAmount" class="margin-v">
+      Allow fixing of the installment amount
+    </mat-checkbox>
+  </div>
+
+  <div data-layout="row " data-layout-gap="16px">
+
+    <h4  data-flex="48%" class="mat-h4">Number of days a loan may be overdue before moving into arrears</h4>
+
+    <mat-form-field  data-flex="48%">
+      <mat-label>On arrears ageing</mat-label>
+      <input type="number" matInput formControlName="graceOnArrearsAgeing">
+    </mat-form-field>
+
+  </div>
+
+  <div data-layout="row " data-layout-gap="16px">
+
+    <h4   data-flex="48%" class="mat-h4">Maximum number of days a loan may be overdue before becoming a NPA (non-performing
+      asset)</h4>
+
+    <mat-form-field  data-flex="48%">
+      <mat-label>Overdue days for NPA</mat-label>
+      <input type="number" matInput formControlName="overdueDaysForNPA">
+    </mat-form-field>
+
+  </div>
+
+  <div data-layout="row" data-layout-gap="16px">
+
+    <mat-checkbox data-flex="48%" labelPosition="before" formControlName="accountMovesOutOfNPAOnlyOnArrearsCompletion"
+      class="margin-v">
+      Account moves out of NPA only after all arrears have been cleared?
+    </mat-checkbox>
+
+    <mat-form-field  data-flex="48%">
+      <mat-label>Principal Threshold (%) for Last Instalment</mat-label>
+      <input type="number" matInput formControlName="principalThresholdForLastInstallment">
+    </mat-form-field>
+
+  </div>
+
+  <div data-layout="row" data-layout-gap="16px">
+
+    <mat-checkbox data-flex="40" labelPosition="before" formControlName="allowVariableInstallments" >
+      Are Variable Installments allowed?
+    </mat-checkbox>
+
+    <mat-checkbox data-flex="40" labelPosition="before" formControlName="canUseForTopup" class="margin-v">
+      Allowed to be used for providing Topup Loans
+    </mat-checkbox>
+
+  </div>
+
+  <div *ngIf="loanProductSettingsForm.value.allowVariableInstallments" >
+
+    <h4  class="mat-h4">Variable Installments</h4>
+
+    <div data-layout="row" data-layout-gap="16px">
+
+      <mat-form-field data-flex="48">
+        <mat-label>Minimum gap between Installments</mat-label>
+        <input type="number" matInput formControlName="minimumGap" required>
+        <mat-error>
+          Minimum gap between Installments is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field data-flex="48">
+        <mat-label>Maximum gap between Installments</mat-label>
+        <input type="number" matInput formControlName="maximumGap">
+      </mat-form-field>
+    </div>
+
+  </div>
+
+  <!--    <mat-divider fxFlex="98%"></mat-divider>-->
+
+    <!--    <h3 fxFlex="73%" class="mat-h3">Co-Lending Loan</h3>-->
+
+    <!--    <mat-checkbox fxFlex="73%" labelPosition="before" formControlName="enableColendingLoan" class="margin-v">-->
+    <!--      Enable Co-Lending Loan-->
+    <!--    </mat-checkbox>-->
+
+    <!--    <div *ngIf="loanProductSettingsForm.value.enableColendingLoan" fxFlexFill fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column">-->
+
+    <!--    <mat-checkbox fxFlex="48%" labelPosition="before" formControlName="byPercentageSplit" class="margin-v">-->
+    <!--      By Percentage Split-->
+    <!--    </mat-checkbox>-->
+
+
+    <!--    </div>-->
+
+    <!--    <div  *ngIf="loanProductSettingsForm.value.byPercentageSplit" class="table-responsive" fxFlexFill fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column">-->
+    <!-- <div style="width:100%;display:flex;">-->
+    <!--   <div style="width:25%;"></div>-->
+    <!--   <div style="width:15%;">Principal Shares</div>-->
+    <!--   <div style="width:15%;">Fee Shares</div>-->
+    <!--   <div style="width:15%;">Penalty Shares</div>-->
+    <!--   <div style="width:15%;">Overpaid Shares</div>-->
+    <!--   <div style="width:15%;">Interest Rate</div>-->
+    <!-- </div>-->
+    <!--      <div style="width:100%;display:flex;">-->
+    <!--        <div style="width:28%;margin-top:3%;">Client Share</div>-->
+    <!--        <div style="width:15%;">-->
+    <!--          <mat-form-field style="width:80%;" appearance="fill">-->
+    <!--            <input type="number" value="100" matInput formControlName="principalShare" placeholder="100" [readonly]="true">-->
+    <!--          </mat-form-field>-->
+    <!--        </div>-->
+    <!--        <div style="width:15%;">-->
+    <!--          <mat-form-field style="width:80%;" appearance="fill">-->
+    <!--            <input type="number"  value="100" matInput formControlName="feeShare" placeholder="100" [readonly]="true">-->
+    <!--          </mat-form-field>-->
+    <!--        </div>-->
+    <!--        <div style="width:15%;">-->
+    <!--          <mat-form-field style="width:80%;"  appearance="fill">-->
+    <!--            <input type="number" value="100" matInput formControlName="penaltyShare" placeholder="100" [readonly]="true">-->
+    <!--          </mat-form-field>-->
+    <!--        </div>-->
+    <!--        <div style="width:15%;">-->
+    <!--          <mat-form-field style="width:80%;"  appearance="fill">-->
+    <!--            <input type="number" value="100" matInput formControlName="overpaidShare" placeholder="100" [readonly]="true">-->
+    <!--          </mat-form-field>-->
+    <!--        </div>-->
+    <!--        <div style="width:15%;">-->
+    <!--          <mat-form-field style="width:80%;">-->
+    <!--            <input type="number" min="0" max="100"  matInput formControlName="interestRate" >-->
+    <!--          </mat-form-field>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--  <div style="width:100%;display:flex;">-->
+    <!--    <div style="width:28%;margin-top:3%;">Self Shares</div>-->
+    <!--    <div style="width:15%;">-->
+    <!--      <mat-form-field style="width:80%;" appearance="fill">-->
+    <!--        <input type="number"  min="0" max="100"  matInput formControlName="selfPrincipalShare" >-->
+    <!--      </mat-form-field>-->
+    <!--    </div>-->
+    <!--    <div style="width:15%;">-->
+    <!--      <mat-form-field style="width:80%;" appearance="fill">-->
+    <!--        <input type="number"  min="0" max="100"  matInput formControlName="selfFeeShare">-->
+    <!--      </mat-form-field>-->
+    <!--    </div>-->
+    <!--    <div style="width:15%;">-->
+    <!--      <mat-form-field style="width:80%;"  appearance="fill">-->
+    <!--        <input type="number"  min="0" max="100"  matInput formControlName="selfPenaltyShare">-->
+    <!--      </mat-form-field>-->
+    <!--    </div>-->
+    <!--    <div style="width:15%;">-->
+    <!--      <mat-form-field style="width:80%;"  appearance="fill">-->
+    <!--        <input type="number"  min="0" max="100"  matInput formControlName="selfOverpaidShares">-->
+    <!--      </mat-form-field>-->
+    <!--    </div>-->
+    <!--    <div style="width:15%;">-->
+    <!--      <mat-form-field style="width:80%;">-->
+    <!--        <input type="number" min="0" max="100"  matInput formControlName="selfInterestRate">-->
+    <!--      </mat-form-field>-->
+    <!--    </div>-->
+    <!--  </div>-->
+    <!--      <div style="width:100%;display:flex;">-->
+    <!--        <div style="width:25%;">-->
+    <!--          <mat-form-field style="width:80%;">-->
+    <!--            <mat-label>Select Partner</mat-label>-->
+    <!--            <mat-select formControlName="partnerId">-->
+    <!--              <mat-option *ngFor="let partner of partnerData" [value]="partner.id">-->
+    <!--                {{ partner.name }}-->
+    <!--              </mat-option>-->
+    <!--            </mat-select>-->
+    <!--            <mat-error>-->
+    <!--              Partner is <strong>required</strong>-->
+    <!--            </mat-error>-->
+    <!--          </mat-form-field>-->
+    <!--        </div>-->
+    <!--        <div style="width:15%;">-->
+    <!--          <mat-form-field style="width:80%;">-->
+    <!--            <input type="number" min="0" max="100" matInput formControlName="partnerPrincipalShare">-->
+    <!--          </mat-form-field>-->
+    <!--        </div>-->
+    <!--        <div style="width:15%;">-->
+    <!--          <mat-form-field style="width:80%;">-->
+    <!--            <input type="number" min="0" max="100" matInput formControlName="partnerFeeShare">-->
+    <!--          </mat-form-field>-->
+    <!--        </div>-->
+    <!--        <div style="width:15%;">-->
+    <!--          <mat-form-field style="width:80%;">-->
+    <!--            <input type="number" min="0" max="100" matInput formControlName="partnerPenaltyShare">-->
+    <!--          </mat-form-field>-->
+    <!--        </div>-->
+    <!--        <div style="width:15%;">-->
+    <!--          <mat-form-field style="width:80%;">-->
+    <!--            <input type="number" min="0" max="100" matInput formControlName="partnerOverpaidShare">-->
+    <!--          </mat-form-field>-->
+    <!--        </div>-->
+    <!--        <div style="width:15%;">-->
+    <!--          <mat-form-field style="width:80%;">-->
+    <!--            <input type="number" min="0" max="100" matInput formControlName="partnerInterestRate">-->
+    <!--          </mat-form-field>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--     <div>-->
+    <!--      <button  type="button" mat-raised-button color="primary">Validate</button>-->
+    <!--     </div>-->
+    <!--      <mat-checkbox fxFlex="98%" labelPosition="before" formControlName="enableChargeWiseBifacation" class="margin-v">-->
+    <!--        Enable Charge Wise Bifarcation-->
+    <!--      </mat-checkbox>-->
+    <!--    </div>-->
+
+<!--    <div  style="width:100%;" *ngIf="loanProductSettingsForm.value.enableChargeWiseBifacation" >-->
+<!--      <div  formArrayName="selectCharge" *ngFor="let select of selectCharge.controls; let i = index;" style="width:100%;display:block !important;">-->
+<!--        <div   [formGroupName]="i" style="width:100%;display:block !important;">-->
+<!--          <div style="width:100%;display:block !important;">-->
+<!--          <button *ngIf="i === 0" type="button" mat-raised-button  color="primary" (click)="addSelectChargeArr(selectCharge)">-->
+<!--            <fa-icon icon="plus-circle" size="lg"></fa-icon>Add-->
+<!--          </button>-->
+<!--          </div><br>-->
+<!--          <mat-form-field >-->
+<!--            <mat-label>Select Charge</mat-label>-->
+<!--            <mat-select formControlName="colendingCharge" (selectionChange)="chargeValue($event);">-->
+<!--              <mat-option *ngFor="let colendingCharges of colendingChargeData" [value]="colendingCharges.id">-->
+<!--                {{ colendingCharges.name }}-->
+<!--              </mat-option>-->
+<!--            </mat-select>-->
+<!--            <mat-error>-->
+<!--              Charge is <strong>required</strong>-->
+<!--            </mat-error>-->
+<!--          </mat-form-field>-->
+<!--          <div *ngIf="loanProductSettingsForm.value.selectCharge[i].colendingCharge!=''">-->
+<!--          <div style="width:100%;display:block !important;">Bifarcation Charge - {{chargeNameHead}}</div><br>-->
+<!--          <div style="width:100%;display:flex;">-->
+<!--            <div style="width:50%;">Self</div>-->
+<!--            <div style="width:50%;">{{chargeNameHead}}</div>-->
+<!--          </div>-->
+<!--          <div style="width:100%;display:flex;">-->
+<!--            <div style="width:50%;">-->
+<!--                  <mat-form-field appearance="fill">-->
+<!--                    <input type="number" [value]="100 - loanProductSettingsForm.value.selectCharge[i].partnerCharge" matInput placeholder="100" formControlName="selfCharge" [readonly]="true">-->
+<!--                  </mat-form-field>-->
+<!--                </div>-->
+<!--            <div style="width:50%;">-->
+<!--                  <mat-form-field>-->
+<!--                    <input type="number" min="0" max="100"  matInput formControlName="partnerCharge">-->
+<!--                  </mat-form-field>-->
+<!--                </div>-->
+<!--          </div>-->
+<!--          </div>-->
+<!--          <span>-->
+<!--                <button *ngIf="i !== 0" type="button" mat-raised-button  (click)="removeSelectChargeArr(selectCharge, i)">-->
+<!--                  <fa-icon icon="minus-circle" size="lg"></fa-icon>Remove-->
+<!--                </button>-->
+<!--             <button *ngIf="i !== 0" type="button" mat-raised-button color="primary">Validate</button>-->
+<!--              </span>-->
+
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+
+
+    <mat-divider ></mat-divider>
+
+<div data-layout="row" data-layout-gap="16px">
+    <h3 data-flex="24%" class="mat-h3">Interest Recalculation</h3>
+
+    <mat-checkbox data-flex="73%" labelPosition="before" formControlName="isInterestRecalculationEnabled" class="margin-b">
+      Recalculate Interest
+    </mat-checkbox>
+
+</div>
+
+    <div *ngIf="loanProductSettingsForm.value.isInterestRecalculationEnabled"  >
+
+      <div data-layout="row" data-layout-gap="16px">
+
+      <mat-form-field data-flex="48%">
+        <mat-label>Pre-closure interest calculation rule</mat-label>
+        <mat-select formControlName="preClosureInterestCalculationStrategy" required>
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let preClosureInterestCalculationStrategy of preClosureInterestCalculationStrategyData"
+            [value]="preClosureInterestCalculationStrategy.id">
+            {{ preClosureInterestCalculationStrategy.value }}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          Pre-closure interest calculation rule is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field data-flex="48%">
+        <mat-label>Advance payments adjustment type</mat-label>
+        <mat-select formControlName="rescheduleStrategyMethod" required>
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let rescheduleStrategyType of rescheduleStrategyTypeData"
+            [value]="rescheduleStrategyType.id">
+            {{ rescheduleStrategyType.value }}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          Advance payments adjustment type is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      </div>
+
+      <div data-layout="row" data-layout-gap="16px">
+
+      <mat-form-field class="mat-filed">
+        <mat-label>Interest recalculation compounding on</mat-label>
+        <mat-select formControlName="interestRecalculationCompoundingMethod" required>
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let interestRecalculationCompoundingType of interestRecalculationCompoundingTypeData"
+            [value]="interestRecalculationCompoundingType.id">
+            {{ interestRecalculationCompoundingType.value }}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          Interest recalculation compounding on is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      </div>
+
+      <span  fxHide.lt-md></span>
+
+      <div  data-layout="row wrap" data-layout-gap="6px" >
+
+        <mat-form-field data-flex="48%" *ngIf="loanProductSettingsForm.value.interestRecalculationCompoundingMethod !== 0 &&
+           loanProductSettingsForm.value.recalculationCompoundingFrequencyType !== 1">
+          <mat-label>Frequency Interval for compounding</mat-label>
+          <input type="number" matInput formControlName="recalculationCompoundingFrequencyInterval" required>
+          <mat-error>
+            Frequency Interval for compounding is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="mat-filed" *ngIf="loanProductSettingsForm.value.recalculationRestFrequencyType !== 1">
+          <mat-label>Frequency Interval for recalculation</mat-label>
+          <input type="number" matInput formControlName="recalculationRestFrequencyInterval" required>
+          <mat-error>
+            Frequency Interval for recalculation is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+
+      <div *ngIf="loanProductSettingsForm.value.interestRecalculationCompoundingMethod !== 0" data-layout="column" >
+
+        <mat-form-field class="mat-filed">
+          <mat-label>Frequency for compounding</mat-label>
+          <mat-select formControlName="recalculationCompoundingFrequencyType" required>
+            <mat-option>Select</mat-option>
+            <mat-option *ngFor="let interestRecalculationFrequencyType of interestRecalculationFrequencyTypeData"
+              [value]="interestRecalculationFrequencyType.id">
+              {{ interestRecalculationFrequencyType.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div *ngIf="loanProductSettingsForm.value.recalculationCompoundingFrequencyType === 4" >
+
+          <mat-form-field class="mat-filed">
+            <mat-select formControlName="recalculationCompoundingFrequencyNthDayType">
+              <mat-option>Select</mat-option>
+              <mat-option *ngFor="let interestRecalculationNthDayType of interestRecalculationNthDayTypeData"
+                [value]="interestRecalculationNthDayType.id">
+                {{ interestRecalculationNthDayType.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+
+        <div
+          *ngIf="(loanProductSettingsForm.value.recalculationCompoundingFrequencyType === 4
+          && loanProductSettingsForm.value.recalculationCompoundingFrequencyNthDayType !== -2)
+           || loanProductSettingsForm.value.recalculationCompoundingFrequencyType === 3">
+
+          <mat-form-field class="mat-filed" >
+            <mat-select formControlName="recalculationCompoundingFrequencyDayOfWeekType">
+              <mat-option>Select</mat-option>
+              <mat-option *ngFor="let interestRecalculationDayOfWeekType of interestRecalculationDayOfWeekTypeData"
+                [value]="interestRecalculationDayOfWeekType.id">
+                {{ interestRecalculationDayOfWeekType.value }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+
+        <div
+          *ngIf="loanProductSettingsForm.value.recalculationCompoundingFrequencyType === 4
+          && loanProductSettingsForm.value.recalculationCompoundingFrequencyNthDayType === -2"
+          fxFlex="31%" fxLayout="row" fxLayout.lt-md="column">
+
+          <mat-form-field class="mat-filed" >
+            <mat-select formControlName="recalculationCompoundingFrequencyOnDayType">
+              <mat-option>Select</mat-option>
+              <mat-option *ngFor="let interestRecalculationOnDayType of interestRecalculationOnDayTypeData"
+                [value]="interestRecalculationOnDayType">
+                {{ interestRecalculationOnDayType }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+
+      </div>
+
+      <mat-form-field class="mat-filed">
+        <mat-label>Frequency for recalculate Outstanding Principal</mat-label>
+        <mat-select formControlName="recalculationRestFrequencyType" required>
+          <mat-option>Select</mat-option>
+          <mat-option *ngFor="let interestRecalculationFrequencyType of interestRecalculationFrequencyTypeData"
+            [value]="interestRecalculationFrequencyType.id">
+            {{ interestRecalculationFrequencyType.value }}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          Frequency for recalculate Outstanding Principal is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <div *ngIf="loanProductSettingsForm.value.recalculationRestFrequencyType === 4" data-flex="33" data-layout="row">
+
+        <mat-form-field class="mat-filed">
+          <mat-select formControlName="recalculationRestFrequencyNthDayType">
+            <mat-option>Select</mat-option>
+            <mat-option *ngFor="let interestRecalculationNthDayType of interestRecalculationNthDayTypeData"
+              [value]="interestRecalculationNthDayType.id">
+              {{ interestRecalculationNthDayType.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+
+      <div
+        *ngIf="(loanProductSettingsForm.value.recalculationRestFrequencyType === 4 && loanProductSettingsForm.value.recalculationRestFrequencyNthDayType !== -2) || loanProductSettingsForm.value.recalculationRestFrequencyType === 3"
+         data-layout="row">
+
+        <mat-form-field class="mat-filed">
+          <mat-select formControlName="recalculationRestFrequencyDayOfWeekType">
+            <mat-option>Select</mat-option>
+            <mat-option *ngFor="let interestRecalculationDayOfWeekType of interestRecalculationDayOfWeekTypeData"
+              [value]="interestRecalculationDayOfWeekType.id">
+              {{ interestRecalculationDayOfWeekType.value }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+
+      <div
+        *ngIf="loanProductSettingsForm.value.recalculationRestFrequencyType === 4
+        && loanProductSettingsForm.value.recalculationRestFrequencyNthDayType === -2">
+
+        <mat-form-field class="mat-filed">
+          <mat-select formControlName="recalculationRestFrequencyOnDayType">
+            <mat-option>Select</mat-option>
+            <mat-option *ngFor="let interestRecalculationOnDayType of interestRecalculationOnDayTypeData"
+              [value]="interestRecalculationOnDayType">
+              {{ interestRecalculationOnDayType }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+        <div>
+      <mat-checkbox  labelPosition="before" formControlName="isArrearsBasedOnOriginalSchedule"
+        class="margin-v">
+        Is Arrears recognization based on original schedule?
+      </mat-checkbox>
+
+        </div>
+
+    </div>
+
+    <mat-divider></mat-divider>
+
+  <div data-layout="row" data-layout-gap="16px">
+
+    <h3 data-flex="48" class="mat-h3">Guarantee Requirements</h3>
+
+    <mat-checkbox data-flex="48"  labelPosition="before" formControlName="holdGuaranteeFunds" class="margin-b">
+      Place Guarantee Funds On-Hold?
+    </mat-checkbox>
+
+  </div>
+
+    <div *ngIf="loanProductSettingsForm.value.holdGuaranteeFunds"  data-layout="row " data-layout-gap="16px"
+      fxLayout.lt-md="column">
+
+      <mat-form-field data-flex="31%">
+        <mat-label>Mandatory Guarantee(%)</mat-label>
+        <input type="number" matInput formControlName="mandatoryGuarantee" required>
+        <mat-error>
+          Mandatory Guarantee is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field data-flex="31%">
+        <mat-label>Minimum Guarantee from Own Funds(%)</mat-label>
+        <input type="number" matInput formControlName="minimumGuaranteeFromOwnFunds">
+      </mat-form-field>
+
+      <mat-form-field data-flex="31%">
+        <mat-label>Minimum Guarantee from Guarantor Funds(%)</mat-label>
+        <input type="number" matInput formControlName="minimumGuaranteeFromGuarantor">
+      </mat-form-field>
+
+    </div>
+
+    <mat-divider ></mat-divider>
+
+
+  <div data-layout="row" data-layout-gap="16px">
+
+    <h3  data-flex="48" class="mat-h3">Loan Tranche Details</h3>
+
+    <mat-checkbox data-flex="48" labelPosition="before" formControlName="multiDisburseLoan" class="margin-b">
+      Enable Multiple Disbursals
+    </mat-checkbox>
+
+  </div>
+
+    <div *ngIf="loanProductSettingsForm.value.multiDisburseLoan"  data-layout="row " data-layout-gap="16px">
+
+      <mat-form-field data-flex="35%">
+        <mat-label>Maximum Tranche count</mat-label>
+        <input type="number" matInput formControlName="maxTrancheCount" required>
+        <mat-error>
+          Maximum Tranche count is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field data-flex="39%">
+        <mat-label>Maximum allowed outstanding balance</mat-label>
+        <input type="number" matInput formControlName="outstandingLoanBalance">
+      </mat-form-field>
+
+      <mat-checkbox data-flex="30%" labelPosition="before" formControlName="disallowExpectedDisbursements" class="margin-v">
+        Disallow Expected Disbursements
+      </mat-checkbox>
+    </div>
+
+    <mat-divider ></mat-divider>
+
+    <h3  class="mat-h3">Broken Period Interest</h3>
+
+    <!--    <mat-form-field fxFlex="48%">-->
+    <!--      <mat-label>Broken Interest calculation period</mat-label>-->
+    <!--      <mat-select formControlName="brokenInterestCalculationPeriod" >-->
+    <!--        <mat-option *ngFor="let brokenInterestCalculationPeriod of brokenInterestCalculationPeriodTypeData" [value]="brokenInterestCalculationPeriod.id">-->
+    <!--          {{ brokenInterestCalculationPeriod.value }}-->
+    <!--        </mat-option>-->
+    <!--      </mat-select>-->
+    <!--      <mat-error>-->
+    <!--        Broken Interest calculation period is <strong>required</strong>-->
+    <!--      </mat-error>-->
+    <!--    </mat-form-field>-->
+
+  <div data-layout="row" data-layout-gap="16px">
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Broken Interest Strategy</mat-label>
+      <mat-select formControlName="brokenInterestStrategy" required>
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let brokenInterestStrategy1 of brokenInterestStrategyData"
+          [value]="brokenInterestStrategy1.id">
+          {{ brokenInterestStrategy1.value }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        Broken Interest Strategy is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <!--    <mat-checkbox *ngIf="loanProductSettingsForm.value.brokenInterestStrategy == '1'" fxFlex="48%" labelPosition="before" formControlName="isBrokenNetOff">-->
+    <!--      is Broken Net Off?-->
+    <!--    </mat-checkbox>-->
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Broken Interest Days in year</mat-label>
+      <mat-select formControlName="brokenInterestDaysInYears" required>
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let brokenInterestDaysInYears of brokenInterestDaysInYearsData"
+          [value]="brokenInterestDaysInYears.id">
+          {{ brokenInterestDaysInYears.value }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        Broken Interest Days in year is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    </div>
+
+    <!--    <mat-form-field fxFlex="48%">-->
+    <!--      <mat-label>Broken Interest Days in month</mat-label>-->
+    <!--      <mat-select formControlName="brokenInterestDaysInMonth" required>-->
+    <!--        <mat-option *ngFor="let brokenInterestDaysInMonth of brokenInterestDaysInMonthData" [value]="brokenInterestDaysInMonth.id">-->
+    <!--          {{ brokenInterestDaysInMonth.value }}-->
+    <!--        </mat-option>-->
+    <!--      </mat-select>-->
+    <!--      <mat-error>-->
+    <!--        Broken Interest Days in month is <strong>required</strong>-->
+    <!--      </mat-error>-->
+    <!--    </mat-form-field>-->
+
+    <mat-divider fxFlex="98%"></mat-divider>
+
+    <!--    <h3 fxFlex="98%" class="mat-h3">Disbursement & Collection Mode</h3>-->
+
+    <!--      <mat-form-field fxFlex="48%">-->
+    <!--        <mat-label>Disbursement</mat-label>-->
+    <!--        <mat-select formControlName="disbursement" required>-->
+    <!--          <mat-option>Select</mat-option>-->
+    <!--          <mat-option *ngFor="let disbursement of disbursementData" [value]="disbursement.id">-->
+    <!--            {{ disbursement.value }}-->
+    <!--          </mat-option>-->
+    <!--        </mat-select>-->
+    <!--        <mat-error>-->
+    <!--          Disbursement is <strong>required</strong>-->
+    <!--        </mat-error>-->
+    <!--      </mat-form-field>-->
+
+    <!--      <mat-form-field fxFlex="48%">-->
+    <!--        <mat-label>Collection</mat-label>-->
+    <!--        <mat-select formControlName="collection" required>-->
+    <!--          <mat-option>Select</mat-option>-->
+    <!--          <mat-option *ngFor="let collection of collectionData" [value]="collection.id">-->
+    <!--            {{ collection.value }}-->
+    <!--          </mat-option>-->
+    <!--        </mat-select>-->
+    <!--        <mat-error>-->
+    <!--          Collection is <strong>required</strong>-->
+    <!--        </mat-error>-->
+    <!--      </mat-form-field>-->
+
+  <div>
+    <h3 class="mat-h3">Configurable Terms and Settings</h3>
+
+    <mat-checkbox  labelPosition="before" formControlName="allowAttributeConfiguration" class="margin-b">
+      Allow overriding select terms and settings in loan accounts
+    </mat-checkbox>
+  </div>
+
+    <div *ngIf="loanProductSettingsForm.value.allowAttributeConfiguration" formGroupName="allowAttributeOverrides">
+<div data-layout="row " data-layout-gap="16px">
+      <mat-checkbox data-flex="48%" labelPosition="before" formControlName="amortizationType" class="margin-v">
+        Amortization
+      </mat-checkbox>
+
+      <mat-checkbox data-flex="48%" labelPosition="before" formControlName="interestType" class="margin-v">
+        Interest method
+      </mat-checkbox>
+
+</div>
+    <div data-layout="row " data-layout-gap="16px">
+
+      <mat-checkbox data-flex="48%" labelPosition="before" formControlName="transactionProcessingStrategyId"
+        class="margin-v">
+        Repayment strategy
+      </mat-checkbox>
+
+      <mat-checkbox data-flex="48%" labelPosition="before" formControlName="interestCalculationPeriodType"
+        class="margin-v">
+        Interest calculation period
+      </mat-checkbox>
+    </div>
+
+    <div data-layout="row " data-layout-gap="16px">
+      <mat-checkbox data-flex="48%" labelPosition="before" formControlName="repaymentStrategyForNpa" class="margin-v">
+        Repayment Strategy For NPA
+      </mat-checkbox>
+
+      <mat-checkbox data-flex="48%" labelPosition="before" formControlName="inArrearsTolerance" class="margin-v">
+        Arrears tolerance
+      </mat-checkbox>
+    </div>
+
+    <div data-layout="row " data-layout-gap="16px">
+      <mat-checkbox data-flex="48%" labelPosition="before" formControlName="repaymentEvery" class="margin-v">
+        Repaid every
+      </mat-checkbox>
+
+      <mat-checkbox data-flex="48%" labelPosition="before" formControlName="graceOnPrincipalAndInterestPayment"
+        class="margin-v">
+        Moratorium
+      </mat-checkbox>
+    </div>
+
+    <div data-layout="row " data-layout-gap="16px">
+
+      <mat-checkbox data-flex="48%" labelPosition="before" formControlName="graceOnArrearsAgeing" class="margin-v">
+        Number of days a loan may be overdue before moving into arrears
+      </mat-checkbox>
+</div>
+
+    </div>
+
+
+  <div data-layout="row" class="margin-t"  data-layout-align="center center" data-layout-gap="6px">
+    <button mat-raised-button matStepperPrevious>
+      <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;
+      Previous
+    </button>
+    <button mat-raised-button matStepperNext>
+      Next&nbsp;&nbsp;
+      <fa-icon icon="arrow-right"></fa-icon>
+    </button>
+  </div>
+
+</form>

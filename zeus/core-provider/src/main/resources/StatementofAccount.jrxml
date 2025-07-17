@@ -1,0 +1,900 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Invoice" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4eedbb89-b4f6-4469-9ab6-f642a1688cf7">
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="Sample DB"/>
+    <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+    <style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+    <style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+    <style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>
+    <style name="Detail" mode="Transparent" fontName="Times New Roman"/>
+    <style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+        <conditionalStyle>
+            <conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+            <style mode="Opaque" backcolor="#EEEFF0"/>
+        </conditionalStyle>
+    </style>
+    <style name="Table">
+        <box>
+            <pen lineWidth="1.0" lineColor="#000000"/>
+            <topPen lineWidth="1.0" lineColor="#000000"/>
+            <leftPen lineWidth="1.0" lineColor="#000000"/>
+            <bottomPen lineWidth="1.0" lineColor="#000000"/>
+            <rightPen lineWidth="1.0" lineColor="#000000"/>
+        </box>
+    </style>
+    <style name="Table_TH" mode="Opaque" backcolor="#FFFFFF">
+        <box>
+            <pen lineWidth="0.5" lineColor="#000000"/>
+            <topPen lineWidth="0.5" lineColor="#000000"/>
+            <leftPen lineWidth="0.5" lineColor="#000000"/>
+            <bottomPen lineWidth="0.5" lineColor="#000000"/>
+            <rightPen lineWidth="0.5" lineColor="#000000"/>
+        </box>
+    </style>
+    <style name="Table_CH" mode="Opaque" backcolor="#CACED0">
+        <box>
+            <pen lineWidth="0.5" lineColor="#000000"/>
+            <topPen lineWidth="0.5" lineColor="#000000"/>
+            <leftPen lineWidth="0.5" lineColor="#000000"/>
+            <bottomPen lineWidth="0.5" lineColor="#000000"/>
+            <rightPen lineWidth="0.5" lineColor="#000000"/>
+        </box>
+    </style>
+    <style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+        <box>
+            <pen lineWidth="0.5" lineColor="#000000"/>
+            <topPen lineWidth="0.5" lineColor="#000000"/>
+            <leftPen lineWidth="0.5" lineColor="#000000"/>
+            <bottomPen lineWidth="0.5" lineColor="#000000"/>
+            <rightPen lineWidth="0.5" lineColor="#000000"/>
+        </box>
+        <conditionalStyle>
+            <conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+            <style backcolor="#D8D8D8"/>
+        </conditionalStyle>
+    </style>
+    <style name="Table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+        <box>
+            <pen lineWidth="0.5" lineColor="#000000"/>
+            <topPen lineWidth="0.5" lineColor="#000000"/>
+            <leftPen lineWidth="0.5" lineColor="#000000"/>
+            <bottomPen lineWidth="0.5" lineColor="#000000"/>
+            <rightPen lineWidth="0.5" lineColor="#000000"/>
+        </box>
+    </style>
+    <style name="Table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+        <box>
+            <pen lineWidth="0.5" lineColor="#000000"/>
+            <topPen lineWidth="0.5" lineColor="#000000"/>
+            <leftPen lineWidth="0.5" lineColor="#000000"/>
+            <bottomPen lineWidth="0.5" lineColor="#000000"/>
+            <rightPen lineWidth="0.5" lineColor="#000000"/>
+        </box>
+    </style>
+    <style name="Table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+        <box>
+            <pen lineWidth="0.5" lineColor="#000000"/>
+            <topPen lineWidth="0.5" lineColor="#000000"/>
+            <leftPen lineWidth="0.5" lineColor="#000000"/>
+            <bottomPen lineWidth="0.5" lineColor="#000000"/>
+            <rightPen lineWidth="0.5" lineColor="#000000"/>
+        </box>
+    </style>
+    <style name="Table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+        <box>
+            <pen lineWidth="0.5" lineColor="#000000"/>
+            <topPen lineWidth="0.5" lineColor="#000000"/>
+            <leftPen lineWidth="0.5" lineColor="#000000"/>
+            <bottomPen lineWidth="0.5" lineColor="#000000"/>
+            <rightPen lineWidth="0.5" lineColor="#000000"/>
+        </box>
+    </style>
+    <style name="Table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+        <box>
+            <pen lineWidth="0.5" lineColor="#000000"/>
+            <topPen lineWidth="0.5" lineColor="#000000"/>
+            <leftPen lineWidth="0.5" lineColor="#000000"/>
+            <bottomPen lineWidth="0.5" lineColor="#000000"/>
+            <rightPen lineWidth="0.5" lineColor="#000000"/>
+        </box>
+    </style>
+    <style name="Table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+        <box>
+            <pen lineWidth="0.5" lineColor="#000000"/>
+            <topPen lineWidth="0.5" lineColor="#000000"/>
+            <leftPen lineWidth="0.5" lineColor="#000000"/>
+            <bottomPen lineWidth="0.5" lineColor="#000000"/>
+            <rightPen lineWidth="0.5" lineColor="#000000"/>
+        </box>
+    </style>
+    <subDataset name="transaction" uuid="f13e6d36-5148-4ecc-bbe3-3035def80980">
+        <parameter name="asOnDate" class="java.lang.String"/>
+        <parameter name="accountNo" class="java.lang.String"/>
+        <queryString>
+            <![CDATA[select date_format(soa.valuedate, "%d-%m-%Y") as "Date", particulars as "Particulars", description as "Description",  debit as "Debit", credit as "Credit", balance as "Balance" from (
+
+select date_format(txn.createdon_date, "%d-%m-%Y") as 'transactiondate', txn.value_date AS 'valuedate', 'Fee/Charge' as 'particulars',c.fees_type as 'description', ROUND((lc.amount + lc.total_gst),2) AS 'debit', '' as 'credit', '' as 'balance', '1' as 'order'
+
+from m_loan_charge lc inner join m_loan l on lc.loan_id = l.id inner join m_loan_transaction txn on l.id = txn.loan_id inner join m_charge c on lc.charge_id = c.id where lc.loan_id = (select id from m_loan where account_no =$P{accountNo} )
+
+and lc.charge_time_enum = 1 and txn.transaction_type_enum = 5
+
+union
+
+select date_format(createdon_date , "%d-%m-%Y") as 'transactiondate', value_date as 'valuedate','Loan' as 'particulars' ,'Net Disbursement Amount' as 'description', '' as 'debit', ROUND((select net_disbursal_amount from m_loan where account_no =$P{accountNo}),2) as 'credit',ROUND(outstanding_loan_balance_derived,2) as 'balance', '2' as 'order'
+
+from m_loan_transaction where loan_id = (select id from m_loan where account_no =$P{accountNo}) and transaction_type_enum = 1
+
+union
+
+select date_format(createdon_date , "%d-%m-%Y") as 'transactiondate', value_date as 'valuedate','Repayment' as 'particulars' ,'Principal Payment' as 'description', ROUND(principal_portion_derived,2) as 'debit', '' as 'credit',
+
+ROUND(outstanding_loan_balance_derived,2) as 'balance', '5' as 'order' from m_loan_transaction where loan_id = (select id from m_loan where account_no =$P{accountNo}) and transaction_type_enum = 2 and is_reversed =0 and event not in ('PROCESSEDADVANCE','UNPROCESSEDADVANCE') and    principal_portion_derived !=0
+
+union
+
+select date_format(createdon_date , "%d-%m-%Y") as 'transactiondate', value_date as 'valuedate','Repayment' as 'particulars','Interest Payment' as 'description', ROUND(interest_portion_derived,2) as 'debit', '' as 'credit',
+
+'' as 'balance', '4' as 'order' from m_loan_transaction where loan_id = (select id from m_loan where account_no =$P{accountNo}) and transaction_type_enum = 2 and is_reversed =0 and event not in ('PROCESSEDADVANCE','UNPROCESSEDADVANCE') and  interest_portion_derived !=0
+
+union
+
+select date_format(createdon_date , "%d-%m-%Y") as 'transactiondate', value_date as 'valuedate','Repayment' as 'particulars','Advance' as 'description', ROUND(advance_amount,2) as 'debit', '' as 'credit','' as 'balance', '3' as 'order'
+
+from m_loan_transaction where loan_id = (select id from m_loan where account_no =$P{accountNo}) and transaction_type_enum = 2 and event in ('UNPROCESSEDADVANCE') and advance_amount != 0
+
+union
+
+select date_format(createdon_date , "%d-%m-%Y") as 'transactiondate', value_date as 'valuedate','Repayment' as 'particulars','Principal Payment' as 'description', ROUND(principal_portion_derived,2) as 'debit', '' as 'credit',ROUND(outstanding_loan_balance_derived,2) as 'balance', '5' as 'order'
+
+from m_loan_transaction where loan_id = (select id from m_loan where account_no =$P{accountNo}) and transaction_type_enum = 2 and is_reversed =0   and principal_portion_derived != 0
+
+union
+
+select date_format(createdon_date , "%d-%m-%Y") as 'transactiondate', value_date as 'valuedate','Repayment' as 'particulars','Interest Payment' as 'description', ROUND(interest_portion_derived,2) as 'debit', '' as 'credit','' as 'balance', '4' as 'order'
+
+from m_loan_transaction where loan_id = (select id from m_loan where account_no =$P{accountNo}) and transaction_type_enum = 2 and is_reversed =0 and interest_portion_derived !=0
+
+union
+
+select date_format(txn.createdon_date, "%d-%m-%Y") as 'transactiondate',
+txn.value_date AS 'valuedate', 'Bounce Charge' as 'particulars','Bounce Charge' as 'description',
+ROUND((lc.amount + lc.total_gst),2) AS 'debit', '' as 'credit', '' as 'balance', '6' as 'order' from m_loan l
+left join m_loan_charge lc on lc.loan_id = l.id
+left join m_loan_charge_paid_by lcp on lcp.loan_charge_id = lc.id
+left join m_loan_transaction txn on txn.id = lcp.loan_transaction_id
+where lc.loan_id = (select id from m_loan where account_no =$P{accountNo} )
+and lc.charge_time_enum = 19 and lc.is_active = 1 and lc.amount_paid_derived > 0
+
+union
+
+    select date_format(txn.createdon_date, "%d-%m-%Y") as 'transactiondate', txn.value_date AS 'valuedate', 'Bounce Charges Waived ' as 'particulars','Bounce Charge Waived' as 'description', ROUND(lc.amount_waived_derived,2) AS 'debit', '' as 'credit', '' as 'balance', '7' as 'order'
+
+from m_loan_charge lc inner join m_loan l on lc.loan_id = l.id inner join m_loan_transaction txn on l.id = txn.loan_id inner join m_charge c on lc.charge_id = c.id where lc.loan_id = (select id from m_loan where account_no =$P{accountNo} )
+
+    and txn.transaction_type_enum = 9 and amount_waived_derived !=0
+
+	union
+
+select date_format(createdon_date , "%d-%m-%Y") as 'transactiondate', value_date as 'valuedate','Foreclosure' as 'particulars','Foreclosure Principal Collection' as 'description', ROUND(principal_portion_derived,2) as 'debit', '' as 'credit',ROUND(outstanding_loan_balance_derived,2) as 'balance', '10' as 'order'
+
+from m_loan_transaction where loan_id = (select id from m_loan where account_no =$P{accountNo}) and transaction_type_enum = 11
+
+union
+
+select date_format(createdon_date , "%d-%m-%Y") as 'transactiondate', value_date as 'valuedate','Foreclosure' as 'particulars','Foreclosure Interest Collection' as 'description', ROUND(interest_portion_derived,2) as 'debit', '' as 'credit','' as 'balance', '9' as 'order'
+
+from m_loan_transaction where loan_id = (select id from m_loan where account_no =$P{accountNo} ) and transaction_type_enum = 11
+
+union
+
+select date_format(createdon_date , "%d-%m-%Y") as 'transactiondate', value_date as 'valuedate','Foreclosure Charge' as 'particulars','Foreclosure Charge Collection' as 'description', ROUND(fee_charges_portion_derived,2) as 'debit', '' as 'credit','' as 'balance', '8' as 'order'
+
+from m_loan_transaction where loan_id = (select id from m_loan where account_no = $P{accountNo} ) and transaction_type_enum = 11 and (fee_charges_portion_derived <> 0 or fee_charges_portion_derived <> null)
+) as soa
+where soa.valuedate <= STR_TO_DATE(($P{asOnDate}), "%d %M %Y")
+order by soa.valuedate,soa.order,soa.particulars,soa.description,soa.balance desc]]>
+        </queryString>
+        <field name="Date" class="java.lang.String">
+            <property name="net.sf.jasperreports.sql.field.column.index"/>
+        </field>
+        <field name="particulars" class="java.lang.String">
+            <property name="net.sf.jasperreports.sql.field.column.index"/>
+        </field>
+        <field name="description" class="java.lang.String">
+            <property name="net.sf.jasperreports.sql.field.column.index"/>
+        </field>
+        <field name="debit" class="java.lang.String">
+            <property name="net.sf.jasperreports.sql.field.column.index"/>
+        </field>
+        <field name="credit" class="java.lang.String">
+            <property name="net.sf.jasperreports.sql.field.column.index"/>
+        </field>
+        <field name="balance" class="java.lang.String">
+            <property name="net.sf.jasperreports.sql.field.column.index"/>
+        </field>
+    </subDataset>
+    <parameter name="asOnDate" class="java.lang.String"/>
+    <parameter name="accountNo" class="java.lang.String"/>
+    <queryString>
+        <![CDATA[select cl.display_name as "Customer Name",
+cl.mobile_no as "Mobile",
+cl.email_address as "Email id",
+(select date_format((STR_TO_DATE(($P{asOnDate}),"%d %M %Y")),"%d-%m-%Y")) as "Date",
+lh.account_no as "Loan Account Number",
+cvp.code_value as "Loan Type/Product",
+pr.partner_name as "Colending Partner Name",
+Round(lh.approved_principal,2) as "Sanction Amount",
+date_format(lh.disbursedon_date,"%d-%m-%Y") as "Date of Disbursement",
+concat(Round(lo.nominal_interest_rate_per_period,2),"%") as "Rate of Interest(ROI)",
+(CASE
+	when (lh.loan_status_id = 710 AND lo.loan_status_id = 710) THEN (
+    (SELECT date_format(duedate,"%d-%m-%Y") FROM m_loan_repayment_schedule
+		WHERE loan_id = lo.id and date_format(duedate,"%Y-%m-%d") <= STR_TO_DATE(($P{asOnDate}) , "%d %M %Y")
+		and (obligations_met_on_date is null or date_format(obligations_met_on_date,"%Y-%m-%d") > STR_TO_DATE(($P{asOnDate}) , "%d %M %Y")) order by installment LIMIT 1)
+	UNION
+	(SELECT date_format(duedate,"%d-%m-%Y") FROM m_loan_repayment_schedule
+		WHERE loan_id = lo.id and duedate > STR_TO_DATE(($P{asOnDate}) , "%d %M %Y") order by installment LIMIT 1)LIMIT 1)
+	when (lh.loan_status_id = 300 AND lo.loan_status_id = 710) THEN (
+    (SELECT date_format(duedate,"%d-%m-%Y") FROM m_loan_repayment_schedule_history
+		WHERE loan_id = lo.id and date_format(duedate,"%Y-%m-%d") <= STR_TO_DATE(($P{asOnDate}) , "%d %M %Y")
+		and (obligations_met_on_date is null or date_format(obligations_met_on_date,"%Y-%m-%d") > STR_TO_DATE(($P{asOnDate}) , "%d %M %Y")) order by installment LIMIT 1)
+	UNION
+	(SELECT date_format(duedate,"%d-%m-%Y") FROM m_loan_repayment_schedule_history
+		WHERE loan_id = lo.id and duedate > STR_TO_DATE(($P{asOnDate}) , "%d %M %Y") order by installment LIMIT 1)LIMIT 1)
+	when (lh.loan_status_id = 300 || lh.loan_status_id = 600) THEN (
+	(SELECT date_format(duedate,"%d-%m-%Y") FROM m_loan_repayment_schedule
+		WHERE loan_id = lo.id and date_format(duedate,"%Y-%m-%d") <= STR_TO_DATE(($P{asOnDate}) , "%d %M %Y")
+		and (obligations_met_on_date is null or date_format(obligations_met_on_date,"%Y-%m-%d") > STR_TO_DATE(($P{asOnDate}) , "%d %M %Y")) order by installment LIMIT 1)
+	UNION
+	(SELECT date_format(duedate,"%d-%m-%Y") FROM m_loan_repayment_schedule
+		WHERE loan_id = lo.id and duedate > STR_TO_DATE(($P{asOnDate}) , "%d %M %Y") order by installment LIMIT 1)LIMIT 1)
+ END) as "Due Date",
+
+ Round(lh.principal_outstanding_derived,2) as "Principal Outstanding",
+Round(lh.principal_overdue_derived + lh.interest_overdue_derived,2) as "Overdue Amount",
+(CASE
+	when lo.loan_status_id = 710
+		THEN IF(date_format(lo.closedon_date,"%Y-%m-%d") <= STR_TO_DATE(($P{asOnDate}) , "%d %M %Y"),  0,
+		((SELECT count(*) FROM m_loan_repayment_schedule_history WHERE loan_id = lo.id AND (duedate = STR_TO_DATE(($P{asOnDate}) , "%d %M %Y") AND obligations_met_on_date IS NULL)) +
+		(SELECT count(*) FROM m_loan_repayment_schedule_history WHERE loan_id = lo.id AND (duedate < STR_TO_DATE(($P{asOnDate}) , "%d %M %Y") AND obligations_met_on_date IS NULL)) +
+		(SELECT count(*) FROM m_loan_repayment_schedule_history WHERE loan_id = lo.id AND (duedate > STR_TO_DATE(($P{asOnDate}) , "%d %M %Y")
+			OR (obligations_met_on_date < STR_TO_DATE(($P{asOnDate}) , "%d %M %Y") AND obligations_met_on_date IS NULL)
+			OR (obligations_met_on_date > STR_TO_DATE(($P{asOnDate}) , "%d %M %Y"))))))
+	when lo.loan_status_id = 300
+		THEN ((SELECT count(*) FROM m_loan_repayment_schedule WHERE loan_id = lo.id AND (duedate = STR_TO_DATE(($P{asOnDate}) , "%d %M %Y") AND obligations_met_on_date IS NULL)) +
+			  (SELECT count(*) FROM m_loan_repayment_schedule WHERE loan_id = lo.id AND (duedate < STR_TO_DATE(($P{asOnDate}) , "%d %M %Y") AND obligations_met_on_date IS NULL)) +
+	          (SELECT count(*) FROM m_loan_repayment_schedule WHERE loan_id = lo.id AND (duedate > STR_TO_DATE(($P{asOnDate}) , "%d %M %Y")
+				OR (obligations_met_on_date < STR_TO_DATE(($P{asOnDate}) , "%d %M %Y") AND obligations_met_on_date IS NULL)
+				OR (obligations_met_on_date > STR_TO_DATE(($P{asOnDate}) , "%d %M %Y")))))
+	when lo.loan_status_id = 600 THEN IF(date_format(lo.closedon_date,"%Y-%m-%d") <= STR_TO_DATE(($P{asOnDate}) , "%d %M %Y"),  0,
+		((SELECT count(*) FROM m_loan_repayment_schedule WHERE loan_id = lo.id AND (duedate = STR_TO_DATE(($P{asOnDate}) , "%d %M %Y") AND obligations_met_on_date IS NULL)) +
+		(SELECT count(*) FROM m_loan_repayment_schedule WHERE loan_id = lo.id AND (duedate < STR_TO_DATE(($P{asOnDate}) , "%d %M %Y") AND obligations_met_on_date IS NULL)) +
+		(SELECT count(*) FROM m_loan_repayment_schedule WHERE loan_id = lo.id AND (duedate > STR_TO_DATE(($P{asOnDate}) , "%d %M %Y")
+			OR (obligations_met_on_date < STR_TO_DATE(($P{asOnDate}) , "%d %M %Y") AND obligations_met_on_date IS NULL)
+			OR (obligations_met_on_date > STR_TO_DATE(($P{asOnDate}) , "%d %M %Y"))))))
+ END) as  "Pending Tenure"
+ from m_loan_history lh
+ left join m_product_loan lp on lp.id = lh.product_id
+ left join m_loan_repayment_schedule rs on rs.loan_id = lh.loan_id
+ left join m_loan_repayment_schedule_history rsh on rsh.loan_id = lh.loan_id
+ left join m_loan lo on lo.id = lh.loan_id
+ left join m_partner pr on pr.id = lh.partner_id
+ left join m_loan_transaction txn on txn.loan_id = lh.loan_id
+ left join m_code_value cvp on cvp.id = lp.asset_class_cv_id
+ left join m_client cl on cl.id = lh.client_id
+ where lh.rev = (Select max(rev) from m_loan_history lh where lh.loan_id = lo.id and date_format(lh.value_date,'%Y-%m-%d') <= STR_TO_DATE(($P{asOnDate}), "%d %M %Y"))
+ and lh.account_no = $P{accountNo} group by lh.id]]>
+    </queryString>
+    <field name="Customer Name" class="java.lang.String">
+        <property name="net.sf.jasperreports.sql.field.column.index" value="1"/>
+    </field>
+    <field name="Mobile" class="java.lang.String">
+        <property name="net.sf.jasperreports.sql.field.column.index" value="2"/>
+    </field>
+    <field name="Email id" class="java.lang.String">
+        <property name="net.sf.jasperreports.sql.field.column.index" value="3"/>
+    </field>
+    <field name="Date" class="java.lang.String">
+        <property name="net.sf.jasperreports.sql.field.column.index" value="4"/>
+    </field>
+    <field name="Loan Account Number" class="java.lang.String">
+        <property name="net.sf.jasperreports.sql.field.column.index" value="5"/>
+    </field>
+    <field name="Loan Type/Product" class="java.lang.String">
+        <property name="net.sf.jasperreports.sql.field.column.index" value="6"/>
+        <property name="net.sf.jasperreports.sql.field.column.label" value="Loan Type/Product"/>
+    </field>
+    <field name="Colending Partner Name" class="java.lang.String">
+        <property name="net.sf.jasperreports.sql.field.column.label" value="Colending Partner Name"/>
+    </field>
+    <field name="Sanction Amount" class="java.lang.String">
+        <property name="net.sf.jasperreports.sql.field.column.label" value="Sanction Amount"/>
+    </field>
+    <field name="Date of Disbursement" class="java.lang.String">
+        <property name="net.sf.jasperreports.sql.field.column.label" value="Date of Disbursement"/>
+    </field>
+    <field name="Rate of Interest(ROI)" class="java.lang.String">
+        <property name="net.sf.jasperreports.sql.field.column.label" value="Rate of Interest(ROI)"/>
+    </field>
+    <field name="Due Date" class="java.lang.String">
+        <property name="net.sf.jasperreports.sql.field.column.label" value="Due Date"/>
+    </field>
+    <field name="Principal Outstanding" class="java.lang.String">
+        <property name="net.sf.jasperreports.sql.field.column.label" value="Principal Outstanding"/>
+    </field>
+    <field name="Overdue Amount" class="java.lang.String">
+        <property name="net.sf.jasperreports.sql.field.column.label" value="Overdue Amount"/>
+    </field>
+    <field name="Pending Tenure" class="java.lang.String">
+        <property name="net.sf.jasperreports.sql.field.column.label" value="Pending Tenure"/>
+    </field>
+    <title>
+        <band splitType="Stretch"/>
+    </title>
+    <detail>
+        <band height="640" splitType="Stretch">
+            <property name="com.jaspersoft.studio.layout"/>
+            <staticText>
+                <reportElement x="2" y="65" width="80" height="15" uuid="33274f5d-5b7e-4be2-a2ff-65d452a618ed">
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.width" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <text><![CDATA[Customer Name]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="2" y="90" width="50" height="15" uuid="1d3045ed-03d6-4253-a959-aeeb491b73ca">
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.width" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <text><![CDATA[Mobile]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="140" y="0" width="325" height="25" uuid="e622555d-198b-4ccd-a4a1-c59c53304058">
+                    <property name="local_mesure_unitheight" value="pixel"/>
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Center">
+                    <font fontName="Times New Roman" size="19" isBold="true"/>
+                </textElement>
+                <text><![CDATA[  Statement of Accounts]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="2" y="115" width="40" height="15" uuid="235bf8b6-1e1e-49c7-b59f-7a46c30b8209">
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.width" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <text><![CDATA[Email id]]></text>
+            </staticText>
+            <image>
+                <reportElement x="140" y="-10" width="50" height="50" uuid="7f806303-107b-4877-bf88-b7d931068d15"/>
+                <imageExpression><![CDATA["classpath:vv-1593440181268.png"]]></imageExpression>
+            </image>
+            <staticText>
+                <reportElement mode="Opaque" x="0" y="40" width="560" height="20" forecolor="#F0F0F0" backcolor="#2F4D69" uuid="ac2e6847-a633-423e-bbc8-4ad18c4c78f6">
+                    <property name="com.jaspersoft.studio.unit.width" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <text><![CDATA[Customer Details]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="1" y="165" width="110" height="20" uuid="949efd3a-3753-486a-8807-d5e0a6a557c8">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <text><![CDATA[Loan Account Number]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="2" y="190" width="90" height="20" uuid="d69b0faf-26ca-4ed8-a457-e520ec6bd376">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.width" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <text><![CDATA[Loan Type/Product]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="2" y="215" width="115" height="20" uuid="8e3995ad-c277-458c-8330-43dacfdcf068">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.width" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <text><![CDATA[Colending Partner Name]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="2" y="240" width="90" height="20" uuid="a18c0bec-c14f-4af5-a2a6-6d5cddd271f3">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.width" value="px"/>
+                </reportElement>
+                <textElement markup="none">
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <text><![CDATA[Sanction Amount]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="2" y="265" width="100" height="20" uuid="8e71c7d4-fb3d-4218-bfe8-203529702642">
+                    <property name="com.jaspersoft.studio.unit.width" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <text><![CDATA[Date of Disbursement]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="380" y="165" width="100" height="20" uuid="fe21708d-c3dc-47ab-9566-7475d9e0fc59"/>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <text><![CDATA[Due Date]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="380" y="190" width="100" height="20" uuid="4810e48c-3152-4708-a84a-55a4f6817765">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <text><![CDATA[Principal Outstanding]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="380" y="215" width="100" height="20" uuid="626b3bb6-ee71-4abe-b362-b3093306fc9a">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <text><![CDATA[Overdue Amount]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="380" y="65" width="100" height="15" uuid="8ec90342-550c-4514-aab2-5bd8cb4f383e">
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <text><![CDATA[Date]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="125" y="65" width="235" height="14" uuid="2df47806-32ee-479f-8e37-f05488d46da4"/>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{Customer Name}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="125" y="90" width="100" height="15" uuid="f5f9d90d-2ff1-4c9a-9851-90c54575cede">
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{Mobile}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="125" y="115" width="100" height="20" uuid="9a7fd47c-c825-495d-bcfd-3ba25d5a8ce8">
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{Email id}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="500" y="65" width="100" height="20" uuid="de41a2bc-2911-4d3d-82c7-f36de1a7e920">
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{Date}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="125" y="165" width="135" height="16" uuid="bb619506-dddc-424a-a1ac-889dbc4732aa"/>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{Loan Account Number}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="125" y="190" width="100" height="14" uuid="e078ec3e-9298-4dc1-8f05-b25b7e687fb3"/>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{Loan Type/Product}]]></textFieldExpression>
+            </textField>
+            <textField textAdjust="StretchHeight" isBlankWhenNull="true">
+                <reportElement x="125" y="215" width="245" height="21" uuid="932579e6-d655-4ee6-97e5-926604fee80c"/>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                    <paragraph lineSpacingSize="1.0"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{Colending Partner Name}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="125" y="240" width="99" height="13" uuid="1608d413-878c-40e0-84c1-1e048a1b25c2"/>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{Sanction Amount}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="2" y="290" width="100" height="20" uuid="7bdc6969-b006-464b-83c9-862e2fda8f6c">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <text><![CDATA[Rate of Interest(ROI)]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="125" y="290" width="125" height="20" uuid="c76b2ea7-5196-4ba6-893b-38629c587c94">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{Rate of Interest(ROI)}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="500" y="190" width="100" height="18" uuid="fa060d3c-e75a-4fb8-b6d4-bf8492c6c889">
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{Principal Outstanding}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="380" y="240" width="100" height="30" uuid="372664c5-2caa-4ba3-8f49-37f0368ff256"/>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <text><![CDATA[Pending Tenure]]></text>
+            </staticText>
+            <textField isBlankWhenNull="true">
+                <reportElement x="500" y="215" width="100" height="20" uuid="e6443ebf-0387-42f0-8ea1-6f9452512a62">
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{Overdue Amount}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true">
+                <reportElement x="500" y="240" width="100" height="30" uuid="41c6ad80-39fe-4b46-b1db-45e5b23ce476">
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{Pending Tenure}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="115" y="190" width="2" height="20" uuid="27ce0a76-f826-4fbf-a210-3ea210b8b567">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="115" y="215" width="2" height="20" uuid="ce6e582e-a6be-4627-90f3-38904c6a59cb">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="115" y="239" width="2" height="20" uuid="7eba59de-0c1b-416b-9e4b-a89091c1ddbb">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="116" y="262" width="2" height="20" uuid="5c876ca9-fcda-495d-9d1c-271066dba238">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="116" y="289" width="2" height="20" uuid="b3647dbe-d02e-43ae-97ca-464498b92713">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="115" y="165" width="2" height="15" uuid="fb198cb9-f408-4dc1-ac54-25a627745db9"/>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="2" y="315" width="560" height="21" forecolor="#FFFFFF" backcolor="#2F4D69" uuid="d1caf80b-8c2e-4969-857f-49037b5ebc6c">
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.width" value="px"/>
+                </reportElement>
+                <textElement verticalAlignment="Middle">
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <text><![CDATA[                				              Transaction Details]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="115" y="65" width="2" height="20" uuid="8c06a393-b362-4819-9692-abdc8f3f45df">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="490" y="165" width="2" height="20" uuid="4383d9f4-71cf-471d-8f82-169fa4421e00">
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="490" y="240" width="2" height="20" uuid="7951af13-54be-44cd-a136-98d0eecbb5a5">
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="490" y="190" width="2" height="20" uuid="26c30686-6b3f-4c7b-9c68-47b50b30c8a5">
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="490" y="215" width="2" height="20" uuid="03f68f93-4b6e-4548-9944-9ea0c5e0c6cd">
+                    <property name="com.jaspersoft.studio.unit.width" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="115" y="90" width="2" height="20" uuid="564ce206-68e0-41fa-8a75-d9554170baf1">
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="115" y="115" width="2" height="20" uuid="03105800-09b5-4fc6-bc0d-6dd8c58d52a4">
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="490" y="65" width="2" height="20" uuid="d06b9fed-b953-460e-8548-9f02b300e28e">
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="0" y="137" width="560" height="20" forecolor="#FFFFFF" backcolor="#2F4D69" uuid="801e9bf6-fd0f-4f4f-8290-195864ac4c65">
+                    <property name="com.jaspersoft.studio.unit.width" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Left" verticalAlignment="Middle">
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <text><![CDATA[                                                                                          Loan Details]]></text>
+            </staticText>
+            <componentElement>
+                <reportElement x="10" y="350" width="555" height="290" uuid="9f77658d-89ba-402c-bfe2-c74f28d1a4cd">
+                    <property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+                    <property name="com.jaspersoft.studio.table.style.table_header" value="Table 2_TH"/>
+                    <property name="com.jaspersoft.studio.table.style.column_header" value="Table 2_CH"/>
+                    <property name="com.jaspersoft.studio.table.style.detail" value="Table 2_TD"/>
+                    <property name="com.jaspersoft.studio.unit.width" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                </reportElement>
+                <jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+                    <datasetRun subDataset="transaction" uuid="67bf6d7e-345b-451a-9258-66b6b2af0ec6">
+                        <datasetParameter name="accountNo">
+                            <datasetParameterExpression><![CDATA[$P{accountNo}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <datasetParameter name="asOnDate">
+                            <datasetParameterExpression><![CDATA[$P{asOnDate}]]></datasetParameterExpression>
+                        </datasetParameter>
+                        <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                    </datasetRun>
+                    <jr:column width="60" uuid="43850819-cc48-4d44-a2c7-5de322ccba44">
+                        <jr:columnHeader style="Table 2_CH" height="30">
+                            <staticText>
+                                <reportElement x="0" y="0" width="60" height="30" uuid="778995a4-4989-40fa-b060-ddeb51a438f3">
+                                    <property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+                                </reportElement>
+                                <textElement textAlignment="Center" verticalAlignment="Middle">
+                                    <font fontName="Times New Roman"/>
+                                </textElement>
+                                <text><![CDATA[Value Date]]></text>
+                            </staticText>
+                        </jr:columnHeader>
+                        <jr:detailCell style="Table 2_TD" height="30">
+                            <textField isBlankWhenNull="true">
+                                <reportElement x="0" y="0" width="60" height="30" uuid="b53aa834-43fc-496a-b231-d75d8c32b0be"/>
+                                <textElement textAlignment="Center" verticalAlignment="Middle">
+                                    <font fontName="Times New Roman"/>
+                                </textElement>
+                                <textFieldExpression><![CDATA[$F{Date}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="80" uuid="c0c7ad5f-6239-492b-84fd-7318932871aa">
+                        <jr:columnHeader style="Table 2_CH" height="30">
+                            <staticText>
+                                <reportElement x="0" y="0" width="80" height="30" uuid="2ff18cbb-29e8-49e7-8ccd-2ba3cb6cdac2"/>
+                                <textElement textAlignment="Center" verticalAlignment="Middle">
+                                    <font fontName="Times New Roman"/>
+                                </textElement>
+                                <text><![CDATA[Particulars]]></text>
+                            </staticText>
+                        </jr:columnHeader>
+                        <jr:detailCell style="Table 2_TD" height="30">
+                            <textField isBlankWhenNull="true">
+                                <reportElement x="0" y="0" width="80" height="30" uuid="151e750c-65c6-448f-9238-ada50287f33f"/>
+                                <textElement textAlignment="Center" verticalAlignment="Middle">
+                                    <font fontName="Times New Roman"/>
+                                </textElement>
+                                <textFieldExpression><![CDATA[$F{particulars}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="160" uuid="9fd5db1d-5cff-4ffa-95ba-946153d0b408">
+                        <jr:columnHeader style="Table 2_CH" height="30">
+                            <staticText>
+                                <reportElement x="0" y="0" width="160" height="30" uuid="281f07d4-d19b-4365-8125-3369b74d52c3"/>
+                                <textElement textAlignment="Center" verticalAlignment="Middle">
+                                    <font fontName="Times New Roman"/>
+                                </textElement>
+                                <text><![CDATA[Description]]></text>
+                            </staticText>
+                        </jr:columnHeader>
+                        <jr:detailCell style="Table 2_TD" height="30">
+                            <textField isBlankWhenNull="true">
+                                <reportElement x="0" y="0" width="160" height="30" uuid="b48533a4-14f4-41bb-a2ef-fe981b75046b"/>
+                                <textElement textAlignment="Center" verticalAlignment="Middle">
+                                    <font fontName="Times New Roman"/>
+                                </textElement>
+                                <textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="80" uuid="a0bb0fa8-d0b2-4b24-9393-a20b67a1851e">
+                        <jr:columnHeader style="Table 2_CH" height="30">
+                            <staticText>
+                                <reportElement x="0" y="0" width="80" height="30" uuid="6a9804b5-fa82-498e-8ff0-c01b78babcee"/>
+                                <textElement textAlignment="Center" verticalAlignment="Middle">
+                                    <font fontName="Times New Roman"/>
+                                </textElement>
+                                <text><![CDATA[Debit]]></text>
+                            </staticText>
+                        </jr:columnHeader>
+                        <jr:detailCell style="Table 2_TD" height="30">
+                            <textField isBlankWhenNull="true">
+                                <reportElement x="0" y="0" width="80" height="30" uuid="a105cc48-16d0-4cec-8a17-ba9d7cc79db2"/>
+                                <textElement textAlignment="Center" verticalAlignment="Middle">
+                                    <font fontName="Times New Roman"/>
+                                </textElement>
+                                <textFieldExpression><![CDATA[$F{debit}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="80" uuid="d278fef3-9ec6-4509-8059-559abe1bea6d">
+                        <jr:columnHeader style="Table 2_CH" height="30">
+                            <staticText>
+                                <reportElement x="0" y="0" width="80" height="30" uuid="87940811-4685-40e9-b822-bc4480af8105"/>
+                                <textElement textAlignment="Center" verticalAlignment="Middle">
+                                    <font fontName="Times New Roman"/>
+                                </textElement>
+                                <text><![CDATA[Credit]]></text>
+                            </staticText>
+                        </jr:columnHeader>
+                        <jr:detailCell style="Table 2_TD" height="30">
+                            <textField isBlankWhenNull="true">
+                                <reportElement x="0" y="0" width="80" height="30" uuid="d4ee1f3f-77db-43be-8c84-a69a54d11c8d"/>
+                                <textElement textAlignment="Center" verticalAlignment="Middle">
+                                    <font fontName="Times New Roman"/>
+                                </textElement>
+                                <textFieldExpression><![CDATA[$F{credit}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                    <jr:column width="80" uuid="41f97384-7835-4a8c-aa06-95dc0ba954ac">
+                        <jr:columnHeader style="Table 2_CH" height="30">
+                            <staticText>
+                                <reportElement x="0" y="0" width="80" height="30" uuid="d9519ec8-55c8-44a2-904e-1d827e44e921"/>
+                                <textElement textAlignment="Center" verticalAlignment="Middle">
+                                    <font fontName="Times New Roman"/>
+                                </textElement>
+                                <text><![CDATA[Balance]]></text>
+                            </staticText>
+                        </jr:columnHeader>
+                        <jr:detailCell style="Table 2_TD" height="30">
+                            <textField isBlankWhenNull="true">
+                                <reportElement x="0" y="0" width="80" height="30" uuid="e69f436b-5b91-42f0-85ea-5190d05d6b27"/>
+                                <textElement textAlignment="Center" verticalAlignment="Middle">
+                                    <font fontName="Times New Roman"/>
+                                </textElement>
+                                <textFieldExpression><![CDATA[$F{balance}]]></textFieldExpression>
+                            </textField>
+                        </jr:detailCell>
+                    </jr:column>
+                </jr:table>
+            </componentElement>
+            <textField isBlankWhenNull="true">
+                <reportElement x="500" y="165" width="100" height="30" uuid="bb668481-489e-44b8-a725-a293e4d66ac7">
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{Due Date}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="125" y="265" width="100" height="30" uuid="cca18d73-e11a-4d63-9eb6-54ef79f7019d">
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.y" value="px"/>
+                </reportElement>
+                <textElement>
+                    <font fontName="Times New Roman"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{Date of Disbursement}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    <pageFooter>
+        <band height="151">
+            <property name="com.jaspersoft.studio.unit.height" value="px"/>
+            <staticText>
+                <reportElement mode="Transparent" x="2" y="21" width="542" height="50" backcolor="#CCCC99" uuid="a9d81e8d-cfb7-4b6e-8164-5aa7e56ce9e1">
+                    <property name="com.jaspersoft.studio.unit.x" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.firstLineIndent" value="px"/>
+                </reportElement>
+                <textElement textAlignment="Left">
+                    <font fontName="Times New Roman"/>
+                    <paragraph firstLineIndent="2"/>
+                </textElement>
+                <text><![CDATA[*This is system generated report and does not require signature and stamp.Any discrepancy in the statement should be                brought to the notice of Vivriti Capital Limited within 30 days from the date of Statement.
+                                                                                                                                                                                                                                                  For any Grievance Redressal,Kindly email us on Grievanceredressal@vivriticapital.com or call us @ 044 4007 4801]]></text>
+            </staticText>
+            <image>
+                <reportElement x="0" y="100" width="130" height="50" uuid="1c5275e4-4bfc-4f71-8baf-351fe7f912b1"/>
+                <imageExpression><![CDATA["classpath:vivcom.png"]]></imageExpression>
+            </image>
+            <image>
+                <reportElement x="460" y="100" width="90" height="40" uuid="c11bbf05-af10-481c-aed9-ec8c5f3246ac"/>
+                <imageExpression><![CDATA["classpath:vivcall.png"]]></imageExpression>
+            </image>
+            <line>
+                <reportElement x="0" y="80" width="555" height="1" uuid="e4f7af0d-e949-4d32-a040-df3bfcba74d4"/>
+            </line>
+            <line>
+                <reportElement x="-2" y="10" width="560" height="5" uuid="7e5cbb46-da17-4ad2-bc56-2b6fef6dfdc3"/>
+            </line>
+        </band>
+    </pageFooter>
+</jasperReport>

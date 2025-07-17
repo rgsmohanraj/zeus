@@ -1,0 +1,338 @@
+<div class="container">
+
+  <div data-layout="column">
+
+
+    <div>
+      <span data-flex="50">Asset Class </span>
+      <span data-flex="50">{{ loanDetails.loanProductData.assetClass.name}}</span>
+    </div>
+
+    <div>
+      <span data-flex="50">Partner Name </span>
+      <span data-flex="50">{{ loanDetails.partner.partnerName}}</span>
+    </div>
+
+    <div>
+      <span data-flex="50">XIRR Value</span>
+      <span data-flex="50">{{ loanDetails.xirrValue }}</span>
+    </div>
+
+    <div>
+      <span data-flex="50">Repayment Strategy</span>
+      <span data-flex="50">{{ loanDetails.transactionProcessingStrategyName }}</span>
+    </div>
+
+    <div>
+      <span data-flex="50">Tenure</span>
+      <span data-flex="50">{{loanDetails.numberOfRepayments}} every
+        {{loanDetails.repaymentEvery}}&nbsp;{{loanDetails.repaymentFrequencyType.value}}
+        <span
+          *ngIf="loanDetails.repaymentFrequencyType?.id == 2 && loanDetails.repaymentFrequencyNthDayType?.id != 0 && loanDetails.repaymentFrequencyDayOfWeekType?.id != 0">
+          &nbsp;on&nbsp;{{loanDetails.repaymentFrequencyNthDayType?.value}}&nbsp;{{loanDetails.repaymentFrequencyDayOfWeekType?.value}}
+        </span>
+      </span>
+    </div>
+
+    <div>
+      <span data-flex="50"> Amortization </span>
+      <span data-flex="50"> {{loanDetails.amortizationType.value}} </span>
+    </div>
+
+    <div>
+      <span data-flex="50"> Equal Amortization </span>
+      <span data-flex="50"> {{loanDetails.isEqualAmortization}} </span>
+    </div>
+
+    <div *ngIf="loanDetails.repaymentStrategyForNpa">
+      <span data-flex="50"> Repayment Strategy For NPA</span>
+      <span data-flex="50"> {{loanDetails.repaymentStrategyForNpa}} </span>
+    </div>
+
+    <div *ngIf="loanDetails.loanForeclosureStrategy">
+      <span data-flex="50"> Loan ForeClosure Strategy</span>
+      <span data-flex="50"> {{loanDetails.loanForeclosureStrategy}} </span>
+    </div>
+
+    <!--      <div  *ngIf="loanDetails.fldgLogic.value">-->
+    <!--        <span data-flex="50"> FLDG Logic</span>-->
+    <!--        <span data-flex="50"> {{loanDetails.loanProductData.fldgLogic.value}} </span>-->
+    <!--      </div>-->
+    <div>
+      <span data-flex="50"> VCL Hurdle Rate </span>
+      <span data-flex="50"> {{loanDetails.vclHurdleRate}}% </span>
+    </div>
+
+    <div>
+      <span data-flex="50"> Interest </span>
+      <span data-flex="50"> {{loanDetails.interestRatePerPeriod}}%&nbsp; {{loanDetails.interestRateFrequencyType.value}}
+        - {{loanDetails.interestType.value}} </span>
+    </div>
+
+    <div>
+      <span data-flex="50">Self Interest Rate </span>
+      <span data-flex="50">{{ loanDetails.interestRatePerPeriod }}%</span>
+    </div>
+
+    <div>
+      <span data-flex="50">Partner Interest Rate </span>
+      <span data-flex="50">{{ 0 }}%</span>
+    </div>
+
+
+    <div *ngIf="loanDetails.loanProductData.selfInterestRate">
+      <span data-flex="50">Self Interest Share </span>
+      <span data-flex="50">{{ loanDetails.loanProductData.selfInterestRate }}%</span>
+    </div>
+
+    <div *ngIf="loanDetails.loanProductData.partnerInterestRate">
+      <span data-flex="50">Partner Interest Share </span>
+      <span data-flex="50">{{ loanDetails.loanProductData.partnerInterestRate }}%</span>
+    </div>
+
+    <div *ngIf="loanDetails.graceOnPrincipalPayment">
+      <span data-flex="50"> Grace: On Principal Payment</span>
+      <span data-flex="50"> {{loanDetails.graceOnPrincipalPayment}} </span>
+    </div>
+
+    <div *ngIf="loanDetails.graceOnInterestPayment">
+      <span data-flex="50"> Grace: On Interest Payment</span>
+      <span data-flex="50"> {{loanDetails.graceOnInterestPayment}} </span>
+    </div>
+
+    <div *ngIf="loanDetails.graceOnArrearsAgeing">
+      <span data-flex="50"> Grace on Arrears Ageing</span>
+      <span data-flex="50"> {{loanDetails.graceOnArrearsAgeing}} </span>
+    </div>
+
+    <div *ngIf="loanDetails.fundName">
+      <span data-flex="50"> Fund Source</span>
+      <span data-flex="50"> {{loanDetails.fundName}} </span>
+    </div>
+
+    <div *ngIf="loanDetails.graceOnInterestCharged">
+      <span data-flex="50"> Interest Free Period</span>
+      <span data-flex="50"> {{loanDetails.graceOnInterestCharged}} </span>
+    </div>
+
+    <div>
+      <span data-flex="50"> Interest Calculation Period</span>
+      <span data-flex="50"> {{loanDetails.interestCalculationPeriodType.value}} </span>
+    </div>
+
+    <div>
+      <span data-flex="50"> Allow Partial Interest Calculation with same as repayment</span>
+      <span data-flex="50"> {{loanDetails.allowPartialPeriodInterestCalcualtion}} </span>
+    </div>
+
+    <div>
+      <span data-flex="50"> Interest Type</span>
+      <span data-flex="50"> {{loanDetails.interestType.value}} </span>
+    </div>
+
+    <div>
+      <span data-flex="50">Broken Interest Strategy</span>
+      <span data-flex="50"> {{loanDetails.loanProductData.brokenStrategyId.value}} </span>
+    </div>
+
+    <div>
+      <span data-flex="50"> Broken Interest Days in Year</span>
+      <span data-flex="50"> {{loanDetails.loanProductData.brokenInterestDaysInYearSelected.value}} </span>
+    </div>
+
+    <div *ngIf="loanDetails.gstLiabilityByVcpl">
+      <span data-flex="50">GST Liability By VCPL </span>
+      <span data-flex="50">{{ loanDetails.gstLiabilityByVcpl }}</span>
+    </div>
+
+    <div *ngIf="loanDetails.gstLiabilityByPartner">
+      <span data-flex="50">GST Liability By Partner </span>
+      <span data-flex="50">{{ loanDetails.gstLiabilityByPartner }}</span>
+    </div>
+
+    <div *ngIf="loanDetails.loanProductData.disbursementId.value">
+      <span data-flex="50">Disbursement Mode </span>
+      <span data-flex="50">{{ loanDetails.loanProductData.disbursementId.value }}</span>
+    </div>
+
+    <div *ngIf="loanDetails.loanProductData.collectionId.value">
+      <span data-flex="50">Collection Mode </span>
+      <span data-flex="50">{{ loanDetails.loanProductData.collectionId.value }}</span>
+    </div>
+
+    <div *ngIf="loanDetails.loanProductData.disbursementAccountNumber">
+      <span data-flex="50">Disbursement Account Number:</span>
+      <span data-flex="50">{{loanDetails.loanProductData.disbursementAccountNumber }}</span>
+    </div>
+
+    <div *ngIf="loanDetails.loanProductData.collectionAccountNumber">
+      <span data-flex="50">Collection Account Number:</span>
+      <span data-flex="50">{{ loanDetails.loanProductData.collectionAccountNumber }}</span>
+    </div>
+
+    <div *ngIf="loanDetails.loanProductData.penalInvoice.name">
+      <span data-flex="50">Penal Invoice</span>
+      <span data-flex="50">{{loanDetails.loanProductData.penalInvoice.name }}</span>
+    </div>
+
+    <div *ngIf="loanDetails.loanProductData.multipleDisbursement.name">
+      <span data-flex="50">Multiple Disbursement</span>
+      <span data-flex="50">{{ loanDetails.loanProductData.multipleDisbursement.name }}</span>
+    </div>
+
+    <div *ngIf="loanDetails.loanProductData.trancheClubbing.name">
+      <span data-flex="50">Tranche Clubbing</span>
+      <span data-flex="50">{{loanDetails. loanProductData.trancheClubbing.name }}</span>
+    </div>
+
+    <div *ngIf="loanDetails.loanProductData.repaymentScheduleUpdateAllowed.name">
+      <span data-flex="50"> Repayment Schedule update allowed</span>
+      <span data-flex="50">{{ loanDetails.loanProductData.repaymentScheduleUpdateAllowed.name }}</span>
+    </div>
+
+    <div>
+      <span data-flex="50">Enable Colending:</span>
+      <span data-flex="50">{{ loanDetails.loanProductData.enableColendingLoan ? 'Yes' : 'No' }}</span>
+    </div>
+
+    <div>
+      <span data-flex="50">Percentage Split:</span>
+      <span data-flex="50">{{ loanDetails.loanProductData.byPercentageSplit ? 'Yes' : 'No' }}</span>
+    </div>
+
+
+    <div *ngIf="loanDetails.loanProductData.selfPrincipalShare">
+      <span data-flex="50">Self Principal Share </span>
+      <span data-flex="50">{{ loanDetails.loanProductData.selfPrincipalShare }}%</span>
+    </div>
+
+    <div *ngIf="loanDetails.loanProductData.partnerPrincipalShare">
+      <span data-flex="50">Partner Principal Share </span>
+      <span data-flex="50">{{ loanDetails.loanProductData.partnerPrincipalShare }}%</span>
+    </div>
+
+    <div *ngIf="loanDetails.loanProductData.vcplShareInBrokenInterest">
+      <span data-flex="50">Self Broken Interest Share </span>
+      <span data-flex="50">{{ loanDetails.loanProductData.vcplShareInBrokenInterest }}%</span>
+    </div>
+
+    <div *ngIf="loanDetails.loanProductData.partnerShareInBrokenInterest">
+      <span data-flex="50">Partner Broken Interest Share </span>
+      <span data-flex="50">{{ loanDetails.loanProductData.partnerShareInBrokenInterest }}%</span>
+    </div>
+
+    <div *ngIf="loanDetails.loanProductData.gstLiabilityByVcpl">
+      <span data-flex="50">Self GST Share</span>
+      <span data-flex="50">{{ loanDetails.loanProductData.gstLiabilityByVcpl }}%</span>
+    </div>
+
+    <div *ngIf="loanDetails.loanProductData.gstLiabilityByPartner">
+      <span data-flex="50">Partner GST Share</span>
+      <span data-flex="50">{{ loanDetails.loanProductData.gstLiabilityByPartner }}%</span>
+    </div>
+
+    <!--              <div   *ngIf="loanDetails.loanProductData.selfInterestRate">-->
+    <!--                <span data-flex="50">Self Interest Share</span>-->
+    <!--                <span data-flex="50">{{ loanDetails.loanProductData.selfInterestRate }}%</span>-->
+    <!--              </div>-->
+
+    <!--              <div   *ngIf="loanDetails.loanProductData.partnerInterestRate">-->
+    <!--                <span data-flex="50">Partner Interest Share</span>-->
+    <!--                <span data-flex="50">{{ loanDetails.loanProductData.partnerInterestRate }}%</span>-->
+    <!--              </div>-->
+
+    <div *ngIf="loanDetails.loanProductData.partnerInterestRate">
+      <span data-flex="50">Transaction Type</span>
+      <span fdata-flex="50">{{ loanDetails.loanProductData.transactionTypePreference.value }}</span>
+    </div>
+
+    <div>
+      <span data-flex="50"> Submitted on</span>
+      <span data-flex="50"> {{loanDetails.timeline.submittedOnDate | dateFormat }} </span>
+    </div>
+
+    <div>
+      <span data-flex="50"> Approved on</span>
+      <span data-flex="50"> {{loanDetails.timeline.approvedOnDate | dateFormat }} </span>
+    </div>
+
+    <div>
+      <span data-flex="50"> Disbursed on</span>
+      <span data-flex="50"> {{loanDetails.timeline.actualDisbursementDate | dateFormat }} </span>
+    </div>
+
+    <div>
+      <span data-flex="50"> Matures on </span>
+      <span data-flex="50"> {{loanDetails.timeline.expectedMaturityDate | dateFormat }} </span>
+    </div>
+
+    <div *ngIf="loanDetails.canDefineInstallmentAmount">
+      <span data-flex="50"> Fixed EMI amount</span>
+      <span data-flex="50"> {{loanDetails.fixedEmiAmount | number}} </span>
+    </div>
+
+    <div *ngIf="loanDetails.isTopup">
+      <span data-flex="50"> Is Topup Loan?</span>
+      <span data-flex="50"> {{loanDetails.isTopup}} </span>
+    </div>
+
+    <div *ngIf="loanDetails.isTopup">
+      <span data-flex="50"> Loan closed with Topup </span>
+      <span data-flex="50"> <a href="#">{{loanDetails.closureLoanAccountNo}}</a> </span>
+    </div>
+
+    <div *ngIf="loanDetails.isTopup">
+      <span data-flex="50"> Topup closure amount </span>
+      <span data-flex="50"> {{loanDetails.topupAmount| number}} </span>
+    </div>
+
+    <div>
+      <span data-flex="50"> Recalculate Interest based on new terms </span>
+      <span data-flex="50"> {{loanDetails.isInterestRecalculationEnabled ? 'Yes' : 'No' }} </span>
+    </div>
+
+    <div>
+      <span data-flex="50"> Days in year </span>
+      <span data-flex="50"> {{loanDetails.daysInYearType.value}} </span>
+    </div>
+
+    <div>
+      <span data-flex="50"> Days in month </span>
+      <span data-flex="50"> {{loanDetails.daysInMonthType.value }} </span>
+    </div>
+
+    <div *ngIf="loanDetails.isInterestRecalculationEnabled">
+      <span data-flex="50"> Interest recalculation compounding on</span>
+      <span data-flex="50"> {{loanDetails.interestRecalculationData.interestRecalculationCompoundingType.value}} </span>
+    </div>
+
+    <div *ngIf="loanDetails.isInterestRecalculationEnabled">
+      <span data-flex="50"> Advance payments adjustment type</span>
+      <span data-flex="50"> {{loanDetails.interestRecalculationData.rescheduleStrategyType.value}} </span>
+    </div>
+
+    <div *ngIf="loanDetails.isInterestRecalculationEnabled">
+      <span data-flex="50"> Frequency for recalculate Outstanding Principal </span>
+      <span data-flex="50"> {{loanDetails.interestRecalculationData.calendarData.humanReadable}} </span>
+    </div>
+
+    <div
+      *ngIf="loanDetails.isInterestRecalculationEnabled && loanDetails.interestRecalculationData.interestRecalculationCompoundingType.id !=0">
+      <span data-flex="50"> Frequency for compounding </span>
+      <span data-flex="50"> {{loanDetails.interestRecalculationData.compoundingCalendarData.humanReadable}} </span>
+    </div>
+
+    <div *ngIf="loanDetails.isVariableInstallmentsAllowed">
+      <span data-flex="50"> Variable Installments Allowed </span>
+      <span data-flex="50"> {{loanDetails.isVariableInstallmentsAllowed}} </span>
+    </div>
+
+    <div *ngIf="loanDetails.isVariableInstallmentsAllowed">
+      <span data-flex="50"> Gap between Installments:(Min </span>
+      <span data-flex="50"> {{loanDetails.minimumGap}}&nbsp;Days&nbsp;, Max:{{loanDetails.maximumGap}}&nbsp;Days)
+      </span>
+    </div>
+
+  </div>
+
+</div>

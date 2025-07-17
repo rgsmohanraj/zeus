@@ -1,0 +1,120 @@
+<div data-layout="row" data-layout-align="end end" data-layout-gap="6px"  class="container m-b-20">
+  <span *mifosxHasPermission="'CREATE_GLACCOUNT'">
+    <button mat-raised-button color="primary" *ngIf="glAccount.usage.value === 'HEADER'" [routerLink]="['/accounting/chart-of-accounts/gl-accounts/create']" [queryParams]="{ parent: glAccount.id, accountType: glAccount.type.id }">
+      <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;
+      Subledger Account
+    </button>
+  </span>
+  <span *mifosxHasPermission="'UPDATE_GLACCOUNT'">
+    <button mat-raised-button color="primary" [routerLink]="['edit']">
+      <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;
+      Edit
+    </button>
+  </span>
+  <span *mifosxHasPermission="'UPDATE_GLACCOUNT'">
+    <button mat-raised-button color="warn" *ngIf="!glAccount.disabled" (click)="changeGlAccountState()">
+      <fa-icon icon="lock"></fa-icon>&nbsp;&nbsp;
+      Disable
+    </button>
+  </span>
+  <span *mifosxHasPermission="'UPDATE_GLACCOUNT'">
+    <button mat-raised-button color="accent" *ngIf="glAccount.disabled" (click)="changeGlAccountState()">
+      <fa-icon icon="lock-open"></fa-icon>&nbsp;&nbsp;
+      Enable
+    </button>
+  </span>
+  <button mat-raised-button color="warn" (click)="deleteGlAccount()" *mifosxHasPermission="'DELETE_GLACCOUNT'">
+    <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;
+    Delete
+  </button>
+</div>
+
+<div class="container">
+
+  <mat-card>
+
+    <mat-card-content>
+
+      <div  class="content">
+
+        <div data-layout="row">
+        <div data-flex="50" class="header">
+          Account Type
+        </div>
+
+        <div data-flex="50">
+          {{ glAccount.type?.value }}
+        </div>
+        </div>
+
+         <div data-layout="row">
+
+        <div data-flex="50%" class="header">
+          GL Code
+        </div>
+
+        <div data-flex="50%">
+          {{ glAccount.glCode }}
+        </div>
+         </div>
+
+           <div data-layout="row">
+        <div data-flex="50%" class="header" *ngIf="glAccount.parent">
+          Parent Account Name
+        </div>
+
+        <div data-flex="50%" *ngIf="glAccount.parent">
+          <a class="tab-link" [routerLink]="['/accounting/chart-of-accounts/gl-accounts/view/' + glAccount.parent.id]">
+            ({{ glAccount.parent.glCode }}) {{ glAccount.parent.name }}
+          </a>
+        </div>
+           </div>
+
+        <div data-layout="row">
+        <div data-flex="50%" class="header" *ngIf="glAccount.tagId.id">
+          Tag
+        </div>
+
+        <div data-flex="50%" *ngIf="glAccount.tagId.id">
+          {{ glAccount.tagId.name }}
+        </div>
+        </div>
+
+
+        <div data-layout="row">
+        <div data-flex="50%" class="header">
+          Account Usage
+        </div>
+
+        <div data-flex="50%">
+          {{ glAccount.usage?.value }}
+        </div>
+        </div>
+
+        <div data-layout="row">
+        <div data-flex="50%" class="header">
+          Manual Entries Allowed
+        </div>
+
+        <div data-flex="50%">
+          {{ glAccount.manualEntriesAllowed ? 'Yes' : 'No' }}
+        </div>
+        </div>
+
+        <div data-layout="row">
+        <div data-flex="50%" class="header" *ngIf="glAccount.description">
+          Description
+        </div>
+
+        <div data-flex="50%" *ngIf="glAccount.description">
+          {{ glAccount.description }}
+        </div>
+        </div>
+
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>

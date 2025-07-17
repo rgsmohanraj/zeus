@@ -1,0 +1,333 @@
+<div data-layout="row" data-layout-align="end" data-layout-gap="6px"  class="container m-b-20">
+  <button mat-raised-button color="primary" [routerLink]="['edit']" *mifosxHasPermission="'UPDATE_CHARGE'">
+    <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;
+    Edit
+  </button>
+  <button mat-raised-button color="warn" (click)="deleteCharge()" *mifosxHasPermission="'DELETE_CHARGE'">
+    <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;
+    Delete
+  </button>
+</div>
+
+<div class="container">
+
+  <mat-card>
+
+    <mat-card-content>
+
+      <div class="content">
+
+        <div data-layout="row">
+        <div data-flex="50" class="mat-body-strong">
+          Charge Name
+        </div>
+
+        <div data-flex="50">
+          {{ chargeData.name }}
+        </div>
+        </div>
+
+        <div data-layout="row">
+        <div data-flex="50" class="mat-body-strong">
+          Type
+        </div>
+
+        <div data-flex="50">
+          {{ chargeData.typeSelected.name }}
+        </div>
+        </div>
+
+          <div data-layout="row">
+        <div  data-flex="50" class="mat-body-strong">
+          Currency
+        </div>
+
+        <div data-flex="50">
+          {{ chargeData.currency.name }}
+        </div>
+          </div>
+
+        <div data-layout="row">
+        <div data-flex="50" class="mat-body-strong">
+          Amount
+        </div>
+
+        <div data-flex="50" >
+          {{ chargeData.amount }}
+        </div>
+        </div>
+
+        <div data-layout="row">
+        <div data-flex="50" class="mat-body-strong">
+          Minimum Charge Amount or percentage
+        </div>
+
+        <div data-flex="50">
+          {{ chargeData.minChargeAmount }}
+        </div>
+        </div>
+
+        <div data-layout="row">
+        <div data-flex="50" class="mat-body-strong">
+          Maximun Charge Amount or percentage
+        </div>
+
+        <div data-flex="50" >
+          {{ chargeData.maxChargeAmount }}
+        </div>
+        </div>
+
+        <div data-layout="row">
+        <div data-flex="50" class="mat-body-strong">
+          Charge Time Type
+        </div>
+
+        <div data-flex="50" >
+          {{ chargeData.chargeTimeType.value }}
+        </div>
+        </div>
+
+          <div data-layout="row">
+        <div data-flex="50"  class="mat-body-strong">
+          Charge Applies to
+        </div>
+
+        <div data-flex="50">
+          {{ chargeData.chargeAppliesTo.value }}
+        </div>
+          </div>
+
+        <div data-layout="row">
+        <div data-flex="50" class="mat-body-strong">
+          Charge Calculation Type
+        </div>
+
+        <div data-flex="50">
+          {{ chargeData.chargeCalculationType.value }}
+        </div>
+        </div>
+
+        <div data-layout="row">
+        <div data-flex="50" class="mat-body-strong">
+          Charge Payment Mode
+        </div>
+
+        <div data-flex="50">
+          {{ chargeData.chargePaymentMode.value }}
+        </div>
+        </div>
+
+        <div data-layout="row">
+        <div data-flex="50" class="mat-body-strong">
+          Charge Decimal
+        </div>
+
+        <div data-flex="50">
+          {{ chargeData.chargeDecimal }}
+        </div>
+        </div>
+
+        <div data-layout="row">
+        <div data-flex="50" class="mat-body-strong">
+          Charge Rounding Mode
+        </div>
+
+        <div data-flex="50">
+          {{ chargeData.chargeRoundingMode }}
+        </div>
+        </div>
+
+        <div data-layout="row">
+        <div data-flex="50"  class="mat-body-strong">
+          Charge Decimal Regex Amount
+        </div>
+
+        <div data-flex="50" >
+          {{ chargeData.chargeDecimalRegex }}
+        </div>
+        </div>
+
+        <div data-layout="row">
+        <div data-flex="50" class="mat-body-strong">
+          Fees Charge Type
+        </div>
+
+        <div data-flex="50">
+          {{chargeData.feesChargeType}}
+        </div>
+        </div>
+
+        <div data-layout="row">
+        <div data-flex="50"  class="mat-body-strong">
+          Is Gst Enabled ?
+        </div>
+
+        <div data-flex="50" >
+          {{ chargeData.enableGstChargesSelected === true ? 'Yes' : 'No' }}
+        </div>
+        </div>
+
+
+        <div *ngIf="chargeData.enableGstChargesSelected == true">
+        <div data-layout="row" >
+        <div data-flex="50" class="mat-body-strong">
+          Gst
+        </div>
+
+        <div data-flex="50" >
+          {{ chargeData.gstSelected.value }}
+        </div>
+        </div>
+
+        <div data-layout="row">
+        <div  data-flex="50" class="mat-body-strong">
+          Gst Decimal
+        </div>
+
+        <div data-flex="50">
+          {{ chargeData.gstDecimal }}
+        </div>
+        </div>
+
+
+        <div data-layout="row">
+        <div data-flex="50" class="mat-body-strong">
+          GST Rounding Mode
+        </div>
+
+        <div data-flex="50">
+          {{ chargeData.gstRoundingMode }}
+        </div>
+        </div>
+
+        </div>
+
+        <div data-layout="row" *ngIf="chargeData.gstDecimalRegex">
+        <div data-flex="50" class="mat-body-strong" >
+          GST Decimal Regex
+        </div>
+
+        <div data-flex="50" >
+          {{ chargeData.gstDecimalRegex }}
+        </div>
+        </div>
+
+        <div data-layout="row">
+        <div data-flex="50" class="mat-body-strong">
+          GST Slab Enabled
+        </div>
+
+        <div data-flex="50" >
+          {{ chargeData.isGstSlabEnabledSelected === true ? 'Yes' : 'No' }}
+        </div>
+        </div>
+
+        <div data-layout="row" *ngIf="chargeData.isGstSlabEnabledSelected == 1">
+        <div data-flex="50"  class="mat-body-strong" >
+          GST Slab Limit Value
+        </div>
+
+        <div data-flex="50" >
+          {{ chargeData.gstSlabLimitValue }}
+        </div>
+        </div>
+
+        <div data-layout="row" *ngIf="chargeData.isGstSlabEnabledSelected == 1">
+        <div data-flex="50" class="mat-body-strong" >
+          Gst Slab limit Apply For
+        </div>
+
+        <div  data-flex="50" >
+          {{ chargeData.gstSlabLimitApplyForSelected.value }}
+        </div>
+        </div>
+
+
+        <div data-layout="row" *ngIf="chargeData.isGstSlabEnabledSelected == 1">
+        <div data-flex="50"  class="mat-body-strong" >
+          Gst Slab Limit Operator
+        </div>
+
+        <div data-flex="50" >
+          {{ chargeData.gstSlabLimitOperatorSelected.value }}
+        </div>
+          </div>
+
+        <div data-layout="row">
+        <div data-flex="50" class="mat-body-strong">
+          Active
+        </div>
+
+        <div data-flex="50">
+          {{ chargeData.active === true ? 'Yes' : 'No' }}
+        </div>
+        </div>
+
+            <div data-layout="row">
+        <div data-flex="50" class="mat-body-strong">
+          Is Default Loan Charge
+        </div>
+
+        <div data-flex="50">
+          {{ chargeData.isDefaultLoanCharge === true ? 'Yes' : 'No' }}
+        </div>
+              </div>
+
+        <div data-layout="row" *ngIf="chargeData.chargeTimeType.id == 9 && chargeData.feeFrequency">
+
+        <div  data-flex="50" class="mat-body-strong" >
+          Fee Frequency
+        </div>
+
+        <div data-flex="50">
+          {{ chargeData.feeFrequency.value }}
+        </div>
+        </div>
+
+        <div data-layout="row" *ngIf="chargeData.chargeTimeType.id == 9 && chargeData.feeInterval">
+        <div data-flex="50" class="mat-body-strong" >
+          Frequency Interval
+        </div>
+
+        <div  data-flex="50" >
+          {{ chargeData.feeInterval }}
+        </div>
+        </div>
+
+        <div data-layout="row"  *ngIf="chargeData.chargeTimeType.id == 9 && chargeData.penaltyInterestDaysInYearSelected">
+        <div data-flex="50"  class="mat-body-strong">
+          Penal Interest Days In Year
+        </div>
+
+        <div data-flex="50" >
+          {{ chargeData.penaltyInterestDaysInYearSelected.value }}
+        </div>
+        </div>
+
+        <div data-layout="row" *ngIf="chargeData.incomeOrLiabilityAccount">
+        <div data-flex="50" class="mat-body-strong" >
+          Income from Charges
+        </div>
+
+        <div data-flex="50"  >
+          {{ chargeData.incomeOrLiabilityAccount.name + ' (' + chargeData.incomeOrLiabilityAccount.glCode + ')' }}
+        </div>
+        </div>
+
+        <div data-layout="row">
+        <div data-flex="50" class="mat-body-strong" *ngIf="chargeData.taxGroup">
+          Tax Group
+        </div>
+
+        <div data-flex="50" *ngIf="chargeData.taxGroup">
+          {{ chargeData.taxGroup.name }}
+        </div>
+        </div>
+
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>

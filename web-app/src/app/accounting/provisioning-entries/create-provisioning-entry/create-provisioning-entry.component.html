@@ -1,0 +1,41 @@
+<div class="container">
+
+  <mat-card>
+
+    <form [formGroup]="provisioningEntryForm" (ngSubmit)="submit()">
+
+      <mat-card-content>
+
+        <div data-layout="column">
+
+          <mat-form-field data-flex="77" (click)="datePicker.open()">
+            <mat-label>Date</mat-label>
+            <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="datePicker" required formControlName="date">
+            <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+            <mat-datepicker #datePicker></mat-datepicker>
+            <mat-error *ngIf="provisioningEntryForm.controls.date.hasError('required')">
+              Date is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <div >
+            <mat-checkbox data-flex="77" labelPosition="before" formControlName="createjournalentries">
+              Create Journal Entries
+            </mat-checkbox>
+          </div>
+
+        </div>
+
+      </mat-card-content>
+
+      <div data-layout="row" data-layout-align="center center" data-layout-gap="6px">
+      <mat-card-actions >
+        <button type="button" mat-raised-button [routerLink]="['../']">Cancel</button>
+        <button mat-raised-button color="primary" [disabled]="!provisioningEntryForm.valid" *mifosxHasPermission="'CREATE_PROVISIONING_ENTRIES'">Submit</button>
+      </mat-card-actions>
+    </div>
+    </form>
+
+  </mat-card>
+
+</div>

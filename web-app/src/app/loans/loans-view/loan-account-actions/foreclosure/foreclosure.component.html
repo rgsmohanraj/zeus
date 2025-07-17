@@ -1,0 +1,139 @@
+<div class="container">
+
+  <mat-card>
+
+    <form [formGroup]="foreclosureForm" (ngSubmit)="submit()">
+
+      <mat-card-content>
+
+        <div data-layout="column">
+
+          <mat-form-field (click)="transactionsDatePicker.open()">
+            <mat-label>Transaction Date</mat-label>
+            <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="transactionsDatePicker" required
+              formControlName="transactionDate">
+            <mat-datepicker-toggle matSuffix [for]="transactionsDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #transactionsDatePicker></mat-datepicker>
+            <mat-error *ngIf="foreclosureForm.controls.transactionDate.hasError('required')">
+              Transaction Date <strong>is required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Principal</mat-label>
+            <input matInput type="number" required formControlName="outstandingPrincipalPortion">
+            <mat-error *ngIf= "foreclosureForm.controls.outstandingPrincipalPortion.hasError('required')">
+              Principal <strong>is required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Interest</mat-label>
+            <input matInput required type="number" formControlName="outstandingInterestPortion">
+            <mat-error *ngIf="foreclosureForm.controls.outstandingInterestPortion.hasError('required')">
+            Interest <strong>is required</strong>
+            </mat-error>
+          </mat-form-field>
+
+<!--          <mat-form-field>-->
+<!--            <mat-label>Self Principal</mat-label>-->
+<!--            <input matInput formControlName="selfPrincipal">-->
+<!--          </mat-form-field>-->
+
+<!--          <mat-form-field>-->
+<!--            <mat-label>Self Interest</mat-label>-->
+<!--            <input matInput formControlName="selfInterestCharged">-->
+<!--          </mat-form-field>-->
+
+<!--          <mat-form-field>-->
+<!--            <mat-label>Partner Principal</mat-label>-->
+<!--            <input matInput formControlName="partnerPrincipal">-->
+<!--          </mat-form-field>-->
+
+<!--          <mat-form-field>-->
+<!--            <mat-label>Partner Interest</mat-label>-->
+<!--            <input matInput formControlName="partnerInterestCharged">-->
+<!--          </mat-form-field>-->
+
+<!--          <mat-form-field>-->
+<!--            <mat-label>Fee Amount</mat-label>-->
+<!--            <input matInput required type="number" formControlName="outstandingFeeChargesPortion">-->
+<!--          </mat-form-field>-->
+
+          <mat-form-field>
+            <mat-label>Advance Amount</mat-label>
+            <input matInput required type="number" formControlName="advanceAmount">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Penalty Amount</mat-label>
+            <input matInput required type="number" formControlName="outstandingPenaltyChargesPortion">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Bounce Charge Amount</mat-label>
+            <input matInput required type="number" formControlName="outstandingBounceChargesPortion">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Foreclosure Charge Amount</mat-label>
+            <input matInput type="number" required formControlName="foreClosureAmount">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Transaction Amount</mat-label>
+            <input matInput type="number" required formControlName="transactionAmount">
+          </mat-form-field>
+
+          <mat-form-field  data-flex="10">
+            <mat-label>Receipt Reference Number</mat-label>
+            <input matInput  formControlName="receiptReferenceNumber" maxlength="40">
+          </mat-form-field>
+
+          <mat-form-field  data-flex="10">
+            <mat-label>Partner Transfer UTR</mat-label>
+            <input matInput  formControlName="partnerTransferUtr" maxlength="40">
+          </mat-form-field>
+
+          <mat-form-field data-flex="10" (click)="partnerTransferDatePicker.open()">
+            <mat-label>Partner Transfer Date</mat-label>
+            <input matInput  [max]="maxDate" [matDatepicker]="partnerTransferDatePicker" formControlName="partnerTransferDate">
+            <mat-datepicker-toggle matSuffix [for]="partnerTransferDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #partnerTransferDatePicker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field data-flex="10">
+            <mat-label>Repayment Mode</mat-label>
+            <mat-select formControlName="repaymentMode">
+              <mat-option>Select</mat-option>
+              <mat-option *ngFor="let repaymentMode of repaymentModeOptions" [value]="repaymentMode.id">
+                {{ repaymentMode.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error>
+              RepaymentMode is
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Note</mat-label>
+            <textarea matInput formControlName="note"></textarea>
+          </mat-form-field>
+
+        </div>
+
+        <div data-layout="row"  data-layout-align="center center" data-layout-gap="5px">
+        <mat-card-actions>
+          <button type="button" mat-raised-button [routerLink]="['../../general']">Cancel</button>
+          <button mat-raised-button color="primary" [disabled]="!foreclosureForm.valid"
+            *mifosxHasPermission="'FORECLOSURE_LOAN'">Foreclosure</button>
+        </mat-card-actions>
+        </div>
+
+      </mat-card-content>
+
+    </form>
+
+  </mat-card>
+
+</div>

@@ -1,0 +1,113 @@
+<div class="container">
+
+  <mat-card>
+
+    <form [formGroup]="dataTableForm" (ngSubmit)="submit()">
+
+      <mat-card-content>
+
+        <div data-layout="row" data-layout-gap="16px">
+
+          <mat-form-field data-flex="10">
+            <mat-label>Data Table Name</mat-label>
+            <input matInput required formControlName="datatableName">
+          </mat-form-field>
+
+          <mat-form-field data-flex="10">
+            <mat-label>Application Table Name</mat-label>
+            <mat-select required formControlName="apptableName">
+              <mat-option *ngFor="let appTable of appTableData" [value]="appTable.value">
+                {{ appTable.displayValue }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="dataTableForm.controls.apptableName.hasError('required')">
+              Application Table Name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field data-flex="10" *ngIf="showEntitySubType">
+            <mat-label>Entity SubType</mat-label>
+            <mat-select formControlName="entitySubType">
+              <mat-option *ngFor="let entitySubType of entitySubTypeData" [value]="entitySubType.value">
+                {{ entitySubType.displayValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <br>
+
+        <div data-layout="row " data-layout-gap="60px">
+
+          <p fxFlex="20%" class="mat-title">Columns</p>
+
+          <div class="button-filed">
+          <button mat-raised-button data-flex="5" type="button" color="primary" (click)="addColumn()">
+            <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;
+            Add Column
+          </button>
+          </div>
+
+        </div>
+
+        <br>
+
+        <table mat-table [dataSource]="dataSource" matSort>
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+            <td mat-cell *matCellDef="let column"> {{ column.columnName }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
+            <td mat-cell *matCellDef="let column"> {{ column.columnDisplayType }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="mandatory">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Mandatory </th>
+            <td mat-cell *matCellDef="let column"> {{ column.isColumnPrimaryKey }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="length">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Length </th>
+            <td mat-cell *matCellDef="let column"> {{ column.columnLength }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="code">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
+            <td mat-cell *matCellDef="let column"> {{ column.columnCode }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+            <td mat-cell *matCellDef="let column" fxLayoutGap="15%">
+              <button type="button" color="primary" mat-icon-button (click)="editColumn(column)" *ngIf="!column.system">
+                <fa-icon icon="edit" size="lg"></fa-icon>
+              </button>
+              <button type="button" color="warn" mat-icon-button (click)="deleteColumn(column)" *ngIf="!column.system">
+                <fa-icon icon="trash" size="lg"></fa-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[10, 25]" showFirstLastButtons></mat-paginator>
+
+      </mat-card-content>
+
+      <mat-card-actions data-layout="row"  data-layout-align="center center" data-layout-gap="5px">
+        <button type="button" mat-raised-button [routerLink]="['../']">Cancel</button>
+        <button mat-raised-button color="primary"
+          [disabled]="!isFormEdited" *mifosxHasPermission="'UPDATE_DATATABLE'">Submit</button>
+      </mat-card-actions>
+
+    </form>
+
+  </mat-card>
+
+</div>

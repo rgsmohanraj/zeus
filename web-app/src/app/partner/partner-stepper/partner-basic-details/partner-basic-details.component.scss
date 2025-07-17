@@ -1,0 +1,16 @@
+.parent {
+      display: grid;
+      grid-template-columns: 30% 30% ;
+      grid-gap: 48px;
+      place-items: center;
+    }
+
+// .parent {
+// display: flex;
+// flex-direction: row ;// fxLayout
+// flex-wrap: wrap ;//fxLayout
+// box-sizing: border-box;
+// align-content: stretch; // fxLayoutAlign
+// align-items: stretch; // fxLayoutAlign
+// justify-content: flex-start; // fxLayoutAlign
+// }

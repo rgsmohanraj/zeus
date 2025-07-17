@@ -1,0 +1,128 @@
+<form [formGroup]="loanProductDetailsForm">
+
+  <div data-layout="row " data-layout-gap="16px">
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Product Name</mat-label>
+      <input matInput formControlName="name" required>
+      <mat-error>
+        Product Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Short Name</mat-label>
+      <input matInput formControlName="shortName" maxlength="10" required>
+      <mat-error>
+        Short Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+
+  <div data-layout="row " data-layout-gap="16px">
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Loan Account Number Preference</mat-label>
+      <input matInput formControlName="loanAccNoPreference" maxlength="11" required>
+      <mat-error>
+        Loan Account Number Preference is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Loan Product Class</mat-label>
+      <mat-select formControlName="loanProductClass">
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let loanProductClass of loanProductClassData" [value]="loanProductClass.id">
+          {{ loanProductClass.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        Loan Product Class is
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+
+  <div data-layout="row " data-layout-gap="16px">
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Loan Product Type</mat-label>
+      <mat-select formControlName="loanProductType">
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let loanProductType of loanProductTypeData" [value]="loanProductType.id">
+          {{ loanProductType.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        Loan Product Type is
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field data-flex="48%">
+      <mat-label>Asset Class</mat-label>
+      <mat-select formControlName="assetClass" required>
+        <mat-option>Select</mat-option>
+        <mat-option *ngFor="let assetClass of assetClassData" [value]="assetClass.id">
+          {{ assetClass.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        Asset Class is
+      </mat-error>
+    </mat-form-field>
+
+  </div>
+  <!--    <mat-form-field data-flex="48%">-->
+  <!--      <mat-label>Fund</mat-label>-->
+  <!--      <mat-select formControlName="fundId">-->
+  <!--        <mat-option *ngFor="let fund of fundData" [value]="fund.id">-->
+  <!--          {{ fund.name }}-->
+  <!--        </mat-option>-->
+  <!--      </mat-select>-->
+  <!--    </mat-form-field>-->
+
+  <!--    <mat-checkbox labelPosition="before" formControlName="includeInBorrowerCycle" data-flex="48%">-->
+  <!--      Include in Customer Loan Counter-->
+  <!--    </mat-checkbox>-->
+
+  <div data-layout="row " data-layout-gap="16px">
+
+    <mat-form-field data-flex="48%" (click)="startDatePicker.open()">
+      <mat-label>Start Date</mat-label>
+      <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="startDatePicker" formControlName="startDate">
+      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field data-flex="48%" (click)="closeDatePicker.open()">
+      <mat-label>Renewal Date</mat-label>
+      <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="closeDatePicker" formControlName="closeDate">
+      <mat-datepicker-toggle matSuffix [for]="closeDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #closeDatePicker></mat-datepicker>
+    </mat-form-field>
+
+  </div>
+
+  <div data-layout="row " data-layout-gap="16px">
+
+    <mat-form-field  class="custom-mat-filed" >
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+
+  </div>
+
+  <div data-layout="row" class="margin-t" data-layout-align="center" data-layout-gap="6px">
+    <button mat-raised-button matStepperPrevious disabled>
+      <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;
+      Previous
+    </button>
+    <button mat-raised-button matStepperNext>
+      Next&nbsp;&nbsp;
+      <fa-icon icon="arrow-right"></fa-icon>
+    </button>
+  </div>
+
+</form>

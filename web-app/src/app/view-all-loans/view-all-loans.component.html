@@ -1,0 +1,142 @@
+<div class="container">
+<form [formGroup]="createViewAllLoansForm" (ngSubmit)="search()">
+
+
+<div class="container" data-layout="row"
+     data-layout-gap="16px" >
+
+  <mat-form-field data-flex="35" >
+    <mat-label>Partner</mat-label>
+    <mat-select formControlName="partnerId" (selectionChange)="someMethod($event.value)">
+      <mat-option *ngFor="let partnerId of partnerData" [value]="partnerId" >
+      {{ partnerId.partnerName }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <mat-form-field data-flex="35">
+    <mat-label>Product</mat-label>
+    <mat-select formControlName="productId" >
+      <mat-option *ngFor="let productId of productData" [value]="productId.productId">
+        {{ productId.productName }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  </div>
+
+  <div data-layout="row"
+       data-layout-gap="16px">
+
+  <mat-form-field data-flex="35" (click)="fromDatePicker.open()" >
+    <mat-label>From Date</mat-label>
+    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="fromDatePicker" formControlName="fromDate">
+    <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #fromDatePicker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field data-flex="35"  (click)="toDatePicker.open()">
+    <mat-label> To Date</mat-label>
+    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="toDatePicker" formControlName="toDate">
+    <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #toDatePicker></mat-datepicker>
+  </mat-form-field>
+
+  </div>
+
+  <div class="m-b-20" data-layout="row reverse"  >
+    <button mat-raised-button color="primary">
+      <fa-icon icon="search"></fa-icon>&nbsp;&nbsp;
+      Search
+    </button>
+  </div>
+
+</form>
+
+  <mat-card>
+
+
+<div class="container">
+
+  <div data-layout="row" data-layout-gap="10px" >
+    <mat-form-field data-flex="40%">
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyFilter($event.target.value)">
+    </mat-form-field>
+
+    <div class="m-t-20" >
+    <button mat-raised-button color="primary" (click)="downloadCSV()" >
+      Download
+    </button>
+      </div>
+  </div>
+
+</div>
+
+
+<div class="container mat-elevation-z8" #TABLE>
+
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="accountNo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Loan Account No </th>
+            <td mat-cell *matCellDef="let loan"> {{ loan.accountNo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="externalId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> External Id </th>
+      <td mat-cell *matCellDef="let loan"> {{ loan.externalId}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> End Borrower Name</th>
+            <td mat-cell *matCellDef="let loan"> {{ loan.name }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef> Loan Amount </th>
+            <td mat-cell *matCellDef="let loan"> {{ loan.principal }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let loan"> {{ loan.statusId }} </td>
+<!--              <div [ngClass]="loan.status.code | statusLookup">-->
+<!--                <fa-icon icon="stop"></fa-icon>-->
+<!--              </div>-->
+    </ng-container>
+
+    <ng-container matColumnDef="disbursedate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Disbursement Date </th>
+            <td mat-cell *matCellDef="let loan"> {{ loan.disbursedate |  date: 'dd-MM-YYYY'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="pennyDrop">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Penny Drop </th>
+      <td mat-cell *matCellDef="let loan">
+        <span *ngIf="loan.pennyDropStatus=='SUCCESS'"><fa-icon icon="stop" style="color: #00ce00;padding-right:5px;"></fa-icon>Success</span>
+        <span *ngIf="loan.pennyDropStatus=='FAILURE'"><fa-icon icon="stop" style="color: red;padding-right:5px;"></fa-icon>{{loan.pennyDropFailureReason}}</span>
+         <span *ngIf="loan.pennyDropStatus=='INPROGRESS'"><fa-icon icon="stop" style="color: rgb(235, 244, 49);padding-right:5px;"></fa-icon> Penny Drop Initiated</span>
+          <span *ngIf="loan.pennyDropStatus=='SUSPECT'"><fa-icon icon="stop" style="color: red;padding-right:5px;"></fa-icon>{{loan.pennyDropFailureReason}}</span>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="disbursement">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Disbursement </th>
+      <td mat-cell *matCellDef="let loan">
+        <span *ngIf="loan.disbursementStatus=='SUCCESS'"><fa-icon icon="stop" style="color: #00ce00;padding-right:5px;"></fa-icon>Success</span>
+        <span *ngIf="loan.disbursementStatus=='FAILURE'"><fa-icon icon="stop" style="color: red;padding-right:5px;"></fa-icon>{{loan.disbursementFailureReason}}</span>
+        <span *ngIf="loan.disbursementStatus=='INPROGRESS'"><fa-icon icon="stop" style="color: rgb(239, 239, 53);padding-right:5px;"></fa-icon> Disbursement Initiated </span>
+        <span *ngIf="loan.disbursementStatus=='SUSPECT'"><fa-icon icon="stop" style="color: red;padding-right:5px;"></fa-icon>{{loan.disbursementFailureReason}}</span>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+        [routerLink]="['loans-accounts', row.loanId, 'general']" class="select-row">
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[100, 250, 500, 1000]" showFirstLastButtons></mat-paginator>
+  </div>
+  </mat-card>
+</div>

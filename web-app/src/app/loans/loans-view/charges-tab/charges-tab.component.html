@@ -1,0 +1,224 @@
+<div class="tab-container">
+
+
+    <h3>  Fees and Charges Details  </h3>
+
+  <table mat-table [dataSource]="feeAndChargeData" >
+
+    <ng-container matColumnDef="feeList">
+      <th mat-header-cell *matHeaderCellDef > Fee/Charge List </th>
+      <td mat-cell *matCellDef="let feeAndChargeData"> {{ feeAndChargeData.name }} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="selfFeeAmount">
+      <th mat-header-cell *matHeaderCellDef> Self Fee Amount </th>
+      <td mat-cell *matCellDef="let feeAndChargeData"> {{ feeAndChargeData.selfShareAmountRepaid }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="partnerFeeAmount">
+      <th mat-header-cell *matHeaderCellDef> Partner Fee Amount</th>
+      <td mat-cell *matCellDef="let feeAndChargeData"> {{ feeAndChargeData.partnerShareAmountRepaid}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="totalFeeAmount">
+      <th mat-header-cell *matHeaderCellDef> Total Fee Amount </th>
+      <td mat-cell *matCellDef="let feeAndChargeData"> {{ feeAndChargeData.amountPaid }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="selfGst">
+      <th mat-header-cell *matHeaderCellDef> Self GST </th>
+      <td mat-cell *matCellDef="let feeAndChargeData"> {{feeAndChargeData.selfGstPaid}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="partnerGst">
+      <th mat-header-cell *matHeaderCellDef> Partner GST </th>
+      <td mat-cell *matCellDef="let feeAndChargeData"> {{ feeAndChargeData.partnerGstPaid }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="totalGst">
+      <th mat-header-cell *matHeaderCellDef> Total GST </th>
+      <td mat-cell *matCellDef="let feeAndChargeData"> {{ feeAndChargeData.selfGstPaid +  feeAndChargeData.partnerGstPaid}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="total">
+      <th mat-header-cell *matHeaderCellDef> Total (Fee+GST)</th>
+      <td mat-cell *matCellDef="let feeAndChargeData"> {{ feeAndChargeData.totalPaid }} </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="feeAndChargeColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: feeAndChargeColumns;"></tr>
+
+  </table>
+
+<!--  <div fxFlexFill *ngIf="loanDetails.loanProductData.colendingFees.length" fxLayout="row wrap" fxLayout.lt-md="column">-->
+
+<!--    <h3  fxFlexFill>Colending Fees</h3>-->
+
+<!--    <mat-divider fxFlexFill></mat-divider>-->
+
+<!--    <table fxFlexFill class="mat-elevation-z1" mat-table [dataSource]="loanDetails.loanProductData.colendingFees">-->
+
+<!--      <ng-container matColumnDef="colendingFees">-->
+<!--        <th mat-header-cell *matHeaderCellDef> Name </th>-->
+<!--        <td mat-cell *matCellDef="let charge">-->
+<!--          {{ charge.name }}-->
+<!--        </td>-->
+<!--      </ng-container>-->
+
+<!--      <ng-container matColumnDef="selfFees">-->
+<!--        <th mat-header-cell *matHeaderCellDef> Self Share </th>-->
+<!--        <td mat-cell *matCellDef="let charge">-->
+<!--          {{ charge.selfFees }}-->
+<!--        </td>-->
+<!--      </ng-container>-->
+
+<!--      <ng-container matColumnDef="partnerFees">-->
+<!--        <th mat-header-cell *matHeaderCellDef> Partner Share</th>-->
+<!--        <td mat-cell *matCellDef="let charge">-->
+<!--          {{ charge.partnerFees  }}-->
+<!--        </td>-->
+<!--      </ng-container>-->
+
+
+<!--      <tr mat-header-row *matHeaderRowDef="colendingFeesDisplayedColumns"></tr>-->
+<!--      <tr mat-row *matRowDef="let row; columns: colendingFeesDisplayedColumns;"></tr>-->
+
+<!--    </table>-->
+<!--  </div>-->
+
+<!--  <div fxFlexFill *ngIf="loanDetails.loanProductData.colendingCharges.length" fxLayout="row wrap" fxLayout.lt-md="column">-->
+
+<!--    <h3  fxFlexFill>Colending Charges</h3>-->
+
+<!--    <mat-divider fxFlexFill></mat-divider>-->
+
+<!--    <table fxFlexFill class="mat-elevation-z1" mat-table [dataSource]="loanDetails.loanProductData.colendingCharges">-->
+
+<!--      <ng-container matColumnDef="colendingCharge">-->
+<!--        <th mat-header-cell *matHeaderCellDef> Name </th>-->
+<!--        <td mat-cell *matCellDef="let charge">-->
+<!--          {{ charge.name }}-->
+<!--        </td>-->
+<!--      </ng-container>-->
+
+<!--      <ng-container matColumnDef="selfCharge">-->
+<!--        <th mat-header-cell *matHeaderCellDef> Self Share </th>-->
+<!--        <td mat-cell *matCellDef="let charge">-->
+<!--          {{ charge.selfCharge }}-->
+<!--        </td>-->
+<!--      </ng-container>-->
+
+<!--      <ng-container matColumnDef="partnerCharge">-->
+<!--        <th mat-header-cell *matHeaderCellDef> Partner Share</th>-->
+<!--        <td mat-cell *matCellDef="let charge">-->
+<!--          {{ charge.partnerCharge  }}-->
+<!--        </td>-->
+<!--      </ng-container>-->
+
+
+<!--      <tr mat-header-row *matHeaderRowDef="colendingChargesDisplayedColumns"></tr>-->
+<!--      <tr mat-row *matRowDef="let row; columns: colendingChargesDisplayedColumns;"></tr>-->
+
+<!--    </table>-->
+<!--  </div>-->
+
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let charge"> {{ charge.name }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="feepenalty">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fee/Penalty </th>
+        <td mat-cell *matCellDef="let charge">  
+          <span *ngIf="charge.isBounce ">Bounce</span>
+          <span *ngIf="charge.penalty">Penalty</span>
+          <span *ngIf="!charge.penalty && !charge.isBounce">Fee</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="paymentdueat">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Payment due at </th>
+        <td mat-cell *matCellDef="let charge"> {{ charge.chargeTimeType.value }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dueasof">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Due as of </th>
+        <td mat-cell *matCellDef="let charge"> {{ charge.dueDate | dateFormat }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="calculationtype">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Calculation Type </th>
+        <td mat-cell *matCellDef="let charge"> {{ charge.chargeCalculationType.value }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="due">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Due </th>
+        <td mat-cell *matCellDef="let charge"> {{ charge.currency.displaySymbol }}{{ charge.amount| number }} </td>
+      </ng-container>
+
+<!--      <ng-container matColumnDef="client">-->
+<!--        <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Paid </th>-->
+<!--        <td mat-cell *matCellDef="let charge"> {{ charge.currency.displaySymbol }}{{ charge.amountPaid| number }} </td>-->
+<!--      </ng-container>-->
+
+      <ng-container matColumnDef="self">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Self Share </th>
+        <td mat-cell *matCellDef="let charge"> {{ charge.selfShare| number }}% </td>
+      </ng-container>
+
+      <ng-container matColumnDef="partner">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Partner Share </th>
+        <td mat-cell *matCellDef="let charge"> {{ charge.partnerShare| number }}% </td>
+      </ng-container>
+
+      <ng-container matColumnDef="paid">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Paid </th>
+        <td mat-cell *matCellDef="let charge"> {{ charge.totalPaid| number }}</td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="waived">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Waived </th>
+        <td mat-cell *matCellDef="let charge"> {{ charge.currency.displaySymbol }}{{ charge.totalWaivedOff| number }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="outstanding">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Outstanding </th>
+        <td mat-cell *matCellDef="let charge"> {{ charge.currency.displaySymbol }}{{ charge.totalOutstanding| number }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+        <td mat-cell *matCellDef="let charge">
+          <span *ngIf="status === 'Submitted and pending approval'">
+            <button class="account-action-button" mat-raised-button color="primary" matTooltip="Edit Charge"
+              (click)="routeEdit($event); editCharge(charge)">
+              <i class="fa fa-pencil"></i>
+            </button>
+            <button class="account-action-button" mat-raised-button color="warn" matTooltip="Delete Charge"
+              (click)="routeEdit($event); deleteCharge(charge.id)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </span>
+            <button class="account-action-button" mat-raised-button color="primary" matTooltip="Pay Charge" *ngIf="charge.chargePayable && status=='Active'"
+               (click)="routeEdit($event); payCharge(charge.id)">
+              <i class="fa fa-inr"></i>
+            </button>
+            <button class="account-action-button" mat-raised-button color="primary" matTooltip="Waive Charge" *ngIf="!charge.actionFlag"
+              (click)="routeEdit($event); waiveCharge(charge.id)">
+              <i class="fa fa-flag"></i>
+            </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="select-row" [routerLink]="[row.id]"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+
+</div>

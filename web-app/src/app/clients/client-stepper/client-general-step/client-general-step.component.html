@@ -1,0 +1,347 @@
+<form [formGroup]="createClientForm">
+
+  <div data-layout="row" data-layout-gap="8px" >
+
+    <mat-form-field data-flex="10">
+      <mat-label>Entity</mat-label>
+      <mat-select required formControlName="officeId">
+        <mat-option *ngFor="let office of officeOptions" [value]="office.id">
+          {{ office.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="createClientForm.controls.officeId.hasError('required')">
+        Entity is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+<!--    <mat-form-field fxFlex="48%">-->
+<!--      <mat-label>Staff</mat-label>-->
+<!--      <mat-select formControlName="staffId">-->
+<!--        <mat-option *ngFor="let staff of staffOptions" [value]="staff.id">-->
+<!--          {{ staff.displayName }}-->
+<!--        </mat-option>-->
+<!--      </mat-select>-->
+<!--    </mat-form-field>-->
+
+    <mat-form-field data-flex="10">
+      <mat-label>Applicant Type</mat-label>
+      <mat-select formControlName="legalFormId">
+        <mat-option *ngFor="let legalForm of legalFormOptions" [value]="legalForm.id">
+          {{ legalForm.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    </div>
+    <mat-form-field *ngIf="createClientForm.contains('fullname')" data-flex="10">
+      <mat-label>Name</mat-label>
+      <input matInput required formControlName="fullname">
+      <mat-error *ngIf="createClientForm.controls.fullname.hasError('required')">
+        Client name is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="createClientForm.controls.fullname.hasError('pattern')">
+        Client name <strong>cannot</strong> begin with a special character or number
+      </mat-error>
+    </mat-form-field>
+
+    <div data-layout="row" data-layout-gap="8px">
+    <mat-form-field *ngIf="createClientForm.contains('firstname')" data-flex="10">
+      <mat-label>First Name</mat-label>
+      <input matInput required formControlName="firstname">
+      <mat-error *ngIf="createClientForm.controls.firstname.hasError('required')">
+        Client first name is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="createClientForm.controls.firstname.hasError('pattern')">
+        Client first name <strong>cannot</strong> begin with a special character or number
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field *ngIf="createClientForm.contains('middlename')" data-flex="10">
+      <mat-label>Middle Name</mat-label>
+      <input matInput formControlName="middlename">
+      <mat-error *ngIf="createClientForm.controls.middlename.hasError('pattern')">
+        Client middle name <strong>cannot</strong> begin with a special character or number
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div data-layout="row" data-layout-gap="8px">
+    <mat-form-field *ngIf="createClientForm.contains('lastname')" data-flex="10">
+      <mat-label>Last Name</mat-label>
+      <input matInput required formControlName="lastname">
+      <mat-error *ngIf="createClientForm.controls.lastname.hasError('required')">
+        Client last name is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="createClientForm.controls.lastname.hasError('pattern')">
+        Client last name <strong>cannot</strong> begin with a special character or number
+      </mat-error>
+    </mat-form-field>
+
+
+      <mat-form-field data-flex="10" (click)="dateOfBirthDatePicker.open()">
+        <mat-label>{{ createClientForm.value.legalFormId === 1 ? 'Date of Birth' : 'Incorporation Date' }}</mat-label>
+        <input matInput [max]="maxDate" [matDatepicker]="dateOfBirthDatePicker" formControlName="dateOfBirth" required>
+        <mat-datepicker-toggle matSuffix [for]="dateOfBirthDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #dateOfBirthDatePicker></mat-datepicker>
+      </mat-form-field>
+      </div>
+
+    <div data-layout="row" data-layout-gap="8px">
+    <mat-form-field data-flex="10">
+      <mat-label>Age</mat-label>
+      <input type="number" matInput formControlName="age" required>
+    </mat-form-field>
+
+    <mat-form-field data-flex="10">
+      <mat-label>External Id</mat-label>
+      <input matInput formControlName="externalId">
+    </mat-form-field>
+    </div>
+
+
+    <div data-layout="row" data-layout-gap="8px">
+    <mat-form-field *ngIf="createClientForm.value.legalFormId === 1" data-flex="10">
+      <mat-label>Gender</mat-label>
+      <mat-select formControlName="genderId" required>
+        <mat-option *ngFor="let gender of genderOptions" [value]="gender.id">
+          {{ gender.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+<!--    <mat-checkbox *ngIf="createClientForm.value.legalFormId === 1" fxFlex="48%" labelPosition="before" formControlName="isStaff" class="margin-v">-->
+<!--      Is staff?-->
+<!--    </mat-checkbox>-->
+
+    <mat-form-field data-flex="10">
+      <mat-label>Mobile No</mat-label>
+      <!--        <input matInput  formControlName="mobileNo" maxlength="10" numberOnly>-->
+      <input matInput  formControlName="mobileNo" maxlength="10" onlyNumbers (keypress)="numberOnly($event)" required>
+      <mat-error *ngIf="createClientForm.controls.mobileNo.hasError('pattern')">
+        Mobile number <strong>Should</strong> be in numbers
+      </mat-error>
+    </mat-form-field>
+    </div>
+
+
+    <div data-layout="row" data-layout-gap="8px">
+    <mat-form-field data-flex="10">
+      <mat-label>Pan</mat-label>
+      <input  matInput formControlName="pan" required>
+    </mat-form-field>
+
+    <mat-form-field data-flex="10">
+      <mat-label>Aadhaar</mat-label>
+      <input  matInput formControlName="aadhaar" required minlength="12" maxlength="12">
+    </mat-form-field>
+    </div>
+
+    <div data-layout="row" data-layout-gap="8px">
+    <mat-form-field  data-flex="10">
+      <mat-label>Voter ID</mat-label>
+      <input matInput  formControlName="voterId" minlength="10" maxlength="20" >
+    </mat-form-field>
+
+    <mat-form-field  data-flex="10">
+      <mat-label>Passport Number</mat-label>
+      <input matInput  formControlName="passportNumber"  maxlength="12" >
+    </mat-form-field>
+    </div>
+
+    <div data-layout="row" data-layout-gap="8px">
+    <mat-form-field  data-flex="10">
+      <mat-label>Driving License</mat-label>
+      <input matInput  formControlName="drivingLicense"  maxlength="18" >
+    </mat-form-field>
+
+    <mat-form-field  data-flex="10">
+      <mat-label>Ration Card </mat-label>
+      <input matInput  formControlName="rationCardNumber" >
+    </mat-form-field>
+    </div>
+
+
+    <div data-layout="row" data-layout-gap="8px">
+    <mat-form-field data-flex="10">
+      <mat-label>Email Address</mat-label>
+      <input matInput formControlName="emailAddress">
+      <mat-error *ngIf="createClientForm.controls.emailAddress.errors?.email">
+        Email not valid
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="createClientForm.value.legalFormId === 1" data-flex="10">
+      <mat-label>State</mat-label>
+      <mat-select required formControlName="stateId">
+        <mat-option *ngFor="let state of stateOptions" [value]="state.id">
+          {{ state.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    </div>
+
+    <div data-layout="row" data-layout-gap="8px">
+    <mat-form-field  data-flex="10">
+      <mat-label>City</mat-label>
+      <input matInput  formControlName="city" required>
+    </mat-form-field>
+
+
+
+<!--    <mat-form-field fxFlex="48%">-->
+<!--      <mat-label>Repayment Mode </mat-label>-->
+<!--      <mat-select  formControlName="repaymentModeId">-->
+<!--        <mat-option *ngFor="let repaymentMode of repaymentModeOptions" [value]="repaymentMode.id">-->
+<!--          {{ repaymentMode.name }}-->
+<!--        </mat-option>-->
+<!--      </mat-select>-->
+<!--      &lt;!&ndash;    <mat-error *ngIf="createClientForm.controls.officeId.hasError('required')">&ndash;&gt;-->
+<!--      &lt;!&ndash;      Entity is <strong>required</strong>&ndash;&gt;-->
+<!--      &lt;!&ndash;    </mat-error>&ndash;&gt;-->
+<!--    </mat-form-field>-->
+
+<!--    <mat-form-field fxFlex="48%">-->
+<!--      <mat-label>Transaction Type Preference </mat-label>-->
+<!--      <mat-select  formControlName="transactionTypePreferenceId">-->
+<!--        <mat-option *ngFor="let transactionTypePreference of transactionTypePreferenceOptions" [value]="transactionTypePreference.id">-->
+<!--          {{ transactionTypePreference.name }}-->
+<!--        </mat-option>-->
+<!--      </mat-select>-->
+<!--      &lt;!&ndash;    <mat-error *ngIf="createClientForm.controls.officeId.hasError('required')">&ndash;&gt;-->
+<!--      &lt;!&ndash;      Entity is <strong>required</strong>&ndash;&gt;-->
+<!--      &lt;!&ndash;    </mat-error>&ndash;&gt;-->
+<!--    </mat-form-field>-->
+
+    <mat-form-field data-flex="10">
+      <mat-label>Address</mat-label>
+      <input matInput formControlName="address" required>
+    </mat-form-field>
+    </div>
+
+    <div data-layout="row" data-layout-gap="8px">
+    <mat-form-field data-flex="10">
+      <mat-label>Pincode</mat-label>
+      <input type="number" matInput formControlName="pincode" required>
+    </mat-form-field>
+
+    <mat-form-field data-flex="10">
+      <mat-label>Client Type</mat-label>
+      <mat-select formControlName="clientTypeId">
+        <mat-option *ngFor="let clientType of clientTypeOptions" [value]="clientType.id">
+          {{ clientType.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    </div>
+
+
+    <div data-layout="row" data-layout-gap="8px">
+    <mat-form-field data-flex="10">
+      <mat-label>Client Classification</mat-label>
+      <mat-select formControlName="clientClassificationId">
+        <mat-option *ngFor="let clientClassification of clientClassificationTypeOptions" [value]="clientClassification.id">
+          {{ clientClassification.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field data-flex="10" (click)="submittedOnDatePicker.open()">
+      <mat-label>Submitted On</mat-label>
+      <input matInput  [max]="maxDate" [matDatepicker]="submittedOnDatePicker" formControlName="submittedOnDate" required>
+      <mat-datepicker-toggle matSuffix [for]="submittedOnDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #submittedOnDatePicker></mat-datepicker>
+    </mat-form-field>
+    <br/>
+    </div>
+
+    <div data-layout="row" data-layout-gap="8px">
+    <mat-checkbox data-flex="10" labelPosition="before" formControlName="active" class="margin-v">
+      Active?
+    </mat-checkbox>
+
+    <mat-form-field *ngIf="createClientForm.contains('activationDate') || createClientForm.value.active" data-flex="10" (click)="activatedOnDatePicker.open()">
+      <mat-label>Activation Date</mat-label>
+      <input matInput  [min]="createClientForm.get('submittedOnDate').value" [max]="maxDate" [matDatepicker]="activatedOnDatePicker" required
+        formControlName="activationDate" required>
+      <mat-datepicker-toggle matSuffix [for]="activatedOnDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #activatedOnDatePicker></mat-datepicker>
+      <mat-error *ngIf="createClientForm.controls.activationDate.hasError('required')">
+        Activation Date is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    </div>
+
+
+
+<!--    <mat-checkbox fxFlex="48%" labelPosition="before" formControlName="addSavings" class="margin-v">-->
+<!--      Open Savings Account?-->
+<!--    </mat-checkbox>-->
+
+    <mat-form-field *ngIf="createClientForm.contains('savingsProductId')" fxFlex="48%">
+      <mat-label>Savings Product</mat-label>
+      <mat-select required formControlName="savingsProductId">
+        <mat-option *ngFor="let product of savingProductOptions" [value]="product.id">
+          {{ product.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="createClientForm.controls.savingsProductId.hasError('required')">
+        Savings product is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <div fxFlex="100%" fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column" formGroupName="clientNonPersonDetails"
+      *ngIf="createClientForm.contains('clientNonPersonDetails')">
+
+      <mat-form-field  fxFlex="48%" (click)="incorpValidityTillDateDatePicker.open()">
+        <mat-label>Incorporation Validity Till Date</mat-label>
+        <input matInput [min]="createClientForm.value.dateOfBirth" [matDatepicker]="incorpValidityTillDateDatePicker" formControlName="incorpValidityTillDate">
+        <mat-datepicker-toggle matSuffix [for]="incorpValidityTillDateDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #incorpValidityTillDateDatePicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="48%">
+        <mat-label>Incorporation Number</mat-label>
+        <input matInput formControlName="incorpNumber">
+      </mat-form-field>
+
+      <mat-form-field fxFlex="48%">
+        <mat-label>Main Business Line</mat-label>
+        <mat-select formControlName="mainBusinessLineId">
+          <mat-option *ngFor="let business of businessLineOptions" [value]="business.id">
+            {{ business.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="48%">
+        <mat-label>Constitution</mat-label>
+        <mat-select formControlName="constitutionId">
+          <mat-option *ngFor="let constitution of constitutionOptions" [value]="constitution.id">
+            {{ constitution.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="98%">
+        <mat-label>Remarks</mat-label>
+        <textarea matInput formControlName="remarks"></textarea>
+      </mat-form-field>
+
+    </div>
+
+
+
+
+    <div data-layout="row" data-layout-align="center center" data-layout-gap="10px">
+    <button mat-raised-button matStepperPrevious disabled>
+      <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;
+      Previous
+    </button>
+    <button mat-raised-button matStepperNext>
+      Next&nbsp;&nbsp;
+      <fa-icon icon="arrow-right"></fa-icon>
+    </button>
+  </div>
+
+
+</form>

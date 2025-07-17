@@ -1,0 +1,71 @@
+<div class="container">
+
+  <mat-horizontal-stepper class="mat-elevation-z8" labelPosition="bottom" #partnerStepper>
+
+    <ng-template matStepperIcon="number">
+      <fa-icon icon="pencil-alt" size="sm"></fa-icon>
+    </ng-template>
+
+    <ng-template matStepperIcon="edit">
+      <fa-icon icon="pencil-alt" size="sm"></fa-icon>
+    </ng-template>
+
+    <ng-template matStepperIcon="done">
+      <fa-icon icon="check" size="sm"></fa-icon>
+    </ng-template>
+
+    <ng-template matStepperIcon="error">
+      <fa-icon icon="exclamation-triangle" size="lg"></fa-icon>
+    </ng-template>
+
+    <ng-template matStepperIcon="preview">
+      <fa-icon icon="eye" size="sm"></fa-icon>
+    </ng-template>
+
+    <mat-step [stepControl]="partnerBasicForm" completed>
+
+      <ng-template matStepLabel>BASIC DETAILS</ng-template>
+
+      <mifosx-partner-basic-details [partnerTemplate]="partnerTemplate"></mifosx-partner-basic-details>
+
+    </mat-step>
+
+    <mat-step [stepControl]="partnerDetailForm" completed>
+
+      <ng-template matStepLabel>PARTNER DETAILS</ng-template>
+
+      <mifosx-partner-partner-details [partnerTemplate]="partnerTemplate"></mifosx-partner-partner-details>
+
+    </mat-step>
+
+    <mat-step [stepControl]="partnerBeneficiaryForm" completed>
+
+      <ng-template matStepLabel>BENEFICIARY DETAILS</ng-template>
+
+      <mifosx-partner-beneficiary-details [partnerTemplate]="partnerTemplate"></mifosx-partner-beneficiary-details>
+
+    </mat-step>
+
+    <!--    <mat-step [stepControl]="partnerLegalForm">-->
+
+    <!--      <ng-template matStepLabel>LEGAL DOCUMENTS</ng-template>-->
+
+    <!--      <mifosx-partner-legal-documents></mifosx-partner-legal-documents>-->
+
+    <!--    </mat-step>-->
+
+    <mat-step state="preview" completed>
+
+      <ng-template matStepLabel>PREVIEW</ng-template>
+
+      <mifosx-partner-preview
+        [partnerTemplate]="partnerTemplate"
+        [partner]="partner" (submit)="submit()">
+
+      </mifosx-partner-preview>
+
+    </mat-step>
+
+  </mat-horizontal-stepper>
+
+</div>

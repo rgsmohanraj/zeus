@@ -1,0 +1,27 @@
+@import "align";
+@import "background";
+@import "border";
+@import "colours";
+@import "display";
+@import "float";
+@import "form";
+@import "loader";
+@import "margin";
+@import "misc";
+@import "overflow";
+@import "padding";
+@import "position";
+@import "status";
+@import "text";
+@import "width-height";
+@import "z-index";
+.mat-toolbar.mat-primary {
+    background: rgb(242, 245, 249);
+    color: rgb(77, 109, 155);
+}
+.mat-tab-nav-bar.mat-background-primary>.mat-tab-link-container {
+    background-color: rgb(242, 245, 249);
+}
+.mat-tab-nav-bar.mat-background-primary>.mat-tab-link-container .mat-tab-link {
+    color: #224a84;
+}

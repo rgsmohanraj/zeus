@@ -1,0 +1,59 @@
+<div class="container">
+
+  <mat-horizontal-stepper class="mat-elevation-z8" labelPosition="bottom" #officeStepper>
+
+    <ng-template matStepperIcon="number">
+      <fa-icon icon="pencil-alt" size="sm"></fa-icon>
+    </ng-template>
+
+    <ng-template matStepperIcon="edit">
+      <fa-icon icon="pencil-alt" size="sm"></fa-icon>
+    </ng-template>
+
+    <ng-template matStepperIcon="done">
+      <fa-icon icon="check" size="sm"></fa-icon>
+    </ng-template>
+
+    <ng-template matStepperIcon="error">
+      <fa-icon icon="exclamation-triangle" size="lg"></fa-icon>
+    </ng-template>
+
+    <ng-template matStepperIcon="preview">
+      <fa-icon icon="eye" size="sm"></fa-icon>
+    </ng-template>
+
+    <mat-step [stepControl]="officeBasicForm" completed>
+
+      <ng-template matStepLabel>BASIC DETAILS</ng-template>
+
+      <mifosx-office-basic-details [officeTemplate]="officeTemplate"></mifosx-office-basic-details>
+
+    </mat-step>
+
+    <mat-step [stepControl]="officeGstForm" completed>
+
+      <ng-template matStepLabel>GST DETAILS</ng-template>
+
+      <mifosx-office-gst-details [officeTemplate]="officeTemplate"></mifosx-office-gst-details>
+
+    </mat-step>
+
+
+<!--    <mat-step  *ngIf="officeBasicForm" completed>-->
+      <mat-step state="preview" completed>
+
+      <ng-template matStepLabel>PREVIEW</ng-template>
+
+      <mifosx-office-preview
+        [officeTemplate]="officeTemplate"
+        [office]="office" (submit)="submit()">
+
+      </mifosx-office-preview>
+
+    </mat-step>
+
+  </mat-horizontal-stepper>
+
+</div>
+
+
